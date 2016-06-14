@@ -1,4 +1,4 @@
-#ifndef TTF_WIN_H
+ #ifndef TTF_WIN_H
 #define TTF_WIN_H
 
 #include <windows.h>
@@ -16,6 +16,7 @@ WORD type_to_color[4] = {
     FOREGROUND_BLUE
 };
 
+
 static void prepare_console_info()
 {
     if (!GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &console_info))
@@ -24,6 +25,7 @@ static void prepare_console_info()
         console_info.dwSize.Y = 25;
     }
 }
+
 
 static void print_at(int x, const char* msg, const WORD* attributes, DWORD attr_len)
 {
@@ -35,11 +37,12 @@ static void print_at(int x, const char* msg, const WORD* attributes, DWORD attr_
     coord.Y = console_info.dwCursorPosition.Y;
 
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-    printf(msg);
+    printf("%s", msg);
 
     if (attributes)
         WriteConsoleOutputAttribute(GetStdHandle(STD_OUTPUT_HANDLE), attributes, attr_len, coord, &result);
 }
+
 
 static void print_result(const char* msg, msg_type_t type)
 {

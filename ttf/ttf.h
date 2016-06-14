@@ -6,6 +6,8 @@
 
 #ifdef WIN32
 #include "ttf_win.h"
+#else
+#include "ttf_unix.h"
 #endif
 
 #ifndef true

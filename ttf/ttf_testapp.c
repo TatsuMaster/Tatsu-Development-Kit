@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
     // Fail test
     //
 
-    ASSERT_TRUE("Failing test", false);
+    ASSERT_TRUE("Failing Test", false);
 
 	//
 	// Summary
