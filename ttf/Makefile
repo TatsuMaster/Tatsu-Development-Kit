@@ -10,5 +10,5 @@ clean:
 ttf_testapp: ttf_testapp.o
 	@echo "  [LD ] Linking $@"; $(TDK_CC) $< -o $@
 
-ttf_testapp.o: ttf_testapp.c
+ttf_testapp.o: ttf_testapp.c $(wildcard *.h) ../common/tdk_version.h
 	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
