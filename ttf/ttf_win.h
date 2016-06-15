@@ -7,6 +7,8 @@
 #include "../common/tdk_version.h"
 #include "ttf_common.h"
 
+#define SCREEN_OUTPUT printf
+
 static CONSOLE_SCREEN_BUFFER_INFO console_info;
 
 WORD type_to_color[4] = {
@@ -15,6 +17,9 @@ WORD type_to_color[4] = {
     FOREGROUND_INTENSITY,
     FOREGROUND_BLUE
 };
+
+
+static void cleanup() {}
 
 
 static void prepare_console_info()
