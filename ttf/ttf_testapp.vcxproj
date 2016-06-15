@@ -76,7 +76,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="MAVB.h" />
     <ClInclude Include="ttf.h" />
     <ClInclude Include="ttf_common.h" />
     <ClInclude Include="ttf_win.h" />
