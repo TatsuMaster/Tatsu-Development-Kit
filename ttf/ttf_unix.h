@@ -2,66 +2,37 @@
 #define TTF_UNIX_H
 
 #include <stdio.h>
-#include <ncurses.h>
+#include <sys/ioctl.h>
 
 #include "../common/tdk_version.h"
 #include "ttf_common.h"
 
-#define SCREEN_OUTPUT printw
+#define SCREEN_OUTPUT printf
 
-static WINDOW* output_buffer = 0;
-
-static int rows = 0;
-static int cols = 0;
+static struct winsize console_size;
+static bool console_init = false;
 
 int type_to_color[4] = { ALERT + 1, GOOD + 1, WARN + 1, INFO + 1 };
 
-
-static void cleanup()
-{
-    if (output_buffer)
-    {
-        printw("Press any key...");
-        getch();
-        endwin();
-    }
-}
-
-
 static void prepare_console_info()
 {
-    initscr();
-    curs_set(0);
-    start_color();
-    use_default_colors();
-    init_pair(type_to_color[ALERT], COLOR_RED, -1);
-    init_pair(type_to_color[GOOD], COLOR_GREEN, -1);
-    init_pair(type_to_color[WARN], COLOR_YELLOW, -1);
-    init_pair(type_to_color[INFO], COLOR_BLUE, -1);
-    refresh();
-
-    output_buffer = stdscr;
-    getmaxyx(stdscr, rows, cols);
+    console_init = true;
+    ioctl(0, TIOCGWINSZ, &console_size);
 }
 
 
 static void print_at(int x, const char* msg, int attributes)
 {
-    int ox, y;
-    getyx(output_buffer, y, ox);
-    attron(attributes);
-    mvprintw(y, x, "%s", msg);
-    attroff(attributes);
-    refresh();
+    printf("%*s", x, msg);
 }
 
 
 static void print_result(const char* msg, msg_type_t type)
 {
-    if (!output_buffer)
+    if (!console_init)
         prepare_console_info();
-    else
-        print_at(cols - 12, msg, COLOR_PAIR(type_to_color[type]));
+
+    print_at(console_size.ws_col - 2, msg, 0);
 }
 
 #endif

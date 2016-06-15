@@ -19,10 +19,6 @@ WORD type_to_color[4][8] = {
 };
 
 
-
-static void cleanup() {}
-
-
 static void prepare_console_info()
 {
     if (!GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &console_info))
