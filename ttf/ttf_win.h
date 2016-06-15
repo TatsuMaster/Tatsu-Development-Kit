@@ -11,12 +11,13 @@
 
 static CONSOLE_SCREEN_BUFFER_INFO console_info;
 
-WORD type_to_color[4] = {
-    FOREGROUND_RED,
-    FOREGROUND_GREEN,
-    FOREGROUND_INTENSITY,
-    FOREGROUND_BLUE
+WORD type_to_color[4][8] = {
+    { FOREGROUND_RED, FOREGROUND_RED, FOREGROUND_RED, FOREGROUND_RED, FOREGROUND_RED, FOREGROUND_RED, FOREGROUND_RED, FOREGROUND_RED },
+    { FOREGROUND_GREEN, FOREGROUND_GREEN, FOREGROUND_GREEN, FOREGROUND_GREEN, FOREGROUND_GREEN, FOREGROUND_GREEN, FOREGROUND_GREEN, FOREGROUND_GREEN },
+    { FOREGROUND_INTENSITY, FOREGROUND_INTENSITY, FOREGROUND_INTENSITY, FOREGROUND_INTENSITY, FOREGROUND_INTENSITY, FOREGROUND_INTENSITY, FOREGROUND_INTENSITY, FOREGROUND_INTENSITY, },
+    { FOREGROUND_BLUE, FOREGROUND_BLUE, FOREGROUND_BLUE, FOREGROUND_BLUE, FOREGROUND_BLUE, FOREGROUND_BLUE, FOREGROUND_BLUE, FOREGROUND_BLUE }
 };
+
 
 
 static void cleanup() {}
@@ -51,13 +52,7 @@ static void print_at(int x, const char* msg, const WORD* attributes, DWORD attr_
 
 static void print_result(const char* msg, msg_type_t type)
 {
-    // TODO: Nur einmal machen!
-    WORD attributes[8];
-
-    for (int i = 0; i < 8; ++i)
-        attributes[i] = type_to_color[type];
-
-    print_at(console_info.dwSize.X - 12, msg, attributes, 8);
+    print_at(console_info.dwSize.X - 12, msg, type_to_color[type], 8);
 }
 
 #endif

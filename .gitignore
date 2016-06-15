@@ -32,3 +32,11 @@ ttf/ttf_testapp
 # Debug files
 *.dSYM/
 *.su
+
+# Visual Studio Files
+*.opensdf
+*.sdf
+*.suo
+*.user
+*.rej
+*.sln
