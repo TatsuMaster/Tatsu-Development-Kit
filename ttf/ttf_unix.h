@@ -16,7 +16,12 @@ static bool console_init = false;
 static size_t line_length = 0;
 static char line_buffer[4096];
 
-int type_to_color[4] = { ALERT + 1, GOOD + 1, WARN + 1, INFO + 1 };
+const char* type_to_color[4] = {
+    "\033[31m",
+    "\033[32m",
+    "\033[33m",
+    "\033[36m"
+};
 
 
 static void print_and_record_line(const char* format, ...)
@@ -40,13 +45,13 @@ static void prepare_console_info()
 }
 
 
-static void print_at(int x, const char* msg, int attributes)
+static void print_at(int x, const char* msg, const char* attributes)
 {
-    int space_value = x - line_length;
+    const int space_value = x - line_length;
     if(space_value > -1)
-        printf("\r%s%*s", line_buffer, space_value, msg);
+        printf("\r%s%s%*s\033[0m", line_buffer, attributes, space_value, msg);
     else
-        printf("\r%s%s", line_buffer, msg);
+        printf("\r%s%s%s\033[0m", line_buffer, attributes, msg);
 }
 
 
@@ -55,7 +60,7 @@ static void print_result(const char* msg, msg_type_t type)
     if (!console_init)
         prepare_console_info();
 
-    print_at(console_size.ws_col - 2, msg, 0);
+    print_at(console_size.ws_col - 2, msg, type_to_color[type]);
 }
 
 #endif
