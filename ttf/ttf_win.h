@@ -8,6 +8,7 @@
 #include "ttf_common.h"
 
 #define SCREEN_OUTPUT printf
+#define STORED_SCREEN_OUTPUT SCREEN_OUTPUT
 
 static CONSOLE_SCREEN_BUFFER_INFO console_info;
 

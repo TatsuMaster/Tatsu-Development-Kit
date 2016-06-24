@@ -34,7 +34,7 @@ static unsigned t_step_error_counter = 0;
 static clock_t begin;
 static clock_t end;
 
-#define _display_ts_name(ts_name) SCREEN_OUTPUT("Test Step %d: \t%s...", t_step_counter, ts_name); print_result("[ .... ]\r", WARN);
+#define _display_ts_name(ts_name) STORED_SCREEN_OUTPUT("  Test Step %d: \t%s...", t_step_counter, ts_name); print_result("[ .... ]\r", WARN);
 #define _eval_condition(condition) if (condition) { print_result("[ PASS ]\n", GOOD); ++t_step_pass_counter; } else { print_result("[ FAIL ]\n", ALERT); ++t_step_fail_counter; }
 
 #define TEST_SUITE_INIT() begin = clock(); prepare_console_info(); t_step_counter = 0; t_step_pass_counter = 0; t_step_fail_counter = 0; SCREEN_OUTPUT("Tatsu Test Framework - TDK Version %d.%d.%d\n", TDK_MAJOR_VERSION, TDK_MINOR_VERSION, TDK_PATCH_LEVEL);
