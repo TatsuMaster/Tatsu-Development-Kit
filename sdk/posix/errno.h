@@ -1,7 +1,9 @@
 #ifndef ERRNO_H
 #define ERRNO_H
 
+
 int errno;
+
 
 #define E2BIG           0x07
 #define EACCES          0x0D

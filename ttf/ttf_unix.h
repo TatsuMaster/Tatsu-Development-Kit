@@ -16,7 +16,7 @@ static bool console_init = false;
 static size_t line_length = 0;
 static char line_buffer[4096];
 
-const char* type_to_color[4] = {
+static const char* type_to_color[4] = {
     "\033[31m",
     "\033[32m",
     "\033[33m",

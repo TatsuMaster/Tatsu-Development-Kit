@@ -5,22 +5,22 @@ int main(int argc, char* argv[])
     UNUSED(argc);
     UNUSED(argv);
 
-	//
-	// Init test system
-	//
+    //
+    // Init test system
+    //
 
-	TEST_SUITE_INIT();
+    TEST_SUITE_INIT();
 
-	//
-	// Self test
-	//
+    //
+    // Self test
+    //
 
-	TEST_CASE("Test Framework Self Test");
+    TEST_CASE("Test Framework Self Test");
 
-	ASSERT_EQUALS("ASSERT_EQUALS Self Test", 0, 0);
-	ASSERT_EQUALS_NOT("ASSERT_EQUALS_NOT Self Test", 0, 1);
-	ASSERT_TRUE("ASSERT_TRUE Self Test", true);
-	ASSERT_FALSE("ASSERT_FALSE Self Test", false);
+    ASSERT_EQUALS("ASSERT_EQUALS Self Test", 0, 0);
+    ASSERT_EQUALS_NOT("ASSERT_EQUALS_NOT Self Test", 0, 1);
+    ASSERT_TRUE("ASSERT_TRUE Self Test", true);
+    ASSERT_FALSE("ASSERT_FALSE Self Test", false);
     ASSERT_TYPE_SIZE("ASSERT_TYPE_SIZE Self Test", char, 1);
     ASSERT_NULL("ASSERT_NULL Self Test", 0);
     ASSERT_NOT_NULL("ASSERT_NOT_NULL Self Test", argv);
@@ -43,11 +43,11 @@ int main(int argc, char* argv[])
 
     SKIP_TEST("Test SKIP_TEST");
 
-	//
-	// Summary
-	//
+    //
+    // Summary
+    //
 
     TEST_SUITE_END();
 
-	return 0;
+    return 0;
 }
