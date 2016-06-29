@@ -37,6 +37,12 @@ int main(int argc, char* argv[])
 
     ASSERT_TRUE("Failing Test", false);
 
+    //
+    // Skip test
+    //
+
+    SKIP_TEST("Test SKIP_TEST");
+
 	//
 	// Summary
 	//

@@ -32,6 +32,7 @@
 
 static unsigned t_step_counter       = 0;
 static unsigned t_step_pass_counter  = 0;
+static unsigned t_step_skip_counter  = 0;
 static unsigned t_step_fail_counter  = 0;
 static unsigned t_step_error_counter = 0;
 
@@ -40,9 +41,10 @@ static clock_t end;
 
 #define _display_ts_name(ts_name) STORED_SCREEN_OUTPUT("  Test Step %d:  %s...", t_step_counter, ts_name); print_result("[ .... ]\r", WARN);
 #define _eval_condition(condition) if (condition) { print_result("[ PASS ]\n", GOOD); ++t_step_pass_counter; } else { print_result("[ FAIL ]\n", ALERT); ++t_step_fail_counter; }
+#define _skip() print_result("[ SKIP ]\n", WARN)
 
 #define TEST_SUITE_INIT() begin = clock(); prepare_console_info(); t_step_counter = 0; t_step_pass_counter = 0; t_step_fail_counter = 0; SCREEN_OUTPUT("Tatsu Test Framework - TDK Version %d.%d.%d\n", TDK_MAJOR_VERSION, TDK_MINOR_VERSION, TDK_PATCH_LEVEL);
-#define TEST_SUITE_END() end = clock(); SCREEN_OUTPUT("\n\nExecuted %d test steps in %f seconds\n\n", t_step_counter, (double)(end - begin) / CLOCKS_PER_SEC); SCREEN_OUTPUT("Tests passed: %d\nTests failed: %d\nTest errors : %d\n\n", t_step_pass_counter, t_step_fail_counter, 0);
+#define TEST_SUITE_END() end = clock(); SCREEN_OUTPUT("\n\nExecuted %d test steps in %f seconds\n\n", t_step_counter, (double)(end - begin) / CLOCKS_PER_SEC); SCREEN_OUTPUT("Tests passed : %d\nTests skipped: %d\nTests failed : %d\nTest errors  : %d\n\n", t_step_pass_counter, t_step_skip_counter, t_step_fail_counter, 0);
 
 #define TEST_CASE(name) SCREEN_OUTPUT("\nRunning Test Case: %s\n", name);
 
@@ -62,5 +64,7 @@ static clock_t end;
 #define ASSERT_LESS_EQUAL(ts_name, value, other) _display_ts_name(ts_name); ++t_step_counter; _eval_condition(value <= other)
 
 #define ASSERT_TYPE_SIZE(ts_name, type, size) ASSERT_EQUALS(ts_name, sizeof(type), size)
+
+#define SKIP_TEST(ts_name) _display_ts_name(ts_name); ++t_step_counter; _skip();
 
 #endif
