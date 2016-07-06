@@ -40,3 +40,5 @@ ttf/ttf_testapp
 *.user
 *.rej
 *.sln
+*Debug*
+*Release*
