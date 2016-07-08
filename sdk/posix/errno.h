@@ -2,7 +2,7 @@
 #define ERRNO_H
 
 
-int errno;
+extern int errno;
 
 
 #define E2BIG           0x07

@@ -7,8 +7,11 @@ all: ttf_testapp
 clean:
 	rm -rf *.o ttf_testapp *~ *.exe
 
-ttf_testapp: ttf_testapp.o ttf.o
-	@echo "  [LD ] Linking $@"; $(TDK_CC) ttf_testapp.o ttf.o -o ttf_testapp
+ttf_testapp: ttf_testapp.o ttf.o ttf_unix.o
+	@echo "  [LD ] Linking $@"; $(TDK_CC) ttf_testapp.o ttf.o ttf_unix.o -o ttf_testapp
+
+ttf_unix.o: ttf_unix.c ttf_unix.h
+	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
 
 ttf.o: ttf.c ttf.h
 	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
