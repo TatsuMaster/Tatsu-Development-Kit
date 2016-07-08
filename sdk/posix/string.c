@@ -30,12 +30,6 @@ static inline char* strcpy_generic(char *restrict s1, const char *restrict s2)
 }
 #endif
 
-#ifdef __x86_64__
-static char*(*strcpy_internal)(char *restrict, const char *restrict) = strcpy_x86_64_fast;
-#else
-static char*(*strcpy_internal)(char *restrict, const char *restrict) = strcpy_generic;
-#endif
-
 
 /******************************************************************************
 *
@@ -57,5 +51,9 @@ static char*(*strcpy_internal)(char *restrict, const char *restrict) = strcpy_ge
  *****************************************************************************/
 char* strcpy(char *__restrict__ dest, const char *__restrict__ src)
 {
-    return strcpy_internal(dest, src);
+#ifdef __x86_64__
+    return strcpy_x86_64_fast(dest, src);
+#else
+    return strcpy_generic(dest, src);
+#endif
 }

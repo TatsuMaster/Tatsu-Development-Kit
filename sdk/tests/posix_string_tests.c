@@ -1,11 +1,13 @@
 #include "posix_string_tests.h"
 
+#include "../posix/errno.h"
 #include "../posix/string.h"
 #include "../../ttf/ttf.h"
 
 
 static void test_strcpy()
 {
+    int pre_errno = errno;
     const char* src_buffer = "1234";
     char dest_buffer[10] = { 0, 1, 2, 3, 'A', 'B', 'C', 'D', 'E', 'F' };
     char* result = strcpy(dest_buffer, src_buffer);
@@ -29,6 +31,7 @@ static void test_strcpy()
     ASSERT_TRUE("strcpy: Checking, if buffer content behind 0 termination was not modified", content_test_1);
     ASSERT_EQUALS("strcpy: Checking, if strcpy return value equals destination buffer address", dest_buffer, result);
     ASSERT_EQUALS("strcpy: Checking, if strcpy destination buffer is 0 terminated", dest_buffer[4], 0);
+    ASSERT_EQUALS("strcpy: Checking, if errno is unmodified", pre_errno, errno);
 }
 
 
