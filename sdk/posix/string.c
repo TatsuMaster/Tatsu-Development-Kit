@@ -19,7 +19,7 @@ static inline char* stpcpy_x86_64_fast(char *restrict s1, const char *restrict s
         : "=&S" (rsrc), "=&D" (rdst)
         : "0" (s2), "1" (s1)
         );
-    __asm__ __volatile__("\t movq %%rdi,%0" : "=r"(s1));
+    __asm__ __volatile__("\t movq %%rdi,%0" : "=r"(s1)); // Get DI value
     return --s1;
 }
 #else
