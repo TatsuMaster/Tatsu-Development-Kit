@@ -13,4 +13,5 @@ testrun: ttf
 
 clean:
 	cd ttf; $(MAKE) clean; cd ..
+	cd sdk/posix; $(MAKE) clean; cd ../..
 	cd sdk/tests; $(MAKE) clean; cd ../..
