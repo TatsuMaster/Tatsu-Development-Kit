@@ -67,3 +67,57 @@ int isupper(int c)
 {
     return (64 < c && c < 91);
 }
+
+
+/******************************************************************************
+ *
+ * The toascii() function shall convert its argument into a 7-bit ASCII
+ * character.
+ *
+ * The toascii() function shall return the value (c & 0x7f).
+ *
+ *****************************************************************************/
+int toascii(int c)
+{
+    return (c & 0x7f);
+}
+
+
+/******************************************************************************
+ *
+ * The tolower() function have as a domain a type int, the value of which is
+ * representable as an unsigned char or the value of EOF. If the argument has
+ * any other value, the behavior is undefined. If the argument of tolower()
+ * represents an uppercase letter, and there exists a corresponding lowercase
+ * letter, the result shall be the corresponding lowercase letter. All other
+ * arguments in the domain are returned unchanged.
+ *
+ * Upon successful completion, the tolower() function shall return the
+ * lowercase letter corresponding to the argument passed; otherwise, it
+ * shall return the argument unchanged.
+ *
+ *****************************************************************************/
+int tolower(int c)
+{
+    return (64 < c && c < 91) ? c + 32 : c;
+}
+
+
+/******************************************************************************
+ *
+ * The toupper() functions have as a domain a type int, the value of which is
+ * representable as an unsigned char or the value of EOF. If the argument has
+ * any other value, the behavior is undefined. If the argument of toupper()
+ * represents a lowercase letter, and there exists a corresponding uppercase
+ * letter, the result shall be the corresponding uppercase letter. All other
+ * arguments in the domain are returned unchanged.
+ *
+ * Upon successful completion, toupper() shall return the uppercase letter
+ * corresponding to the argument passed; otherwise, it shall return the
+ * argument unchanged.
+ *
+ *****************************************************************************/
+int toupper(int c)
+{
+    return (96 < c && c < 123) ? c - 32 : c;
+}

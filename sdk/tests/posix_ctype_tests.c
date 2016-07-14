@@ -52,6 +52,48 @@ static void test_isupper()
 }
 
 
+static void test_toascii()
+{
+    int pre_errno = errno;
+
+    ASSERT_EQUALS("toascii: Checking, if toascii(60) returns 60", toascii(60), 60);
+    ASSERT_EQUALS("toascii: Checking, if toascii(1517) returns (1517 & 0x7f)", toascii(1517), (1517 & 0x7f));
+    ASSERT_EQUALS("toascii: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_tolower()
+{
+    int pre_errno = errno;
+
+    ASSERT_EQUALS("tolower: Checking, if tolower('A') returns 'a'", tolower('A'), 'a');
+    ASSERT_EQUALS("tolower: Checking, if tolower('M') returns 'm'", tolower('M'), 'm');
+    ASSERT_EQUALS("tolower: Checking, if tolower('Z') returns 'z'", tolower('Z'), 'z');
+    ASSERT_EQUALS("tolower: Checking, if tolower('@') returns '@'", tolower('@'), '@');
+    ASSERT_EQUALS("tolower: Checking, if tolower('&') returns '&'", tolower('&'), '&');
+    ASSERT_EQUALS("tolower: Checking, if tolower('a') returns 'a'", tolower('a'), 'a');
+    ASSERT_EQUALS("tolower: Checking, if tolower('m') returns 'm'", tolower('m'), 'm');
+    ASSERT_EQUALS("tolower: Checking, if tolower('z') returns 'z'", tolower('z'), 'z');
+    ASSERT_EQUALS("tolower: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_toupper()
+{
+    int pre_errno = errno;
+
+    ASSERT_EQUALS("toupper: Checking, if toupper('a') returns 'A'", toupper('a'), 'A');
+    ASSERT_EQUALS("toupper: Checking, if toupper('m') returns 'M'", toupper('m'), 'M');
+    ASSERT_EQUALS("toupper: Checking, if toupper('z') returns 'Z'", toupper('z'), 'Z');
+    ASSERT_EQUALS("toupper: Checking, if toupper('@') returns '@'", toupper('@'), '@');
+    ASSERT_EQUALS("toupper: Checking, if toupper('&') returns '&'", toupper('&'), '&');
+    ASSERT_EQUALS("toupper: Checking, if toupper('A') returns 'A'", toupper('A'), 'A');
+    ASSERT_EQUALS("toupper: Checking, if toupper('M') returns 'M'", toupper('M'), 'M');
+    ASSERT_EQUALS("toupper: Checking, if toupper('Z') returns 'Z'", toupper('Z'), 'Z');
+    ASSERT_EQUALS("toupper: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
 // Check all functions of ctype.h
 void run_posix_ctype_tests()
 {
@@ -60,4 +102,7 @@ void run_posix_ctype_tests()
     test_isascii();
     test_islower();
     test_isupper();
+    test_toascii();
+    test_tolower();
+    test_toupper();
 }
