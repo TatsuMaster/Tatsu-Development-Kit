@@ -94,6 +94,38 @@ static void test_toupper()
 }
 
 
+static void test__tolower()
+{
+    int pre_errno = errno;
+
+    ASSERT_EQUALS("_tolower: Checking, if _tolower('A') returns 'a'", _tolower('A'), 'a');
+    ASSERT_EQUALS("_tolower: Checking, if _tolower('M') returns 'm'", _tolower('M'), 'm');
+    ASSERT_EQUALS("_tolower: Checking, if _tolower('Z') returns 'z'", _tolower('Z'), 'z');
+    ASSERT_EQUALS("_tolower: Checking, if _tolower('@') returns '@'", _tolower('@'), '@');
+    ASSERT_EQUALS("_tolower: Checking, if _tolower('&') returns '&'", _tolower('&'), '&');
+    ASSERT_EQUALS("_tolower: Checking, if _tolower('a') returns 'a'", _tolower('a'), 'a');
+    ASSERT_EQUALS("_tolower: Checking, if _tolower('m') returns 'm'", _tolower('m'), 'm');
+    ASSERT_EQUALS("_tolower: Checking, if _tolower('z') returns 'z'", _tolower('z'), 'z');
+    ASSERT_EQUALS("_tolower: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test__toupper()
+{
+    int pre_errno = errno;
+
+    ASSERT_EQUALS("_toupper: Checking, if _toupper('a') returns 'A'", _toupper('a'), 'A');
+    ASSERT_EQUALS("_toupper: Checking, if _toupper('m') returns 'M'", _toupper('m'), 'M');
+    ASSERT_EQUALS("_toupper: Checking, if _toupper('z') returns 'Z'", _toupper('z'), 'Z');
+    ASSERT_EQUALS("_toupper: Checking, if _toupper('@') returns '@'", _toupper('@'), '@');
+    ASSERT_EQUALS("_toupper: Checking, if _toupper('&') returns '&'", _toupper('&'), '&');
+    ASSERT_EQUALS("_toupper: Checking, if _toupper('A') returns 'A'", _toupper('A'), 'A');
+    ASSERT_EQUALS("_toupper: Checking, if _toupper('M') returns 'M'", _toupper('M'), 'M');
+    ASSERT_EQUALS("_toupper: Checking, if _toupper('Z') returns 'Z'", _toupper('Z'), 'Z');
+    ASSERT_EQUALS("_toupper: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
 // Check all functions of ctype.h
 void run_posix_ctype_tests()
 {
@@ -105,4 +137,6 @@ void run_posix_ctype_tests()
     test_toascii();
     test_tolower();
     test_toupper();
+    test__tolower();
+    test__toupper();
 }
