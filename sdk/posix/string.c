@@ -10,9 +10,13 @@
 static inline void* memccpy_generic(void *__restrict__ s1, const void *__restrict__ s2, int c, size_t n)
 {
     register unsigned char* end_address = s1 + n;
+    register unsigned char current_value = *(unsigned char*)s2;
 
-    while (s1 != end_address && *(unsigned char*)s1 != (unsigned char)c)
-        *(unsigned char*)s1++ = *(unsigned char*)s2++;
+    while (s1 != end_address && current_value != c)
+    {
+        current_value = *(unsigned char*)s2++;
+        *(unsigned char*)s1++ = current_value;
+    }
 
     return (s1 != end_address) ? s1 : 0;
 }
@@ -22,37 +26,39 @@ static inline void* memchr_generic(const void *s, int c, size_t n)
 {
     register unsigned char* end_address = (void*)(s + n);
     while (s != end_address && *(unsigned char*)s++ != (unsigned char)c);
-    return (s != end_address) ? (void*)s : 0;
+    return (s != end_address) ? (void*)--s : 0;
 }
 
 
 static inline int memcmp_generic(const void *s1, const void *s2, size_t n)
 {
     register unsigned char* end_address = (void*)s1 + n;
-    while (s1 != end_address && *(unsigned char*)s1++ != *(unsigned char*)s2++);
+    while (s1 != end_address && *(unsigned char*)s1++ == *(unsigned char*)s2++);
     return (s1 == end_address) ? 0 : *(unsigned char*)--s1 - *(unsigned char*)--s2;
 }
 
 
 static inline void *memcpy_generic(void *__restrict__ s1, const void *__restrict__ s2, size_t n)
 {
+    register void* start_address = s1;
     register unsigned char* end_address = (void*)s1 + n;
 
     while (s1 != end_address)
         *(unsigned char*)s1++ = *(unsigned char*)s2++;
 
-    return s1;
+    return start_address;
 }
 
 
 static inline void *memset_generic(void *s, int c, size_t n)
 {
+    register void* start_address = s;
     register unsigned char* end_address = (void*)s + n;
 
     while (s != end_address)
         *(unsigned char*)s++ = c;
 
-    return s;
+    return start_address;
 }
 
 
