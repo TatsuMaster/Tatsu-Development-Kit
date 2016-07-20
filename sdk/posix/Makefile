@@ -1,5 +1,5 @@
 TDK_CC     = clang
-TDK_CFLAGS = -Wall -Wextra
+TDK_CFLAGS = -Wall -Wextra -fno-builtin
 
 .PHONY: clean
 

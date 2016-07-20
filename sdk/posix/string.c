@@ -7,8 +7,57 @@
  *
  *****************************************************************************/
 
+static inline void* memccpy_generic(void *__restrict__ s1, const void *__restrict__ s2, int c, size_t n)
+{
+    register unsigned char* end_address = s1 + n;
+
+    while (s1 != end_address && *(unsigned char*)s1 != (unsigned char)c)
+        *(unsigned char*)s1++ = *(unsigned char*)s2++;
+
+    return (s1 != end_address) ? s1 : 0;
+}
+
+
+static inline void* memchr_generic(const void *s, int c, size_t n)
+{
+    register unsigned char* end_address = (void*)(s + n);
+    while (s != end_address && *(unsigned char*)s++ != (unsigned char)c);
+    return (s != end_address) ? (void*)s : 0;
+}
+
+
+static inline int memcmp_generic(const void *s1, const void *s2, size_t n)
+{
+    register unsigned char* end_address = (void*)s1 + n;
+    while (s1 != end_address && *(unsigned char*)s1++ != *(unsigned char*)s2++);
+    return (s1 == end_address) ? 0 : *(unsigned char*)--s1 - *(unsigned char*)--s2;
+}
+
+
+static inline void *memcpy_generic(void *__restrict__ s1, const void *__restrict__ s2, size_t n)
+{
+    register unsigned char* end_address = (void*)s1 + n;
+
+    while (s1 != end_address)
+        *(unsigned char*)s1++ = *(unsigned char*)s2++;
+
+    return s1;
+}
+
+
+static inline void *memset_generic(void *s, int c, size_t n)
+{
+    register unsigned char* end_address = (void*)s + n;
+
+    while (s != end_address)
+        *(unsigned char*)s++ = c;
+
+    return s;
+}
+
+
 #ifdef __x86_64__
-static inline char* stpcpy_x86_64_fast(char *restrict s1, const char *restrict s2)
+static inline char* stpcpy_x86_64_fast(char *__restrict__ s1, const char *__restrict__ s2)
 {
     int rsrc, rdst;
     __asm__ __volatile__(
@@ -23,7 +72,7 @@ static inline char* stpcpy_x86_64_fast(char *restrict s1, const char *restrict s
     return --s1;
 }
 #else
-static inline char* stpcpy_generic(char *restrict s1, const char *restrict s2)
+static inline char* stpcpy_generic(char *__restrict__ s1, const char *__restrict__ s2)
 {
     while ((*s1++ = *s2++));
     return --s1;
@@ -32,7 +81,7 @@ static inline char* stpcpy_generic(char *restrict s1, const char *restrict s2)
 
 
 #ifdef __x86_64__
-static inline char* strcpy_x86_64_fast(char *restrict s1, const char *restrict s2)
+static inline char* strcpy_x86_64_fast(char *__restrict__ s1, const char *__restrict__ s2)
 {
     int rsrc, rdst;
     __asm__ __volatile__(
@@ -46,7 +95,7 @@ static inline char* strcpy_x86_64_fast(char *restrict s1, const char *restrict s
     return s1;
 }
 #else
-static inline char* strcpy_generic(char *restrict s1, const char *restrict s2)
+static inline char* strcpy_generic(char *__restrict__ s1, const char *__restrict__ s2)
 {
     register char* start_address = s1;
     while ((*s1++ = *s2++));
@@ -60,6 +109,90 @@ static inline char* strcpy_generic(char *restrict s1, const char *restrict s2)
  * Public Access
  *
  *****************************************************************************/
+
+
+/******************************************************************************
+ *
+ * The memccpy() function copies bytes from memory area s2 into s1,
+ * stopping after the first occurrence of byte c (converted to an unsigned
+ * char) is copied, or after n bytes are copied, whichever comes first. If
+ * copying takes place between objects that overlap, the behavior is undefined.
+ *
+ * The memccpy() function returns a pointer to the byte after the copy of c in
+ * s1, or a null pointer if c was not found in the first n bytes of s2.
+ *
+ *****************************************************************************/
+void *memccpy(void *__restrict__ s1, const void *__restrict__ s2, int c, size_t n)
+{
+    return memccpy_generic(s1, s2, c, n);
+}
+
+
+/******************************************************************************
+ *
+ * The memchr() function locates the first occurrence of c (converted to an
+ * unsigned char) in the initial n bytes (each interpreted as unsigned char) of
+ * the object pointed to by s.
+ *
+ * The memchr() function returns a pointer to the located byte, or a null
+ * pointer if the byte does not occur in the object.
+ *
+ *****************************************************************************/
+void *memchr(const void *s, int c, size_t n)
+{
+    return memchr_generic(s, c, n);
+}
+
+
+/******************************************************************************
+ *
+ * The memcmp() function compares the first n bytes (each interpreted as
+ * unsigned char) of the object pointed to by s1 to the first n bytes of the
+ * object pointed to by s2.
+ * The sign of a non-zero return value shall be determined by the sign of the
+ * difference between the values of the first pair of bytes (both interpreted
+ * as type unsigned char) that differ in the objects being compared.
+ *
+ * The memcmp() function returns an integer greater than, equal to, or less
+ * than 0, if the object pointed to by s1 is greater than, equal to, or less
+ * than the object pointed to by s2, respectively.
+ *
+ ******************************************************************************/
+int memcmp(const void *s1, const void *s2, size_t n)
+{
+    return memcmp_generic(s1, s2, n);
+}
+
+
+/******************************************************************************
+ *
+ * The memcpy() function copies n bytes from the object pointed to by s2 into
+ * the object pointed to by s1. If copying takes place between objects that
+ * overlap, the behavior is undefined.
+ *
+ * The memcpy() function returns s1; no return value is reserved to indicate
+ * an error.
+ *
+ ******************************************************************************/
+void *memcpy(void *__restrict__ s1, const void *__restrict__ s2, size_t n)
+{
+    return memcpy_generic(s1, s2, n);
+}
+
+
+/******************************************************************************
+ *
+ * The memset() function copies c (converted to an unsigned char) into each of
+ * the first n bytes of the object pointed to by s.
+ *
+ * The memset() function returns s; no return value is reserved to indicate
+ * an error.
+ *
+ ******************************************************************************/
+void *memset(void *s, int c, size_t n)
+{
+    return memset_generic(s, c, n);
+}
 
 
 /******************************************************************************
