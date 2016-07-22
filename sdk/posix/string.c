@@ -7,7 +7,7 @@
  *
  *****************************************************************************/
 
-extern int memcmp_sse2_entry(const void *s1, const void *s2, size_t n);
+extern int memcmp_sse2_entry();
 
 
 static inline void* memccpy_generic(void *__restrict__ s1, const void *__restrict__ s2, int c, size_t n)
@@ -36,7 +36,11 @@ static inline void* memchr_generic(const void *s, int c, size_t n)
 //#ifdef __x86_64__
 static inline int memcmp_x86_64_fast(const void *s1, const void *s2, size_t n)
 {
-    return memcmp_sse2_entry(s1, s2, n);
+    __asm__ __volatile__("\t movq %0, %%rdi" : : "g" (s1));
+    __asm__ __volatile__("\t movq %0, %%rsi" : : "g" (s2));
+    __asm__ __volatile__("\t movq %0, %%rdx" : : "g" (n));
+
+    return memcmp_sse2_entry();
 }
 //#else
 static inline int memcmp_generic(const void *s1, const void *s2, size_t n)

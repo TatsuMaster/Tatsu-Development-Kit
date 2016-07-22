@@ -21,4 +21,4 @@ string.o: string.c string.h
 	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
 
 string_asm.o: string.asm
-	@echo "  [ASM] Assembling interrupts.asm"; $(TDK_ASM) -f elf64 -g $< -o $@
+	@echo "  [ASM] Assembling $<"; $(TDK_ASM) -f elf64 -g $< -o $@
