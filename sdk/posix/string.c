@@ -7,6 +7,9 @@
  *
  *****************************************************************************/
 
+extern int memcmp_sse2_entry(const void *s1, const void *s2, size_t n);
+
+
 static inline void* memccpy_generic(void *__restrict__ s1, const void *__restrict__ s2, int c, size_t n)
 {
     register unsigned char* end_address = s1 + n;
@@ -30,12 +33,19 @@ static inline void* memchr_generic(const void *s, int c, size_t n)
 }
 
 
+//#ifdef __x86_64__
+static inline int memcmp_x86_64_fast(const void *s1, const void *s2, size_t n)
+{
+    return memcmp_sse2_entry(s1, s2, n);
+}
+//#else
 static inline int memcmp_generic(const void *s1, const void *s2, size_t n)
 {
     register unsigned char* end_address = (void*)s1 + n;
     while (s1 != end_address && *(unsigned char*)s1++ == *(unsigned char*)s2++);
-    return (s1 == end_address) ? 0 : *(unsigned char*)--s1 - *(unsigned char*)--s2;
+    return (--s1 == end_address) ? 0 : *(unsigned char*)s1 - *(unsigned char*)--s2;
 }
+//#endif
 
 
 static inline void *memcpy_generic(void *__restrict__ s1, const void *__restrict__ s2, size_t n)
@@ -166,7 +176,11 @@ void *memchr(const void *s, int c, size_t n)
  ******************************************************************************/
 int memcmp(const void *s1, const void *s2, size_t n)
 {
+#ifdef __x86_64__
+    return memcmp_x86_64_fast(s1, s2, n);
+#else
     return memcmp_generic(s1, s2, n);
+#endif
 }
 
 
