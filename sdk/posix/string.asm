@@ -1,5 +1,12 @@
 ;
 ;
+; File description
+;
+;
+
+
+;
+;
 ; Comments required
 ;
 ;
@@ -87,43 +94,45 @@ memcmp_more_than_two_bytes_left:
 
 memcmp_more_than_four_bytes_left:
 
-    ;test r8, 0x08             ; More than eight bytes left?
-    ;jz perform_mmx_memcmp
+    test r8, 0x08             ; More than eight bytes left?
+    jz perform_mmx_memcmp
 
-    ;mov rax, qword [rcx]
-    ;mov rbx, qword [rdx]
+    mov rax, qword [rdi]
+    mov rdx, qword [rdi + rsi]
 
-    ;sub r8, 0x08
-    ;je final_calculation
+    sub r10, 0x08
+    je final_calculation
 
-    ;add rcx, 0x08
-    ;add rdx, 0x08
-
-    ;cmp rax, rbx
-    ;jnz final_calculation
+    add rdi, 0x08
+    cmp rax, rbx
+    jnz final_calculation
 
 
 perform_mmx_memcmp:
 
-    ;movdqu xmm1, [rdx]
-    ;movdqu xmm0, [rcx]
+    movdqu xmm1, [rdi]
+    movdqu xmm0, [rdi + rsi]
 
-    ;pcmpeqb  xmm1, xmm0
-    ;pmovmskb ebx, xmm1
+    pcmpeqb  xmm1, xmm0
+    pmovmskb edx, xmm1
 
-    ;xor eax, eax
-    ;sub ebx, 0xFFFF
-    ;jz memcmp_result_return
+    xor eax, eax
+    sub edx, 0xFFFF
+    jz memcmp_result_return
 
-    ;bsf dword ecx, ebx
-    ;lea rcx, [rdx]
-    ;movzx eax, byte [rcx]
-    ;movzx ebx, byte [rdx]
-    ;sub   eax, edx
-    ;ret
+    bsf dword ecx, edx
+    lea rcx, [rdi + rcx]
+
+    movzx eax, byte [rcx]
+    movzx edx, byte [rsi + rcx]
+
+    sub eax, edx
+    ret
 
 
 perform_sse2_memcmp:
+
+    ; TODO
 
 
 memcmp_result_return:
