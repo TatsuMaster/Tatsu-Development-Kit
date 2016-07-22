@@ -33,7 +33,7 @@ static inline void* memchr_generic(const void *s, int c, size_t n)
 }
 
 
-//#ifdef __x86_64__
+#ifdef __x86_64__
 static inline int memcmp_x86_64_fast(const void *s1, const void *s2, size_t n)
 {
     __asm__ __volatile__("\t movq %0, %%rdi" : : "g" (s1));
@@ -42,14 +42,14 @@ static inline int memcmp_x86_64_fast(const void *s1, const void *s2, size_t n)
 
     return memcmp_sse2_entry();
 }
-//#else
+#else
 static inline int memcmp_generic(const void *s1, const void *s2, size_t n)
 {
     register unsigned char* end_address = (void*)s1 + n;
     while (s1 != end_address && *(unsigned char*)s1++ == *(unsigned char*)s2++);
     return (--s1 == end_address) ? 0 : *(unsigned char*)s1 - *(unsigned char*)--s2;
 }
-//#endif
+#endif
 
 
 static inline void *memcpy_generic(void *__restrict__ s1, const void *__restrict__ s2, size_t n)
