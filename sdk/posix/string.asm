@@ -42,7 +42,15 @@ memcmp_chunk_size_left_detection:
     test r10, 0x01              ; More than one byte left?
     jz   memcmp_more_than_one_byte_left
 
-    ; ÜBERDENKEN, was hier hin kommt!
+    movzx eax, byte [rdi]
+    movzx edx, byte [rdi + rsi]
+
+    sub r10, 0x01
+    je  memcmp_single_byte_exit
+
+    add rdi, 0x01
+    sub eax, edx
+    ret
 
 
 memcmp_zero_result:
@@ -55,6 +63,9 @@ memcmp_single_byte:
 
     movzx eax, byte [rdi]      ; Move byte value from adress hold by rdi to eax and zero extend it
     movzx edx, byte [rsi]      ; Move byte value from adress hold by rsi to edx and zero extend it
+
+
+memcmp_single_byte_exit:
 
     sub dword eax, edx
     ret
@@ -132,7 +143,41 @@ perform_mmx_memcmp:
 
 perform_sse2_memcmp:
 
-    ; TODO
+    mov r11 ,rdx
+    add r11, rdi
+
+    mov r8, rdi
+    and r8, 0x0F
+    jz  sse2_pointer_alignment_okay_16
+
+    movdqu xmm1, [rdi]
+    movdqu xmm0, [rdi + rsi]
+
+    pcmpeqb  xmm1, xmm0
+    pmovmskb edx, xmm1
+    
+    sub edx, 0xFFFF
+    jnz sse2_prestage_memcmp_mismatch
+
+    neg r8
+    lea rdi, [16 + rdi + r8]
+
+
+sse2_pointer_alignment_okay_16:
+
+    ; Still todo
+
+
+sse2_prestage_memcmp_mismatch:
+
+    bsf dword ecx, edx
+    movzx eax, byte [rdi + rcx]
+
+    add rsi, rdi
+    movzx edx, byte [rsi + rcx]
+
+    sub dword eax, edx
+    ret
 
 
 memcmp_result_return:
