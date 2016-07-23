@@ -309,7 +309,7 @@ sse2_memcmp_fast:
     test rdi, 0x10
     jz sse2_memcmp_fast_32
 
-    movdqa xmm0, [rdi - rsi]
+    movdqa xmm0, [rdi + rsi]
     pcmpeqb xmm0, [rdi]
     pmovmskb edx, xmm0
 
@@ -329,7 +329,7 @@ sse2_memcmp_fast_32:
     test rdi, 0x20
     jz sse2_memcmp_fast_64
 
-    movdqa xmm0, [rdi - rsi]
+    movdqa xmm0, [rdi + rsi]
     pcmpeqb xmm0, [rdi]
     pmovmskb edx, xmm0
 
@@ -337,7 +337,7 @@ sse2_memcmp_fast_32:
     jnz sse2_prestage_memcmp_mismatch
 
     add rdi, 0x10
-    movdqa xmm0, [rdi - rsi]
+    movdqa xmm0, [rdi + rsi]
     pcmpeqb xmm0, [rdi]
     pmovmskb edx, xmm0
 
@@ -355,31 +355,31 @@ sse2_memcmp_fast_64:
 
 sse2_memcmp_fast_64_perform:
 
-    movdqa xmm0, [rdi - rsi]
+    movdqa xmm0, [rdi + rsi]
     pcmpeqb xmm0, [rdi]
     pmovmskb edx, xmm0
 
     sub edx, 0xFFFF
     jnz sse2_prestage_memcmp_mismatch
 
-    add, rdi, 0x10
-    movdqa xmm0, [rdi - rsi]
+    add rdi, 0x10
+    movdqa xmm0, [rdi + rsi]
     pcmpeqb xmm0, [rdi]
     pmovmskb edx, xmm0
 
     sub edx, 0xFFFF
     jnz sse2_prestage_memcmp_mismatch
 
-    add, rdi, 0x10
-    movdqa xmm0, [rdi - rsi]
+    add rdi, 0x10
+    movdqa xmm0, [rdi + rsi]
     pcmpeqb xmm0, [rdi]
     pmovmskb edx, xmm0
 
     sub edx, 0xFFFF
     jnz sse2_prestage_memcmp_mismatch
 
-    add, rdi, 0x10
-    movdqa xmm0, [rdi - rsi]
+    add rdi, 0x10
+    movdqa xmm0, [rdi + rsi]
     pcmpeqb xmm0, [rdi]
     pmovmskb edx, xmm0
 
@@ -399,15 +399,15 @@ sse2_memcmp_fast_64_perform:
 
 sse2_memcmp_fast_result:
 
-    movdqa xmm0, [rdi - rsi]
+    movdqa xmm0, [rdi + rsi]
     pcmpeqb xmm0, [rdi]
     pmovmskb edx, xmm0
 
     sub edx, 0xFFFF
     jnz sse2_prestage_memcmp_mismatch
 
-    add, rdi, 0x10
-    movdqa xmm0, [rdi - rsi]
+    add rdi, 0x10
+    movdqa xmm0, [rdi + rsi]
     pcmpeqb xmm0, [rdi]
     pmovmskb edx, xmm0
 
