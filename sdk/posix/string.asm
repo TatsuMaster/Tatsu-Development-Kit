@@ -18,6 +18,7 @@
 ;
 ;
 ; !!!!! Function and ABI description !!!!!
+; + Affected registers
 ;
 ;
 
@@ -155,7 +156,7 @@ perform_sse2_memcmp:
 
     pcmpeqb  xmm1, xmm0
     pmovmskb edx, xmm1
-    
+
     sub edx, 0xFFFF
     jnz sse2_prestage_memcmp_mismatch
 
@@ -165,7 +166,263 @@ perform_sse2_memcmp:
 
 sse2_pointer_alignment_okay_16:
 
-    ; Still todo
+    test rsi, 0x0F
+    jz sse2_memcmp_fast_32
+
+    test rdi, 0x10
+    jz sse2_pointer_alignment_okay_32
+
+    movdqu xmm0, [rdi + rsi]
+    pcmpeqb xmm0, [rdi]
+    pmovmskb edx, xmm0
+
+    sub edx, 0xFFFF
+    jnz sse2_prestage_memcmp_mismatch
+
+    add rdi, 0x10
+
+
+sse2_pointer_alignment_okay_32:
+
+    mov r10, r11
+    and r10, -0x20
+
+    cmp rdi, r10
+    jge sse2_match_16_memcmp
+
+    test rdi, 0x20
+    jz sse2_pointer_alignment_okay_64
+
+    movdqu xmm0, [rdi + rsi]
+    pcmpeqb xmm0, [rdi]
+    pmovmskb edx, xmm0
+
+    sub edx, 0xFFFF
+    jnz sse2_prestage_memcmp_mismatch
+
+    add rdi, 0x10
+    movdqu xmm0, [rdi + rsi]
+    pcmpeqb xmm0, [rdi]
+    pmovmskb edx, xmm0
+
+    sub edx, 0xFFFF
+    jnz sse2_prestage_memcmp_mismatch
+
+    add rdi, 0x10
+
+
+sse2_pointer_alignment_okay_64:
+
+    mov r10, r11
+    and r10, -0x40
+
+    cmp rdi, r10
+    jge sse2_match_32_memcmp
+
+
+perform_aligned_64_memcmp:
+
+    movdqu xmm0, [rdi + rsi]
+    pcmpeqb xmm0, [rdi]
+    pmovmskb edx, xmm0
+
+    sub edx, 0xFFFF
+    jnz sse2_prestage_memcmp_mismatch
+
+    add rdi, 0x10
+    movdqu xmm0, [rdi + rsi]
+    pcmpeqb xmm0, [rdi]
+    pmovmskb edx, xmm0
+
+    sub edx, 0xFFFF
+    jnz sse2_prestage_memcmp_mismatch
+
+    add rdi, 0x10
+    movdqu xmm0, [rdi + rsi]
+    pcmpeqb xmm0, [rdi]
+    pmovmskb  edx, xmm0
+
+    sub edx, 0xFFFF
+    jnz sse2_prestage_memcmp_mismatch
+
+    add rdi, 0x10
+    movdqu xmm0, [rdi + rsi]
+    pcmpeqb xmm0, [rdi]
+    pmovmskb  edx, xmm0
+
+    sub edx, 0xFFFF
+    jnz sse2_prestage_memcmp_mismatch
+
+    add rdi, 0x10
+    cmp r10, rdi
+    jne perform_aligned_64_memcmp
+
+
+sse2_match_32_memcmp:
+
+    mov r10, r11
+    and r10, -0x20
+
+    cmp rdi, r10
+    jge sse2_match_16_memcmp
+
+
+sse2_perform_32_memcmp:
+
+    movdqu xmm0, [rdi + rsi]
+    pcmpeqb xmm0, [rdi]
+    pmovmskb  edx, xmm0
+
+    sub edx, 0xFFFF
+    jnz sse2_prestage_memcmp_mismatch
+
+    add rdi, 0x10
+    movdqu xmm0, [rdi + rsi]
+    pcmpeqb xmm0, [rdi]
+    pmovmskb  edx, xmm0
+
+    sub edx, 0xFFFF
+    jnz sse2_prestage_memcmp_mismatch
+
+    add rdi, 0x10
+    cmp r10, rdi
+    jne sse2_perform_32_memcmp
+
+
+sse2_match_16_memcmp:
+
+    sub r11, rdi
+    je memcmp_zero_result
+
+    mov r10, r11
+    jmp memcmp_chunk_size_left_detection
+
+
+sse2_memcmp_fast:
+
+    mov r10, r11
+    and r10, -0x20
+
+    cmp rdi, r10
+    jge sse2_match_16_memcmp
+
+    test rdi, 0x10
+    jz sse2_memcmp_fast_32
+
+    movdqa xmm0, [rdi - rsi]
+    pcmpeqb xmm0, [rdi]
+    pmovmskb edx, xmm0
+
+    sub edx, 0xFFFF
+    jnz sse2_prestage_memcmp_mismatch
+
+    add rdi, 0x10
+    cmp r10, rdi
+    je sse2_match_16_memcmp
+
+
+sse2_memcmp_fast_32:
+
+    mov r10, r11
+    and r10, -0x40
+
+    test rdi, 0x20
+    jz sse2_memcmp_fast_64
+
+    movdqa xmm0, [rdi - rsi]
+    pcmpeqb xmm0, [rdi]
+    pmovmskb edx, xmm0
+
+    sub edx, 0xFFFF
+    jnz sse2_prestage_memcmp_mismatch
+
+    add rdi, 0x10
+    movdqa xmm0, [rdi - rsi]
+    pcmpeqb xmm0, [rdi]
+    pmovmskb edx, xmm0
+
+    sub edx, 0xFFFF
+    jnz sse2_prestage_memcmp_mismatch
+
+    add rdi, 0x10
+
+
+sse2_memcmp_fast_64:
+
+    cmp r10, rdi
+    je sse2_match_32_memcmp
+
+
+sse2_memcmp_fast_64_perform:
+
+    movdqa xmm0, [rdi - rsi]
+    pcmpeqb xmm0, [rdi]
+    pmovmskb edx, xmm0
+
+    sub edx, 0xFFFF
+    jnz sse2_prestage_memcmp_mismatch
+
+    add, rdi, 0x10
+    movdqa xmm0, [rdi - rsi]
+    pcmpeqb xmm0, [rdi]
+    pmovmskb edx, xmm0
+
+    sub edx, 0xFFFF
+    jnz sse2_prestage_memcmp_mismatch
+
+    add, rdi, 0x10
+    movdqa xmm0, [rdi - rsi]
+    pcmpeqb xmm0, [rdi]
+    pmovmskb edx, xmm0
+
+    sub edx, 0xFFFF
+    jnz sse2_prestage_memcmp_mismatch
+
+    add, rdi, 0x10
+    movdqa xmm0, [rdi - rsi]
+    pcmpeqb xmm0, [rdi]
+    pmovmskb edx, xmm0
+
+    sub edx, 0xFFFF
+    jnz sse2_prestage_memcmp_mismatch
+
+    add rdi, 0x10
+    cmp r10, rdi
+    jne sse2_memcmp_fast_64_perform
+
+    mov r10, r11
+    and r10, -0x20
+
+    cmp rdi, r10
+    jge sse2_match_16_memcmp
+
+
+sse2_memcmp_fast_result:
+
+    movdqa xmm0, [rdi - rsi]
+    pcmpeqb xmm0, [rdi]
+    pmovmskb edx, xmm0
+
+    sub edx, 0xFFFF
+    jnz sse2_prestage_memcmp_mismatch
+
+    add, rdi, 0x10
+    movdqa xmm0, [rdi - rsi]
+    pcmpeqb xmm0, [rdi]
+    pmovmskb edx, xmm0
+
+    sub edx, 0xFFFF
+    jnz sse2_prestage_memcmp_mismatch
+
+    add rdi, 0x10
+    cmp rdi, r10
+    jne sse2_memcmp_fast_result
+
+    sub r11, rdi
+    je memcmp_zero_result
+
+    mov r10, r11
+    jmp memcmp_chunk_size_left_detection
 
 
 sse2_prestage_memcmp_mismatch:
@@ -192,7 +449,7 @@ final_calculation:
 
     mov r11, rax
     sub r11, rdx
-    
+
     bsf qword rcx, r11
     sar qword rcx, 0x03
     sal qword rcx, 0x03
