@@ -167,7 +167,7 @@ perform_sse2_memcmp:
 sse2_pointer_alignment_okay_16:
 
     test rsi, 0x0F
-    jz sse2_memcmp_fast_32
+    jz sse2_memcmp_fast
 
     test rdi, 0x10
     jz sse2_pointer_alignment_okay_32

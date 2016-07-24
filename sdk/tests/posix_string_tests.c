@@ -69,13 +69,6 @@ static void  test_memcmp()
     const char src_buffer_1[10] = { 0, 1, 2, 3, 4, 9, 8, 7, 6, 5 };
     const char src_buffer_2[10] = { 0, 1, 2, 3, 4, 1, 1, 1, 1, 1 };
 
-    const char src_buffer_x0[32] = { 0, 1, 2, 3, 4, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1,
-                                     0, 1, 2, 3, 4, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1 };
-    const char src_buffer_x1[32] = { 0, 1, 2, 3, 4, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1,
-                                     0, 1, 2, 3, 4, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1 };
-    
-    const int result_x = memcmp(src_buffer_x0, src_buffer_x1, 16);
-    printf("\n\n%d\n\n", result_x);
     const int result_0 = memcmp(src_buffer_0, src_buffer_1, 10);
     const int result_1 = memcmp(src_buffer_0, src_buffer_1, 5);
     const int result_2 = memcmp(src_buffer_0, src_buffer_2, 10);
