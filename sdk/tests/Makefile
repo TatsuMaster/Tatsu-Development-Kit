@@ -33,7 +33,7 @@ ctype.o: ../posix/ctype.c ../posix/ctype.h
 	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
 
 string.o: ../posix/string.c ../posix/string.h
-	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -g -o $@ -c $<
+	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
 
 string_asm.o: ../posix/string.asm
 	@echo "  [ASM] Assembling interrupts.asm"; $(TDK_ASM) -f elf64 $< -o $@
