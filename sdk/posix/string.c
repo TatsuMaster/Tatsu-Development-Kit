@@ -10,25 +10,25 @@
 extern int memcmp_sse2_entry();
 
 
-static inline void* memccpy_generic(void *__restrict__ s1, const void *__restrict__ s2, int c, size_t n)
+static inline void* memccpy_generic(unsigned char *__restrict__ s1, const unsigned char *__restrict__ s2, unsigned char c, size_t n)
 {
     register unsigned char* end_address = s1 + n;
-    register unsigned char current_value = *(unsigned char*)s2;
+    register unsigned char current_value = *s2;
 
     while (s1 != end_address && current_value != c)
     {
-        current_value = *(unsigned char*)s2++;
-        *(unsigned char*)s1++ = current_value;
+        current_value = *s2++;
+        *s1++ = current_value;
     }
 
     return (s1 != end_address) ? s1 : 0;
 }
 
 
-static inline void* memchr_generic(const void *s, int c, size_t n)
+static inline void* memchr_generic(const unsigned char *s, char c, size_t n)
 {
     register unsigned char* end_address = (void*)(s + n);
-    while (s != end_address && *(unsigned char*)s++ != (unsigned char)c);
+    while (s != end_address && *s++ != c);
     return (s != end_address) ? (void*)--s : 0;
 }
 
@@ -43,34 +43,34 @@ static inline int memcmp_x86_64_fast(const void *s1, const void *s2, size_t n)
     return memcmp_sse2_entry();
 }
 #else
-static inline int memcmp_generic(const void *s1, const void *s2, size_t n)
+static inline int memcmp_generic(const unsigned char *s1, const unsigned char *s2, size_t n)
 {
     register unsigned char* end_address = (void*)s1 + n;
-    while (s1 != end_address && *(unsigned char*)s1++ == *(unsigned char*)s2++);
-    return (--s1 == end_address) ? 0 : *(unsigned char*)s1 - *(unsigned char*)--s2;
+    while (s1 != end_address && *s1++ == *s2++);
+    return (--s1 == end_address) ? 0 : *s1 - *--s2;
 }
 #endif
 
 
-static inline void *memcpy_generic(void *__restrict__ s1, const void *__restrict__ s2, size_t n)
+static inline void *memcpy_generic(unsigned char *__restrict__ s1, const unsigned char *__restrict__ s2, size_t n)
 {
     register void* start_address = s1;
     register unsigned char* end_address = (void*)s1 + n;
 
     while (s1 != end_address)
-        *(unsigned char*)s1++ = *(unsigned char*)s2++;
+        *s1++ = *s2++;
 
     return start_address;
 }
 
 
-static inline void *memset_generic(void *s, int c, size_t n)
+static inline void *memset_generic(unsigned char *s, char c, size_t n)
 {
     register void* start_address = s;
     register unsigned char* end_address = (void*)s + n;
 
     while (s != end_address)
-        *(unsigned char*)s++ = c;
+        *s++ = c;
 
     return start_address;
 }
@@ -144,7 +144,7 @@ static inline char* strcpy_generic(char *__restrict__ s1, const char *__restrict
  *****************************************************************************/
 void *memccpy(void *__restrict__ s1, const void *__restrict__ s2, int c, size_t n)
 {
-    return memccpy_generic(s1, s2, c, n);
+    return memccpy_generic((unsigned char*)s1, (const unsigned char*)s2, (unsigned char)c, n);
 }
 
 
@@ -160,7 +160,7 @@ void *memccpy(void *__restrict__ s1, const void *__restrict__ s2, int c, size_t 
  *****************************************************************************/
 void *memchr(const void *s, int c, size_t n)
 {
-    return memchr_generic(s, c, n);
+    return memchr_generic((const unsigned char*)s, (unsigned char)c, n);
 }
 
 
@@ -183,7 +183,7 @@ int memcmp(const void *s1, const void *s2, size_t n)
 #ifdef __x86_64__
     return memcmp_x86_64_fast(s1, s2, n);
 #else
-    return memcmp_generic(s1, s2, n);
+    return memcmp_generic((const unsigned char*)s1, (const unsigned char*)s2, n);
 #endif
 }
 
@@ -200,7 +200,7 @@ int memcmp(const void *s1, const void *s2, size_t n)
  ******************************************************************************/
 void *memcpy(void *__restrict__ s1, const void *__restrict__ s2, size_t n)
 {
-    return memcpy_generic(s1, s2, n);
+    return memcpy_generic((unsigned char*)s1, (const unsigned char*)s2, n);
 }
 
 
@@ -215,7 +215,7 @@ void *memcpy(void *__restrict__ s1, const void *__restrict__ s2, size_t n)
  ******************************************************************************/
 void *memset(void *s, int c, size_t n)
 {
-    return memset_generic(s, c, n);
+    return memset_generic((unsigned char*)s, (unsigned char)c, n);
 }
 
 
