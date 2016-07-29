@@ -20,6 +20,113 @@ static void test_isascii()
 }
 
 
+static void test_isalnum()
+{
+    int pre_errno = errno;
+    int character_value = 48;
+
+    for (; character_value < 58; ++character_value)
+    {
+        ASSERT_EQUALS("isalnum: Checking, if qualified character code gets classified as alpha numeric character", isalnum(character_value), 1);
+    }
+
+    ASSERT_EQUALS("isalnum: Checking, if unqualified character code gets not classified as alpha numeric character", isalnum(47), 0);
+    ASSERT_EQUALS("isalnum: Checking, if unqualified character code gets not classified as alpha numeric character", isalnum(58), 0);
+
+    for (character_value = 65; character_value < 91; ++character_value)
+    {
+        ASSERT_EQUALS("isalnum: Checking, if qualified character code gets classified as alpha numeric character", isalnum(character_value), 1);
+    }
+
+    ASSERT_EQUALS("isalnum: Checking, if unqualified character code gets not classified as alpha numeric character", isalnum(64), 0);
+    ASSERT_EQUALS("isalnum: Checking, if unqualified character code gets not classified as alpha numeric character", isalnum(91), 0);
+
+    for (character_value = 97; character_value < 123; ++character_value)
+    {
+        ASSERT_EQUALS("isalnum: Checking, if qualified character code gets classified as alpha numeric character", isalnum(character_value), 1);
+    }
+
+    ASSERT_EQUALS("isalnum: Checking, if unqualified character code gets not classified as alpha numeric character", isalnum(96), 0);
+    ASSERT_EQUALS("isalnum: Checking, if unqualified character code gets not classified as alpha numeric character", isalnum(123), 0);
+
+    ASSERT_EQUALS("isalnum: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_isalpha()
+{
+    int pre_errno = errno;
+    int character_value = 65;
+
+    for (; character_value < 91; ++character_value)
+    {
+        ASSERT_EQUALS("isalpha: Checking, if qualified character code gets classified as alpha character", isalpha(character_value), 1);
+    }
+
+    ASSERT_EQUALS("isalpha: Checking, if unqualified character code gets not classified as alpha character", isalpha(64), 0);
+    ASSERT_EQUALS("isalpha: Checking, if unqualified character code gets not classified as alpha character", isalpha(91), 0);
+
+    for (character_value = 97; character_value < 123; ++character_value)
+    {
+        ASSERT_EQUALS("isalpha: Checking, if qualified character code gets classified as alpha character", isalpha(character_value), 1);
+    }
+
+    ASSERT_EQUALS("isalpha: Checking, if unqualified character code gets not classified as alpha character", isalpha(96), 0);
+    ASSERT_EQUALS("isalpha: Checking, if unqualified character code gets not classified as alpha character", isalpha(123), 0);
+
+    ASSERT_EQUALS("isalpha: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_isblank()
+{
+    int pre_errno = errno;
+
+    ASSERT_EQUALS("isblank: Checking, if qualified character code gets classified as blank character", isblank(9), 1);
+    ASSERT_EQUALS("isblank: Checking, if unqualified character code gets not classified as blank character", isblank(8), 0);
+    ASSERT_EQUALS("isblank: Checking, if unqualified character code gets not classified as blank character", isblank(10), 0);
+    ASSERT_EQUALS("isblank: Checking, if qualified character code gets classified as blank character", isblank(32), 1);
+    ASSERT_EQUALS("isblank: Checking, if unqualified character code gets not classified as blank character", isblank(31), 0);
+    ASSERT_EQUALS("isblank: Checking, if unqualified character code gets not classified as blank character", isblank(33), 0);
+    ASSERT_EQUALS("isblank: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_iscntrl()
+{
+    int pre_errno = errno;
+    int character_value = 0;
+
+    for (; character_value < 32; ++character_value)
+    {
+        ASSERT_EQUALS("iscntrl: Checking, if qualified character code gets classified as control character", iscntrl(character_value), 1);
+    }
+
+    ASSERT_EQUALS("iscntrl: Checking, if unqualified character code gets not classified as control character", iscntrl(-1), 0);
+    ASSERT_EQUALS("iscntrl: Checking, if unqualified character code gets not classified as control character", iscntrl(32), 0);
+    ASSERT_EQUALS("iscntrl: Checking, if qualified character code gets classified as control character", iscntrl(127), 1);
+    ASSERT_EQUALS("iscntrl: Checking, if unqualified character code gets not classified as control character", iscntrl(126), 0);
+    ASSERT_EQUALS("iscntrl: Checking, if unqualified character code gets not classified as control character", iscntrl(128), 0);
+    ASSERT_EQUALS("iscntrl: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_isdigit()
+{
+    int pre_errno = errno;
+    int character_value = 48;
+
+    for (; character_value < 58; ++character_value)
+    {
+        ASSERT_EQUALS("isdigit: Checking, if qualified character code gets classified as digit character", isdigit(character_value), 1);
+    }
+
+    ASSERT_EQUALS("isdigit: Checking, if unqualified character code gets not classified as digit character", isdigit(47), 0);
+    ASSERT_EQUALS("isdigit: Checking, if unqualified character code gets not classified as digit character", isdigit(59), 0);
+    ASSERT_EQUALS("isdigit: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
 static void test_islower()
 {
     int pre_errno = errno;
@@ -33,6 +140,82 @@ static void test_islower()
     ASSERT_EQUALS("islower: Checking, if unqualified character code gets not classified as lower character", islower(character_value), 0);
     ASSERT_EQUALS("islower: Checking, if unqualified character code gets not classified as lower character", islower(96), 0);
     ASSERT_EQUALS("islower: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_isprint()
+{
+    int pre_errno = errno;
+    int character_value = 32;
+
+    for (; character_value < 127; ++character_value)
+    {
+        ASSERT_EQUALS("isprint: Checking, if qualified character code gets classified as printable character", isprint(character_value), 1);
+    }
+
+    ASSERT_EQUALS("isprint: Checking, if unqualified character code gets not classified as printable character", isprint(31), 0);
+    ASSERT_EQUALS("isprint: Checking, if unqualified character code gets not classified as printable character", isprint(127), 0);
+    ASSERT_EQUALS("isprint: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_ispunct()
+{
+    int pre_errno = errno;
+    int character_value = 33;
+
+    for (; character_value < 48; ++character_value)
+    {
+        ASSERT_EQUALS("ispunct: Checking, if qualified character code gets classified as punct character", ispunct(character_value), 1);
+    }
+
+    ASSERT_EQUALS("ispunct: Checking, if unqualified character code gets not classified as punct character", ispunct(32), 0);
+    ASSERT_EQUALS("ispunct: Checking, if unqualified character code gets not classified as punct character", ispunct(48), 0);
+
+    for (character_value = 58; character_value < 65; ++character_value)
+    {
+        ASSERT_EQUALS("ispunct: Checking, if qualified character code gets classified as punct character", ispunct(character_value), 1);
+    }
+
+    ASSERT_EQUALS("ispunct: Checking, if unqualified character code gets not classified as punct character", ispunct(57), 0);
+    ASSERT_EQUALS("ispunct: Checking, if unqualified character code gets not classified as punct character", ispunct(65), 0);
+
+    for (character_value = 91; character_value < 97; ++character_value)
+    {
+        ASSERT_EQUALS("ispunct: Checking, if qualified character code gets classified as punct character", ispunct(character_value), 1);
+    }
+
+    ASSERT_EQUALS("ispunct: Checking, if unqualified character code gets not classified as punct character", ispunct(90), 0);
+    ASSERT_EQUALS("ispunct: Checking, if unqualified character code gets not classified as punct character", ispunct(97), 0);
+
+    for (character_value = 123; character_value < 127; ++character_value)
+    {
+        ASSERT_EQUALS("ispunct: Checking, if qualified character code gets classified as punct character", ispunct(character_value), 1);
+    }
+
+    ASSERT_EQUALS("ispunct: Checking, if unqualified character code gets not classified as punct character", ispunct(122), 0);
+    ASSERT_EQUALS("ispunct: Checking, if unqualified character code gets not classified as punct character", ispunct(127), 0);
+
+    ASSERT_EQUALS("ispunct: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_isspace()
+{
+    int pre_errno = errno;
+    int character_value = 9;
+
+    for (; character_value < 14; ++character_value)
+    {
+        ASSERT_EQUALS("isspace: Checking, if qualified character code gets classified as spacing character", isspace(character_value), 1);
+    }
+
+    ASSERT_EQUALS("isspace: Checking, if unqualified character code gets not classified as spacing character", isspace(8), 0);
+    ASSERT_EQUALS("isspace: Checking, if unqualified character code gets not classified as spacing character", isspace(15), 0);
+    ASSERT_EQUALS("isspace: Checking, if qualified character code gets classified as spacing character", isspace(32), 1);
+    ASSERT_EQUALS("isspace: Checking, if unqualified character code gets not classified as spacing character", isspace(31), 0);
+    ASSERT_EQUALS("isspace: Checking, if unqualified character code gets not classified as spacing character", isspace(33), 0);
+    ASSERT_EQUALS("isspace: Checking, if errno is unmodified", pre_errno, errno);
 }
 
 
@@ -132,7 +315,15 @@ void run_posix_ctype_tests()
     TEST_CASE("Test POSIX ctype.h functions");
 
     test_isascii();
+    test_isalnum();
+    test_isalpha();
+    test_isblank();
+    test_iscntrl();
+    test_isdigit();
     test_islower();
+    test_isprint();
+    test_ispunct();
+    test_isspace();
     test_isupper();
     test_toascii();
     test_tolower();
