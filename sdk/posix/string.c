@@ -25,7 +25,7 @@ static inline void* memccpy_generic(unsigned char *__restrict__ s1, const unsign
 }
 
 
-static inline void* memchr_generic(const unsigned char *s, char c, size_t n)
+static inline void* memchr_generic(const unsigned char* s, char c, size_t n)
 {
     register unsigned char* end_address = (void*)(s + n);
     while (s != end_address && *s++ != c);
@@ -34,7 +34,7 @@ static inline void* memchr_generic(const unsigned char *s, char c, size_t n)
 
 
 #ifdef __x86_64__
-static inline int memcmp_x86_64_fast(const void *s1, const void *s2, size_t n)
+static inline int memcmp_x86_64_fast(const void* s1, const void* s2, size_t n)
 {
     __asm__ __volatile__("\t movq %0, %%rdi" : : "g" (s1));
     __asm__ __volatile__("\t movq %0, %%rsi" : : "g" (s2));
@@ -43,7 +43,7 @@ static inline int memcmp_x86_64_fast(const void *s1, const void *s2, size_t n)
     return memcmp_sse2_entry();
 }
 #else
-static inline int memcmp_generic(const unsigned char *s1, const unsigned char *s2, size_t n)
+static inline int memcmp_generic(const unsigned char* s1, const unsigned char* s2, size_t n)
 {
     register unsigned char* end_address = (void*)s1 + n;
     while (s1 != end_address && *s1++ == *s2++);
@@ -52,7 +52,7 @@ static inline int memcmp_generic(const unsigned char *s1, const unsigned char *s
 #endif
 
 
-static inline void *memcpy_generic(unsigned char *__restrict__ s1, const unsigned char *__restrict__ s2, size_t n)
+static inline void* memcpy_generic(unsigned char *__restrict__ s1, const unsigned char *__restrict__ s2, size_t n)
 {
     register void* start_address = s1;
     register unsigned char* end_address = (void*)s1 + n;
@@ -64,7 +64,7 @@ static inline void *memcpy_generic(unsigned char *__restrict__ s1, const unsigne
 }
 
 
-static inline void *memset_generic(unsigned char *s, char c, size_t n)
+static inline void* memset_generic(unsigned char* s, char c, size_t n)
 {
     register void* start_address = s;
     register unsigned char* end_address = (void*)s + n;
@@ -73,6 +73,116 @@ static inline void *memset_generic(unsigned char *s, char c, size_t n)
         *s++ = c;
 
     return start_address;
+}
+
+
+static inline int strcmp_generic(const char* s1, const char* s2)
+{
+    register size_t offset = s2 - s1;
+
+    while (*s1 && s1[offset] && *s1 == s1[offset])
+        ++s1;
+
+    return *s1 - s1[offset];
+}
+
+
+static inline size_t strcspn_generic(const char* s1, const char* s2)
+{
+    register const char* iter = s1;
+    register const char* character_set = s2;
+
+    while (*iter)
+    {
+        while (*character_set)
+        {
+            if (*character_set == *iter)
+                goto calculate_length;
+
+            ++character_set;
+        }
+
+        ++iter;
+        character_set = s2;
+    }
+
+
+calculate_length:
+
+    return iter - s1;
+}
+
+
+static inline char* stpncpy_generic(char* __restrict__ s1, const char* __restrict__ s2, size_t n)
+{
+    register char* iter = s1;
+    register char* result;
+
+    while ((size_t)(iter - s1) < n && *s2)
+        *iter++ = *s2++;
+
+    result = (iter - 1);
+
+    while ((size_t)(iter - s1) < n)
+        *iter++ = 0;
+
+    return s1;
+}
+
+
+static inline size_t strlen_generic(const char* s)
+{
+    register size_t length = -1;
+    while (s[++length]);
+    return length;
+}
+
+
+static inline int strncmp_generic(const char* s1, const char* s2, size_t n)
+{
+    register size_t offset = 0;
+
+    while (offset != n && s1[offset] && s2[offset] && s1[offset] == s2[offset])
+        ++offset;
+
+    return s1[offset] - s2[offset];
+}
+
+
+static inline char* strncpy_generic(char* __restrict__ s1, const char* __restrict__ s2, size_t n)
+{
+    register char* iter = s1;
+
+    while ((size_t)(iter - s1) < n && *s2)
+        *iter++ = *s2++;
+
+    while ((size_t)(iter - s1) < n)
+        *iter++ = 0;
+    
+    return s1;
+}
+
+
+static inline size_t strnlen_generic(const char* s, size_t maxlen)
+{
+    register size_t length = -1;
+    register size_t limit = maxlen;
+    while (limit != length && s[++length]);
+    return length;
+}
+
+
+static inline char* strchr_generic(const char* s, char c)
+{
+    register char* pos = (char*)s;
+
+    while (*pos && *pos != c)
+        ++s;
+
+    if (!c)
+        return pos;
+
+    return *pos ? pos : 0;
 }
 
 
@@ -221,6 +331,93 @@ void *memset(void *s, int c, size_t n)
 
 /******************************************************************************
  *
+ * The strchr() function locates the first occurrence of c (converted to a
+ * char) in the string pointed to by s. The terminating NUL character is
+ * considered to be part of the string.
+ *
+ * Upon completion, strchr() returns a pointer to the byte, or a null pointer
+ * if the byte was not found.
+ *
+ *****************************************************************************/
+char *strchr(const char *s, int c)
+{
+    return strchr_generic(s, (char)c);
+}
+
+
+/******************************************************************************
+ *
+ * The strcmp() function compares the string pointed to by s1 to the
+ * string pointed to by s2. The sign of a non-zero return value is determined
+ * by the sign of the difference between the values of the first pair of bytes
+ * (both interpreted as type unsigned char) that differ in the strings
+ * being compared.
+ *
+ * Upon completion, strcmp() returns an integer greater than, equal to, or
+ * less than 0, if the string pointed to by s1 is greater than, equal to, or
+ * less than the string pointed to by s2, respectively.
+ *
+ *****************************************************************************/
+int strcmp(const char *s1, const char *s2)
+{
+    return strcmp_generic(s1, s2);
+}
+
+
+/******************************************************************************
+ *
+ * The strcspn() function computes the length (in bytes) of the maximum
+ * initial segment of the string pointed to by s1 which consists entirely of
+ * bytes not from the string pointed to by s2.
+ *
+ * The strcspn() function returns the length of the computed segment of the
+ * string pointed to by s1; no return value is reserved to indicate an error.
+ *
+ *****************************************************************************/
+size_t strcspn(const char *s1, const char *s2)
+{
+    return strcspn_generic(s1, s2);
+}
+
+
+/******************************************************************************
+ *
+ * The strlen() function computes the number of bytes in the string to which
+ * s points, not including the terminating NUL character.
+ *
+ * The strlen() function returns the length of s; no return value is reserved
+ * to indicate an error.
+ *
+ *****************************************************************************/
+size_t strlen(const char *s)
+{
+    return strlen_generic(s);
+}
+
+
+/******************************************************************************
+ *
+ * The strncmp() function compares not more than n bytes (bytes that follow a
+ * NUL character are not compared) from the array pointed to by s1 to the array
+ * pointed to by s2. The sign of a non-zero return value is determined by the
+ * sign of the difference between the values of the first pair of bytes
+ * (both interpreted as type unsigned char) that differ in the strings
+ * being compared.
+ *
+ * Upon successful completion, strncmp() returns an integer greater than, equal
+ * to, or less than 0, if the possibly null-terminated array pointed to by s1
+ * is greater than, equal to, or less than the possibly null-terminated array
+ * pointed to by s2 respectively.
+ *
+ *****************************************************************************/
+int strncmp(const char *s1, const char *s2, size_t n)
+{
+    return strncmp_generic(s1, s2, n);
+}
+
+
+/******************************************************************************
+ *
  * The stpcpy() function copies the string pointed to by src, including
  * the terminating null byte ('\0'), to the buffer pointed to by dest.
  *
@@ -243,6 +440,28 @@ char* stpcpy(char *__restrict__ dest, const char *__restrict__ src)
 
 /******************************************************************************
  *
+ * The stpncpy() function copies not more than n bytes (bytes that follow a NUL
+ * character are not copied) from the array pointed to by s2 to the array
+ * pointed to by s1. If the array pointed to by s2 is a string that is shorter
+ * than n bytes, NUL characters are appended to the copy in the array pointed
+ * to by s1, until n bytes in all are written. If copying takes place between
+ * objects that overlap, the behavior is undefined.
+ *
+ * If a NUL character is written to the destination, the stpncpy() function
+ * returns the address of the first such NUL character. Otherwise, it returns
+ * &s1[n].
+ *
+ * No return values are reserved to indicate an error.
+ *
+ *****************************************************************************/
+char *stpncpy(char *__restrict__ s1, const char *__restrict__ s2, size_t n)
+{
+    return stpncpy_generic(s1, s2, n);
+}
+
+
+/******************************************************************************
+ *
  * The strcpy() function copies the string pointed to by src, including
  * the terminating null byte ('\0'), to the buffer pointed to by dest.
  *
@@ -259,4 +478,40 @@ char* strcpy(char *__restrict__ dest, const char *__restrict__ src)
 #else
     return strcpy_generic(dest, src);
 #endif
+}
+
+
+/******************************************************************************
+ *
+ * The strncpy() function copies not more than n bytes (bytes that follow a NUL
+ * character are not copied) from the array pointed to by s2 to the array
+ * pointed to by s1. If the array pointed to by s2 is a string that is shorter
+ * than n bytes, NUL characters are appended to the copy in the array pointed
+ * to by s1, until n bytes in all are written. If copying takes place between
+ * objects that overlap, the behavior is undefined.
+ *
+ * The strncpy() function returns s1. No return values are reserved to
+ * indicate an error.
+ *
+ *****************************************************************************/
+char *strncpy(char *__restrict__ s1, const char *__restrict__ s2, size_t n)
+{
+    return strncpy_generic(s1, s2, n);
+}
+
+
+/******************************************************************************
+ *
+ * The strnlen() function computes the smaller of the number of bytes in the
+ * array to which s points, not including the terminating NUL character, or
+ * the value of the maxlen argument. The strnlen() function never examines
+ * more than maxlen bytes of the array pointed to by s.
+ *
+ * The strnlen() function returns an integer containing the smaller of either
+ * the length of the string pointed to by s or maxlen.
+ *
+ *****************************************************************************/
+size_t strnlen(const char *s, size_t maxlen)
+{
+    return strnlen_generic(s, maxlen);
 }
