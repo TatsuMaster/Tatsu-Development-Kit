@@ -121,12 +121,12 @@ static inline char* stpncpy_generic(char* __restrict__ s1, const char* __restric
     while ((size_t)(iter - s1) < n && *s2)
         *iter++ = *s2++;
 
-    result = (iter - 1);
+    result = iter;
 
     while ((size_t)(iter - s1) < n)
         *iter++ = 0;
 
-    return s1;
+    return result;
 }
 
 
@@ -177,7 +177,7 @@ static inline char* strchr_generic(const char* s, char c)
     register char* pos = (char*)s;
 
     while (*pos && *pos != c)
-        ++s;
+        ++pos;
 
     if (!c)
         return pos;

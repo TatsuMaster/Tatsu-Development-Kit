@@ -227,6 +227,180 @@ static void test_strcpy()
 }
 
 
+static void test_stpncpy()
+{
+    const int pre_errno = errno;
+    const char* src_buffer = "1234";
+    char dest_buffer[11] = { 0, 1, 2, 3, 'A', 'B', 'C', 'D', 'E', 'F', 'X' };
+    char dest_buffer_ext[11] = { 0, 1, 2, 3, 'A', 'B', 'C', 'D', 'E', 'F', 'X' };
+    const char* result = stpncpy(dest_buffer, src_buffer, 10);
+    const char* result2 = stpncpy(dest_buffer_ext, src_buffer, 3);
+
+    // Do Not use strcmp...
+    const bool content_test_0 = (
+        dest_buffer[0] == src_buffer[0] &&
+        dest_buffer[1] == src_buffer[1] &&
+        dest_buffer[2] == src_buffer[2] &&
+        dest_buffer[3] == src_buffer[3] &&
+        dest_buffer[4] == src_buffer[4]);
+
+    const bool content_test_1 = (
+        dest_buffer[5] == 0 &&
+        dest_buffer[6] == 0 &&
+        dest_buffer[7] == 0 &&
+        dest_buffer[8] == 0 &&
+        dest_buffer[9] == 0 &&
+        dest_buffer[10] == 'X');
+
+    const bool content_test_2 = (
+        dest_buffer_ext[0] == src_buffer[0] &&
+        dest_buffer_ext[1] == src_buffer[1] &&
+        dest_buffer_ext[2] == src_buffer[2] &&
+        dest_buffer_ext[3] == 3 &&
+        dest_buffer_ext[4] == 'A');
+
+    result2 = stpncpy(dest_buffer_ext, src_buffer, 5);
+
+    const bool content_test_3 = (
+        dest_buffer_ext[0] == src_buffer[0] &&
+        dest_buffer_ext[1] == src_buffer[1] &&
+        dest_buffer_ext[2] == src_buffer[2] &&
+        dest_buffer_ext[3] == src_buffer[3] &&
+        dest_buffer_ext[4] == src_buffer[4]);
+
+    ASSERT_TRUE("stpncpy: Checking, if buffer content was copied correctly", content_test_0);
+    ASSERT_TRUE("stpncpy: Checking, if buffer content behind 0 termination was filled up with 0", content_test_1);
+    ASSERT_TRUE("stpncpy: Checking, if stpncpy considers maxlen correctly", content_test_2);
+    ASSERT_TRUE("stpncpy: Checking, if stpncpy considers maxlen correctly", content_test_3);
+    ASSERT_EQUALS("stpncpy: Checking, if stpncpy return value equals end of destination buffer address", &dest_buffer[4], result);
+    ASSERT_EQUALS("stpncpy: Checking, if stpncpy return value equals end of destination buffer address (II)", &dest_buffer_ext[4], result2);
+    ASSERT_EQUALS("stpncpy: Checking, if stpncpy destination buffer is 0 terminated", dest_buffer[4], 0);
+    ASSERT_EQUALS("stpncpy: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_strchr()
+{
+    const int pre_errno = errno;
+    const char* buffer = "1234";
+
+    ASSERT_EQUALS("strchr: Checking, if strchr detects character at position 0 correctly", strchr(buffer, '1'), buffer);
+    ASSERT_EQUALS("strchr: Checking, if strchr detects character at position 1 correctly", strchr(buffer, '2'), buffer + 1);
+    ASSERT_EQUALS("strchr: Checking, if strchr detects character at position 2 correctly", strchr(buffer, '3'), buffer + 2);
+    ASSERT_EQUALS("strchr: Checking, if strchr detects character at position 3 correctly", strchr(buffer, '4'), buffer + 3);
+    ASSERT_EQUALS("strchr: Checking, if strchr considers zero character correctly", strchr(buffer, 0), buffer + 4);
+    ASSERT_EQUALS("strchr: Checking, if strchr returns NULL as long as there are no matches", strchr(buffer, 'X'), 0);
+    ASSERT_EQUALS("strchr: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_strcmp()
+{
+    SKIP_TEST("strcmp: no tests defined !!!");
+}
+
+
+static void test_strcspn()
+{
+    const int pre_errno = errno;
+    const char* buffer = "fcba73";
+    const char* keys = "1234567890";
+
+    ASSERT_EQUALS("strcspn: Checking, if strcspn detects key characters correctly", strcspn(buffer, keys), 4);
+    ASSERT_EQUALS("strcspn: Checking, if strcspn returns string length as long as there are no keys defined", strcspn(buffer, ""), 6);
+    ASSERT_EQUALS("strcspn: Checking, if strcspn returns 0 as long as first character is part of keys", strcspn(buffer, "af"), 0);
+    ASSERT_EQUALS("strcspn: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_strlen()
+{
+    const int pre_errno = errno;
+    const char* buffer_0 = "ABCDEFGHIJ";
+    const char* buffer_1 = "ABCDE\0GHIJ";
+    const char* buffer_2 = "";
+
+    ASSERT_EQUALS("strlen: Checking, if strlen return value equals string length", strlen(buffer_0), 10);
+    ASSERT_EQUALS("strlen: Checking, if strlen detects '0' character correctly", strlen(buffer_1), 5);
+    ASSERT_EQUALS("strlen: Checking, if strlen applied on an empty string returns zero", strlen(buffer_2), 0);
+    ASSERT_EQUALS("strlen: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_strncmp()
+{
+    SKIP_TEST("strncmp: no tests defined !!!");
+}
+
+
+static void test_strncpy()
+{
+    const int pre_errno = errno;
+    const char* src_buffer = "1234";
+    char dest_buffer[11] = { 0, 1, 2, 3, 'A', 'B', 'C', 'D', 'E', 'F', 'X' };
+    char dest_buffer_ext[11] = { 0, 1, 2, 3, 'A', 'B', 'C', 'D', 'E', 'F', 'X' };
+    const char* result = strncpy(dest_buffer, src_buffer, 10);
+    result = strncpy(dest_buffer_ext, src_buffer, 3);
+
+    // Do Not use strcmp...
+    const bool content_test_0 = (
+        dest_buffer[0] == src_buffer[0] &&
+        dest_buffer[1] == src_buffer[1] &&
+        dest_buffer[2] == src_buffer[2] &&
+        dest_buffer[3] == src_buffer[3] &&
+        dest_buffer[4] == src_buffer[4]);
+
+    const bool content_test_1 = (
+        dest_buffer[5] == 0 &&
+        dest_buffer[6] == 0 &&
+        dest_buffer[7] == 0 &&
+        dest_buffer[8] == 0 &&
+        dest_buffer[9] == 0 &&
+        dest_buffer[10] == 'X');
+
+    const bool content_test_2 = (
+        dest_buffer_ext[0] == src_buffer[0] &&
+        dest_buffer_ext[1] == src_buffer[1] &&
+        dest_buffer_ext[2] == src_buffer[2] &&
+        dest_buffer_ext[3] == 3 &&
+        dest_buffer_ext[4] == 'A');
+
+    result = strncpy(dest_buffer_ext, src_buffer, 5);
+
+    const bool content_test_3 = (
+        dest_buffer_ext[0] == src_buffer[0] &&
+        dest_buffer_ext[1] == src_buffer[1] &&
+        dest_buffer_ext[2] == src_buffer[2] &&
+        dest_buffer_ext[3] == src_buffer[3] &&
+        dest_buffer_ext[4] == src_buffer[4]);
+
+    ASSERT_TRUE("strncpy: Checking, if buffer content was copied correctly", content_test_0);
+    ASSERT_TRUE("strncpy: Checking, if buffer content behind 0 termination was filled up with 0", content_test_1);
+    ASSERT_TRUE("strncpy: Checking, if strncpy considers maxlen correctly", content_test_2);
+    ASSERT_TRUE("strncpy: Checking, if strncpy considers maxlen correctly", content_test_3);
+    ASSERT_EQUALS("strncpy: Checking, if strcpy return value equals destination buffer address", dest_buffer_ext, result);
+    ASSERT_EQUALS("strncpy: Checking, if strcpy destination buffer is 0 terminated", dest_buffer[4], 0);
+    ASSERT_EQUALS("strncpy: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_strnlen()
+{
+    const int pre_errno = errno;
+    const char* buffer_0 = "ABCDEFGHIJ";
+    const char* buffer_1 = "ABCDE\0GHIJ";
+    const char* buffer_2 = "";
+
+    ASSERT_EQUALS("strnlen: Checking, if strnlen return value equals string length", strnlen(buffer_0, 20), 10);
+    ASSERT_EQUALS("strnlen: Checking, if strnlen detects '0' character correctly", strnlen(buffer_1, 20), 5);
+    ASSERT_EQUALS("strnlen: Checking, if strnlen applied on an empty string returns zero", strnlen(buffer_2, 20), 0);
+    ASSERT_EQUALS("strnlen: Checkling if strnlen considers maxlen correctly", strnlen(buffer_0, 5), 5);
+    ASSERT_EQUALS("strnlen: Checkling if strnlen considers maxlen correctly (II)", strnlen(buffer_1, 2), 2);
+    ASSERT_EQUALS("strnlen: Checkling if strnlen considers maxlen of 0 correctly", strnlen(buffer_0, 0), 0);
+    ASSERT_EQUALS("strnlen: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
 // Check all functions of string.h
 void run_string_lib_tests()
 {
@@ -238,5 +412,13 @@ void run_string_lib_tests()
     test_memcpy();
     test_memset();
     test_stpcpy();
+    test_stpncpy();
+    test_strchr();
+    test_strcmp();
     test_strcpy();
+    test_strcspn();
+    test_strlen();
+    test_strncmp();
+    test_strncpy();
+    test_strnlen();
 }
