@@ -296,7 +296,19 @@ static void test_strchr()
 
 static void test_strcmp()
 {
-    SKIP_TEST("strcmp: no tests defined !!!");
+    const int pre_errno = errno;
+    const char* src_buffer_0 = "aabb";
+    const char* src_buffer_1 = "aabbA";
+    const char* src_buffer_2 = "aaBB";
+
+    const int result_0 = strcmp(src_buffer_0, src_buffer_0);
+    const int result_1 = strcmp(src_buffer_0, src_buffer_1);
+    const int result_2 = strcmp(src_buffer_0, src_buffer_2);
+
+    ASSERT_LESS("strcmp: Checking, if result is less 0, if s1 contains the greater object", result_1, 0);
+    ASSERT_EQUALS("strcmp: Checking, if result is 0, if s1 and s2 are equal", result_0, 0);
+    ASSERT_GREATER("strcmp: Checking, if result is greater 0, if s1 contains the greater object", result_2, 0);
+    ASSERT_EQUALS("strcmp: Checking, if errno is unmodified", pre_errno, errno);
 }
 
 
@@ -329,7 +341,21 @@ static void test_strlen()
 
 static void test_strncmp()
 {
-    SKIP_TEST("strncmp: no tests defined !!!");
+    const int pre_errno = errno;
+    const char* src_buffer_0 = "aabb";
+    const char* src_buffer_1 = "aabbA";
+    const char* src_buffer_2 = "aaBB";
+
+    const int result_0 = strncmp(src_buffer_0, src_buffer_0, 5);
+    const int result_1 = strncmp(src_buffer_0, src_buffer_1, 5);
+    const int result_2 = strncmp(src_buffer_0, src_buffer_2, 5);
+    const int result_3 = strncmp(src_buffer_0, src_buffer_1, 4);
+
+    ASSERT_LESS("strncmp: Checking, if result is less 0, if s1 contains the greater object", result_1, 0);
+    ASSERT_EQUALS("strncmp: Checking, if result is 0, if s1 and s2 are equal", result_0, 0);
+    ASSERT_GREATER("strncmp: Checking, if result is greater 0, if s1 contains the greater object", result_2, 0);
+    ASSERT_EQUALS("strncmp: Checking, if maxlen was considered correctly", result_3, 0);
+    ASSERT_EQUALS("strncmp: Checking, if errno is unmodified", pre_errno, errno);
 }
 
 

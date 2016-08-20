@@ -141,6 +141,7 @@ static inline size_t strlen_generic(const char* s)
 static inline int strncmp_generic(const char* s1, const char* s2, size_t n)
 {
     register size_t offset = 0;
+    --n; // Match length to offset
 
     while (offset != n && s1[offset] && s2[offset] && s1[offset] == s2[offset])
         ++offset;
