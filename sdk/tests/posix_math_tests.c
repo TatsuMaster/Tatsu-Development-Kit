@@ -7,12 +7,24 @@
 
 void run_math_lib_tests()
 {
-    printf("\n\n");
     double x = -1.0;
+    float  y = -1.0;
 
-    while (x < 1.0)
+    printf("\n\nSingle Precision Test\n");
+
+    while(y < 1.0)
+    {
+        printf("%f: %f\n", y, acosf(y));
+        y += 0.1;
+    }
+
+    printf("\n\nDouble Precision Test\n");
+
+    while(x < 1.0)
     {
         printf("%lf: %lf\n", x, acos(x));
         x += 0.1;
     }
+
+    printf("\n\nlong double: %ld", sizeof(long double));
 }
