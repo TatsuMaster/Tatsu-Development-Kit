@@ -1,5 +1,5 @@
 TDK_CC     = clang
-TDK_CFLAGS = -Wall -Wextra -fno-builtin
+TDK_CFLAGS = -Wall -Wextra -fno-builtin -fPIC
 TDK_ASM    = nasm
 
 all: sdk_testapp
@@ -8,8 +8,8 @@ all: sdk_testapp
 clean:
 	rm -rf *.o sdk_testapp *~ *.exe
 
-sdk_testapp: sdk_testapp.o ttf.o posix_tests.o posix_errno_tests.o posix_ctype_tests.o ttf_unix.o string.o posix_string_tests.o errno.o ctype.o string_asm.o
-	@echo "  [LD ] Linking $@"; $(TDK_CC) sdk_testapp.o ttf.o posix_tests.o posix_errno_tests.o ttf_unix.o string.o errno.o ctype.o posix_string_tests.o posix_ctype_tests.o string_asm.o -o sdk_testapp
+sdk_testapp: sdk_testapp.o ttf.o posix_tests.o posix_errno_tests.o posix_ctype_tests.o ttf_unix.o string.o posix_string_tests.o errno.o ctype.o string_asm.o math.o math_asm.o posix_math_tests.o
+	@echo "  [LD ] Linking $@"; $(TDK_CC) sdk_testapp.o ttf.o posix_tests.o posix_errno_tests.o ttf_unix.o string.o errno.o ctype.o posix_string_tests.o posix_ctype_tests.o string_asm.o math_asm.o math.o posix_math_tests.o -o sdk_testapp
 
 ttf.o: ../../ttf/ttf.c ../../ttf/ttf.h
 	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
@@ -23,6 +23,9 @@ posix_ctype_tests.o: posix_ctype_tests.c posix_ctype_tests.h ../posix/ctype.h
 posix_errno_tests.o: posix_errno_tests.c posix_errno_tests.h ../posix/errno.h
 	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
 
+posix_math_tests.o: posix_math_tests.c posix_math_tests.h ../posix/math.h
+	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
+    
 posix_string_tests.o: posix_string_tests.c posix_string_tests.h ../posix/string.h
 	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
 
@@ -32,11 +35,17 @@ errno.o: ../posix/errno.c ../posix/errno.h
 ctype.o: ../posix/ctype.c ../posix/ctype.h
 	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
 
+math.o: ../posix/math.c ../posix/math.h
+	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -g -o $@ -c $<
+
+math_asm.o: ../posix/math.asm
+	@echo "  [ASM] Assembling $<"; $(TDK_ASM) -f elf64 -g $< -o $@
+    
 string.o: ../posix/string.c ../posix/string.h
 	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
 
 string_asm.o: ../posix/string.asm
-	@echo "  [ASM] Assembling interrupts.asm"; $(TDK_ASM) -f elf64 $< -o $@
+	@echo "  [ASM] Assembling $<"; $(TDK_ASM) -f elf64 $< -o $@
 
 posix_tests.o: posix_tests.c $(wildcard posix_*.h) 
 	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<

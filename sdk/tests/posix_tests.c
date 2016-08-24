@@ -1,5 +1,6 @@
 #include "posix_ctype_tests.h"
 #include "posix_errno_tests.h"
+#include "posix_math_tests.h"
 #include "posix_string_tests.h"
 
 
@@ -11,6 +12,9 @@ void run_posix_tests()
     // Check errno definitions
     run_posix_errno_tests();
 
+    // Check all functions of math.h
+    run_math_lib_tests();
+
     // Check all functions of string.h
-    run_string_lib_tests();
+    //run_string_lib_tests();
 }
