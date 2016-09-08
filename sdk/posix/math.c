@@ -31,12 +31,7 @@ static inline float acosf_generic(float x)
 #endif
 
 
-#ifdef __x86_64__
-static inline long double acosl_fast(long double x)
-{
-    return 0.0;
-}
-#else
+#ifndef __x86_64__
 static inline long double acosl_generic(long double x)
 {
     return 0.0;
@@ -91,10 +86,7 @@ float acosf(float x)
 long double acosl(long double x)
 {
 #ifdef __x86_64__
-    /*__asm__ __volatile__("\t movdqa %0, %%xmm0" : : "g" (x));
     acos_fpu_ep_entry();
-    __asm__ __volatile__("\t movdqa %%xmm0, %0" : "=r"(x));*/
-
     return x;
 #else
     return acosl_generic(x);
