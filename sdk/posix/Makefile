@@ -9,7 +9,7 @@ all: posix_sdk
 clean:
 	rm -rf *.o sdk_testapp *~ *.exe
 
-posix_sdk: ctype.o errno.o math.o math_asm.o string.o string_asm.o
+posix_sdk: ctype.o errno.o math.o math_asm.o stdlib.o stdlib_asm.o string.o string_asm.o
 
 ctype.o: ctype.c ctype.h
 	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
@@ -21,6 +21,12 @@ math.o: math.c math.h
 	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
     
 math_asm.o: math.asm
+	@echo "  [ASM] Assembling $<"; $(TDK_ASM) -f elf64 $< -o $@
+
+stdlib.o: stdlib.c stdlib.h
+	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
+
+stdlib_asm.o: stdlib.asm
 	@echo "  [ASM] Assembling $<"; $(TDK_ASM) -f elf64 $< -o $@
 
 string.o: string.c string.h
