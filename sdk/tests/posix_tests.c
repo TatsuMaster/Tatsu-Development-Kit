@@ -1,6 +1,7 @@
 #include "posix_ctype_tests.h"
 #include "posix_errno_tests.h"
 #include "posix_math_tests.h"
+#include "posix_signal_tests.h"
 #include "posix_stdlib_tests.h"
 #include "posix_string_tests.h"
 
@@ -12,6 +13,9 @@ void run_posix_tests()
 
     // Check errno definitions
     run_posix_errno_tests();
+
+    // Check signal definitions
+    run_posix_signal_tests();
 
     // Check all functions of math.h
     run_math_lib_tests();

@@ -1,6 +1,7 @@
 #include "posix_string_tests.h"
 
 #include "../posix/errno.h"
+#include "../posix/signal.h"
 #include "../posix/string.h"
 #include "../../ttf/ttf.h"
 
@@ -427,6 +428,78 @@ static void test_strnlen()
 }
 
 
+static void test_strsignal()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for signum 0 is NULL", strsignal(0), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for signum 16 is NULL", strsignal(16), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for signum 28 is NULL", strsignal(28), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for signum 30 is NULL", strsignal(30), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGABRT is correct",
+        strcmp(strsignal(SIGABRT), "Process abort signal."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGALRM is correct",
+        strcmp(strsignal(SIGALRM), "Alarm clock."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGBUS is correct",
+        strcmp(strsignal(SIGBUS), "Access to an undefined portion of a memory object."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGCHLD is correct",
+        strcmp(strsignal(SIGCHLD), "Child process terminated, stopped, or continued."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGCONT is correct",
+        strcmp(strsignal(SIGCONT), "Continue executing, if stopped."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGFPE is correct",
+        strcmp(strsignal(SIGFPE), "Erroneous arithmetic operation."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGHUP is correct",
+        strcmp(strsignal(SIGHUP), "Hangup."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGILL is correct",
+        strcmp(strsignal(SIGILL), "Illegal instruction."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGINT is correct",
+        strcmp(strsignal(SIGINT), "Terminal interrupt signal."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGKILL is correct",
+        strcmp(strsignal(SIGKILL), "Kill (cannot be caught or ignored)."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGPIPE is correct",
+        strcmp(strsignal(SIGPIPE), "Write on a pipe with no one to read it."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGQUIT is correct",
+        strcmp(strsignal(SIGQUIT), "Terminal quit signal."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGSEGV is correct",
+        strcmp(strsignal(SIGSEGV), "Invalid memory reference."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGSTOP is correct",
+        strcmp(strsignal(SIGSTOP), "Stop executing (cannot be caught or ignored)."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGTERM is correct",
+        strcmp(strsignal(SIGTERM), "Termination signal."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGTSTP is correct",
+        strcmp(strsignal(SIGTSTP), "Terminal stop signal."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGTTIN is correct",
+        strcmp(strsignal(SIGTTIN), "Background process attempting read."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGTTOU is correct",
+        strcmp(strsignal(SIGTTOU), "Background process attempting write."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGUSR1 is correct",
+        strcmp(strsignal(SIGUSR1), "User-defined signal 1."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGUSR2 is correct",
+        strcmp(strsignal(SIGUSR2), "User-defined signal 2."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGPOLL is correct",
+        strcmp(strsignal(SIGPOLL), "Pollable event."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGPROF is correct",
+        strcmp(strsignal(SIGPROF), "Profiling timer expired."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGSYS is correct",
+        strcmp(strsignal(SIGSYS), "Bad system call."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGTRAP is correct",
+        strcmp(strsignal(SIGTRAP), "Trace/breakpoint trap."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGURG is correct",
+        strcmp(strsignal(SIGURG), "High bandwidth data is available at a socket."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGVTALRM is correct",
+        strcmp(strsignal(SIGVTALRM), "Virtual timer expired."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGXCPU is correct",
+        strcmp(strsignal(SIGXCPU), "CPU time limit exceeded."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGXFSZ is correct",
+        strcmp(strsignal(SIGXFSZ), "File size limit exceeded."), 0);
+    ASSERT_EQUALS("strsignal: Checking, if errno is unmodified on usccessfull calls", pre_errno, errno);
+    ASSERT_EQUALS("strsignal: Checking, if invalid signum results to return value NULL", strsignal(4711), 0);
+    ASSERT_EQUALS("strsignal: Checking, if errno is set to EINVAL using invalid signum value", errno, EINVAL);
+
+    errno = 0;
+}
+
+
 // Check all functions of string.h
 void run_string_lib_tests()
 {
@@ -447,4 +520,5 @@ void run_string_lib_tests()
     test_strncmp();
     test_strncpy();
     test_strnlen();
+    test_strsignal();
 }

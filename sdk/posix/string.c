@@ -1,4 +1,5 @@
 #include "string.h"
+#include "errno.h"
 
 
 /******************************************************************************
@@ -8,6 +9,42 @@
  *****************************************************************************/
 
 extern int memcmp_sse2_entry();
+
+
+static char* _sig_strings[] = {
+    0,
+    "Hangup.",
+    "Terminal interrupt signal.",
+    "Terminal quit signal.",
+    "Illegal instruction.",
+    "Trace/breakpoint trap.",
+    "Process abort signal.",
+    "Access to an undefined portion of a memory object.",
+    "Erroneous arithmetic operation.",
+    "Kill (cannot be caught or ignored).",
+    "User-defined signal 1.",
+    "Invalid memory reference.",
+    "User-defined signal 2.",
+    "Write on a pipe with no one to read it.",
+    "Alarm clock.",
+    "Termination signal.",
+    0,
+    "Child process terminated, stopped, or continued.",
+    "Continue executing, if stopped.",
+    "Stop executing (cannot be caught or ignored).",
+    "Terminal stop signal.",
+    "Background process attempting read.",
+    "Background process attempting write.",
+    "High bandwidth data is available at a socket.",
+    "CPU time limit exceeded.",
+    "File size limit exceeded.",
+    "Virtual timer expired.",
+    "Profiling timer expired.",
+    0,
+    "Pollable event.",
+    0,
+    "Bad system call."
+};
 
 
 static inline void* memccpy_generic(unsigned char *__restrict__ s1, const unsigned char *__restrict__ s2, unsigned char c, size_t n)
@@ -515,4 +552,37 @@ char *strncpy(char *__restrict__ s1, const char *__restrict__ s2, size_t n)
 size_t strnlen(const char *s, size_t maxlen)
 {
     return strnlen_generic(s, maxlen);
+}
+
+
+/******************************************************************************
+ *
+ * The strsignal() function maps the signal number in signum to an
+ * implementation-defined string and returns a pointer to it. It uses the same
+ * set of messages as the psignal() function.
+ *
+ * The string pointed to is not be modified by the application, but may be
+ * overwritten by a subsequent call to strsignal() or setlocale().
+ * The contents of the message strings returned by strsignal() is
+ * determined by the setting of the LC_MESSAGES category in the current locale.
+ * Since no return value is reserved to indicate an error, an application
+ * wishing to check for error situations should set errno to 0, then call
+ * strsignal(), then check errno for EINVAL.
+ *
+ * The strsignal() function is thread-safe.
+ *
+ * Upon successful completion, strsignal() shall returns a pointer to a
+ * string. Otherwise, if signum is not a valid signal number, the return
+ * value is set to NULL and errno gets set to EINVAL.
+ *
+ *****************************************************************************/
+char *strsignal(int signum)
+{
+    if (signum > 31 || signum < 0)
+    {
+        errno = EINVAL;
+        return 0;
+    }
+
+    return _sig_strings[signum];
 }

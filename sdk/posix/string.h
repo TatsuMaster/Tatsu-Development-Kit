@@ -34,4 +34,6 @@ char *strncpy(char *__restrict__ s1, const char *__restrict__ s2, size_t n);
 
 size_t strnlen(const char *s, size_t maxlen);
 
+char *strsignal(int signum);
+
 #endif
