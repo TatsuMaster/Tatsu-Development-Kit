@@ -47,6 +47,105 @@ static char* _sig_strings[] = {
 };
 
 
+static char* _errno_strings[] = {
+    0,
+    "Operation not permitted",
+    "No such file or directory",
+    "No such process",
+    "Interrupted system call",
+    "Input/output error",
+    "No such device or address",
+    "Argument list too long",
+    "Exec format error",
+    "Bad file descriptor",
+    "No child processes",
+    "Resource temporarily unavailable",
+    "Cannot allocate memory",
+    "Permission denied",
+    "Bad address",
+    0,
+    "Device or resource busy",
+    "File exists",
+    "Invalid cross-device link",
+    "No such device",
+    "Not a directory",
+    "Is a directory",
+    "Invalid argument",
+    "Too many open files in system",
+    "Too many open files",
+    "Inappropriate ioctl for device",
+    "Text file busy",
+    "File too large",
+    "No space left on device",
+    "Illegal seek",
+    "Read-only file system",
+    "Too many links",
+    "Broken pipe",
+    "Numerical argument out of domain",
+    "Numerical result out of range",
+    "Resource deadlock avoided",
+    "File name too long",
+    "No locks available",
+    "Function not implemented",
+    "Directory not empty",
+    "Too many levels of symbolic links",
+    0,
+    "No message of desired type",
+    "Identifier removed",
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    "Device not a stream",
+    "No data available",
+    "Timer expired",
+    "Out of streams resources",
+    0, 0, 0,
+    "Link has been severed",
+    0, 0, 0,
+    "Protocol error",
+    "Multihop attempted",
+    0,
+    "Bad message",
+    "Value too large for defined data type",
+    0, 0, 0, 0, 0, 0, 0, 0,
+    "Invalid or incomplete multibyte or wide character",
+    0, 0, 0,
+    "Socket operation on non-socket",
+    "Destination address required",
+    "Message too long",
+    "Protocol wrong type for socket",
+    "Protocol not available",
+    "Protocol not supported",
+    0,
+    "Operation not supported",
+    0,
+    "Address family not supported by protocol",
+    "Address already in use",
+    "Cannot assign requested address",
+    "Network is down",
+    "Network is unreachable",
+    "Network dropped connection on reset",
+    "Software caused connection abort",
+    "Connection reset by peer",
+    "No buffer space available",
+    "Transport endpoint is already connected",
+    "Transport endpoint is not connected",
+    0, 0,
+    "Connection timed out",
+    "Connection refused",
+    0,
+    "No route to host",
+    "Operation already in progress",
+    "Operation now in progress",
+    "Stale file handle",
+    0, 0, 0, 0, 0,
+    "Disk quota exceeded",
+    0, 0,
+    "Operation canceled",
+    0, 0, 0, 0,
+    "Owner died",
+    "State not recoverable"
+};
+
+
 static inline void* memccpy_generic(unsigned char *__restrict__ s1, const unsigned char *__restrict__ s2, unsigned char c, size_t n)
 {
     register unsigned char* end_address = s1 + n;
@@ -415,6 +514,33 @@ int strcmp(const char *s1, const char *s2)
 size_t strcspn(const char *s1, const char *s2)
 {
     return strcspn_generic(s1, s2);
+}
+
+
+/******************************************************************************
+ *
+ * The strerror() function maps the error number in errnum to a
+ * locale-dependent error message string and returns a pointer to it.
+ * Typically, the values for errnum come from errno, but strerror() maps any
+ * value of type int to a message.
+ *
+ * The string pointed to shall not be modified by the application. The string
+ * may be overwritten by a subsequent call to strerror().
+ *
+ * If the value of errnum is a valid error number, the message string indicates
+ * what error occurred. Otherwise the return value will be set to NULL. The
+ * errno variable can be checked for EINVAL.
+ *
+ *****************************************************************************/
+char *strerror(int errnum)
+{
+    if (errnum < 0 || errnum > 131)
+    {
+        errno = EINVAL;
+        return 0;
+    }
+
+    return _errno_strings[errnum];
 }
 
 

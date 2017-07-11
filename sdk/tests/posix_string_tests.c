@@ -326,6 +326,182 @@ static void test_strcspn()
 }
 
 
+static void test_strerror()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for errno 0 is NULL", strsignal(0), 0);
+    ASSERT_EQUALS("strerror: Checking, if errno is unmodified on sccessfull calls", pre_errno, errno);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EPERM is correct",
+        strcmp(strerror(EPERM), "Operation not permitted"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENOENT is correct",
+        strcmp(strerror(ENOENT), "No such file or directory"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ESRCH is correct",
+        strcmp(strerror(ESRCH), "No such process"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EINTR is correct",
+        strcmp(strerror(EINTR), "Interrupted system call"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EIO is correct",
+        strcmp(strerror(EIO), "Input/output error"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENXIO is correct",
+        strcmp(strerror(ENXIO), "No such device or address"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for E2BIG is correct",
+        strcmp(strerror(E2BIG), "Argument list too long"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENOEXEC is correct",
+        strcmp(strerror(ENOEXEC), "Exec format error"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EBADF is correct",
+        strcmp(strerror(EBADF), "Bad file descriptor"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ECHILD is correct",
+        strcmp(strerror(ECHILD), "No child processes"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EAGAIN is correct",
+        strcmp(strerror(EAGAIN), "Resource temporarily unavailable"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EWOULDBLOCK is correct",
+        strcmp(strerror(EWOULDBLOCK), "Resource temporarily unavailable"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENOMEM is correct",
+        strcmp(strerror(ENOMEM), "Cannot allocate memory"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EACCES is correct",
+        strcmp(strerror(EACCES), "Permission denied"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EFAULT is correct",
+        strcmp(strerror(EFAULT), "Bad address"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EBUSY is correct",
+        strcmp(strerror(EBUSY), "Device or resource busy"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EEXIST is correct",
+        strcmp(strerror(EEXIST), "File exists"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EXDEV is correct",
+        strcmp(strerror(EXDEV), "Invalid cross-device link"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENODEV is correct",
+        strcmp(strerror(ENODEV), "No such device"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENOTDIR is correct",
+        strcmp(strerror(ENOTDIR), "Not a directory"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EISDIR is correct",
+        strcmp(strerror(EISDIR), "Is a directory"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EINVAL is correct",
+        strcmp(strerror(EINVAL), "Invalid argument"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENFILE is correct",
+        strcmp(strerror(ENFILE), "Too many open files in system"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EMFILE is correct",
+        strcmp(strerror(EMFILE), "Too many open files"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENOTTY is correct",
+        strcmp(strerror(ENOTTY), "Inappropriate ioctl for device"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ETXTBSY is correct",
+        strcmp(strerror(ETXTBSY), "Text file busy"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EFBIG is correct",
+        strcmp(strerror(EFBIG), "File too large"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENOSPC is correct",
+        strcmp(strerror(ENOSPC), "No space left on device"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ESPIPE is correct",
+        strcmp(strerror(ESPIPE), "Illegal seek"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EROFS is correct",
+        strcmp(strerror(EROFS), "Read-only file system"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EMLINK is correct",
+        strcmp(strerror(EMLINK), "Too many links"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EPIPE is correct",
+        strcmp(strerror(EPIPE), "Broken pipe"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EDOM is correct",
+        strcmp(strerror(EDOM), "Numerical argument out of domain"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ERANGE is correct",
+        strcmp(strerror(ERANGE), "Numerical result out of range"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EDEADLK is correct",
+        strcmp(strerror(EDEADLK), "Resource deadlock avoided"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENAMETOOLONG is correct",
+        strcmp(strerror(ENAMETOOLONG), "File name too long"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENOLCK is correct",
+        strcmp(strerror(ENOLCK), "No locks available"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENOSYS is correct",
+        strcmp(strerror(ENOSYS), "Function not implemented"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENOTEMPTY is correct",
+        strcmp(strerror(ENOTEMPTY), "Directory not empty"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ELOOP is correct",
+        strcmp(strerror(ELOOP), "Too many levels of symbolic links"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENOMSG is correct",
+        strcmp(strerror(ENOMSG), "No message of desired type"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EIDRM is correct",
+        strcmp(strerror(EIDRM), "Identifier removed"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENOSTR is correct",
+        strcmp(strerror(ENOSTR), "Device not a stream"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENODATA is correct",
+        strcmp(strerror(ENODATA), "No data available"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ETIME is correct",
+        strcmp(strerror(ETIME), "Timer expired"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENOSR is correct",
+        strcmp(strerror(ENOSR), "Out of streams resources"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENOLINK is correct",
+        strcmp(strerror(ENOLINK), "Link has been severed"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EPROTO is correct",
+        strcmp(strerror(EPROTO), "Protocol error"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EMULTIHOP is correct",
+        strcmp(strerror(EMULTIHOP), "Multihop attempted"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EBADMSG is correct",
+        strcmp(strerror(EBADMSG), "Bad message"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EOVERFLOW is correct",
+        strcmp(strerror(EOVERFLOW), "Value too large for defined data type"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EILSEQ is correct",
+        strcmp(strerror(EILSEQ), "Invalid or incomplete multibyte or wide character"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENOTSOCK is correct",
+        strcmp(strerror(ENOTSOCK), "Socket operation on non-socket"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EDESTADDRREQ is correct",
+        strcmp(strerror(EDESTADDRREQ), "Destination address required"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EMSGSIZE is correct",
+        strcmp(strerror(EMSGSIZE), "Message too long"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EPROTOTYPE is correct",
+        strcmp(strerror(EPROTOTYPE), "Protocol wrong type for socket"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENOPROTOOPT is correct",
+        strcmp(strerror(ENOPROTOOPT), "Protocol not available"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EPROTONOSUPPORT is correct",
+        strcmp(strerror(EPROTONOSUPPORT), "Protocol not supported"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENOTSUP is correct",
+        strcmp(strerror(ENOTSUP), "Operation not supported"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EOPNOTSUPP is correct",
+        strcmp(strerror(EOPNOTSUPP), "Operation not supported"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EAFNOSUPPORT is correct",
+        strcmp(strerror(EAFNOSUPPORT), "Address family not supported by protocol"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EADDRINUSE is correct",
+        strcmp(strerror(EADDRINUSE), "Address already in use"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EADDRNOTAVAIL is correct",
+        strcmp(strerror(EADDRNOTAVAIL), "Cannot assign requested address"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENETDOWN is correct",
+        strcmp(strerror(ENETDOWN), "Network is down"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENETUNREACH is correct",
+        strcmp(strerror(ENETUNREACH), "Network is unreachable"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENETRESET is correct",
+        strcmp(strerror(ENETRESET), "Network dropped connection on reset"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ECONNABORTED is correct",
+        strcmp(strerror(ECONNABORTED), "Software caused connection abort"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ECONNRESET is correct",
+        strcmp(strerror(ECONNRESET), "Connection reset by peer"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENOBUFS is correct",
+        strcmp(strerror(ENOBUFS), "No buffer space available"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EISCONN is correct",
+        strcmp(strerror(EISCONN), "Transport endpoint is already connected"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENOTCONN is correct",
+        strcmp(strerror(ENOTCONN), "Transport endpoint is not connected"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ETIMEDOUT is correct",
+        strcmp(strerror(ETIMEDOUT), "Connection timed out"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ECONNREFUSED is correct",
+        strcmp(strerror(ECONNREFUSED), "Connection refused"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EHOSTUNREACH is correct",
+        strcmp(strerror(EHOSTUNREACH), "No route to host"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EALREADY is correct",
+        strcmp(strerror(EALREADY), "Operation already in progress"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EINPROGRESS is correct",
+        strcmp(strerror(EINPROGRESS), "Operation now in progress"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ESTALE is correct",
+        strcmp(strerror(ESTALE), "Stale file handle"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EDQUOT is correct",
+        strcmp(strerror(EDQUOT), "Disk quota exceeded"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ECANCELED is correct",
+        strcmp(strerror(ECANCELED), "Operation canceled"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for EOWNERDEAD is correct",
+        strcmp(strerror(EOWNERDEAD), "Owner died"), 0);
+    ASSERT_EQUALS("strerror: Checking, if strerror return value for ENOTRECOVERABLE is correct",
+        strcmp(strerror(ENOTRECOVERABLE), "State not recoverable"), 0);
+
+
+    ASSERT_EQUALS("strerror: Checking, if negative errno results to return value NULL", strsignal(-1), 0);
+    ASSERT_EQUALS("strerror: Checking, if invalid errno results to return value NULL", strsignal(4711), 0);
+    ASSERT_EQUALS("strerror: Checking, if errno is set to EINVAL using invalid strerror value", errno, EINVAL);
+}
+
+
 static void test_strlen()
 {
     const int pre_errno = errno;
@@ -492,7 +668,8 @@ static void test_strsignal()
         strcmp(strsignal(SIGXCPU), "CPU time limit exceeded."), 0);
     ASSERT_EQUALS("strsignal: Checking, if strsignal return value for SIGXFSZ is correct",
         strcmp(strsignal(SIGXFSZ), "File size limit exceeded."), 0);
-    ASSERT_EQUALS("strsignal: Checking, if errno is unmodified on usccessfull calls", pre_errno, errno);
+    ASSERT_EQUALS("strsignal: Checking, if errno is unmodified on successfull calls", pre_errno, errno);
+    ASSERT_EQUALS("strsignal: Checking, if negative signum results to return value NULL", strsignal(-1), 0);
     ASSERT_EQUALS("strsignal: Checking, if invalid signum results to return value NULL", strsignal(4711), 0);
     ASSERT_EQUALS("strsignal: Checking, if errno is set to EINVAL using invalid signum value", errno, EINVAL);
 
@@ -516,6 +693,7 @@ void run_string_lib_tests()
     test_strcmp();
     test_strcpy();
     test_strcspn();
+    test_strerror();
     test_strlen();
     test_strncmp();
     test_strncpy();

@@ -53,7 +53,7 @@ static clock_t end;
 #define _skip() print_result("[ SKIP ]\n", WARN)
 
 #define TEST_SUITE_INIT() begin = clock(); prepare_console_info(); SCREEN_OUTPUT("Tatsu Test Framework - TDK Version %d.%d.%d\n", TDK_MAJOR_VERSION, TDK_MINOR_VERSION, TDK_PATCH_LEVEL);
-#define TEST_SUITE_END() end = clock(); SCREEN_OUTPUT("\n\nExecuted %d test steps in %f seconds\n\n", step_counter(), (double)(end - begin) / CLOCKS_PER_SEC); SCREEN_OUTPUT("Tests passed : %d\nTests skipped: %d\nTests failed : %d\nTest errors  : %d\n\n", step_counter(), skip_counter(), fail_counter(), 0);
+#define TEST_SUITE_END() end = clock(); SCREEN_OUTPUT("\n\nExecuted %d test steps in %f seconds\n\n", step_counter(), (double)(end - begin) / CLOCKS_PER_SEC); SCREEN_OUTPUT("Tests passed : %d\nTests skipped: %d\nTests failed : %d\nTest errors  : %d\n\n", pass_counter(), skip_counter(), fail_counter(), 0);
 
 #define TEST_CASE(name) SCREEN_OUTPUT("\nRunning Test Case: %s\n", name);
 
