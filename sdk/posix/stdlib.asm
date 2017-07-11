@@ -22,17 +22,25 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
+; Code section
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[section .text]
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
 ; This is the entry point of the x64 asm version of abs. It can be executed on
 ; any x86_64 cpu.
 ;
 ; Input registers:
 ;
-;  - edi...
+;  - eax must contain the input value for calculation
 ;
 ;
 ; Return values:
 ;
-;  - The return value (difference of code points) will be stored in rax
+;  - The return value will be stored in rax
 ;
 ;
 ; Affected / trashed registers:
@@ -52,22 +60,22 @@ abs_entry:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
-; This is the entry point of the x64 asm version of abs. It can be executed on
+; This is the entry point of the x64 asm version of (l)labs. It can be executed on
 ; any x86_64 cpu.
 ;
 ; Input registers:
 ;
-;  - edi...
+;  - rax must contain the input value for calculation
 ;
 ;
 ; Return values:
 ;
-;  - The return value (difference of code points) will be stored in rax
+;  - The return value will be stored in rax
 ;
 ;
 ; Affected / trashed registers:
 ;
-;  This routine uses (and modifies!) the registers: eax and edx. Don't store
+;  This routine uses (and modifies!) the registers: rax and rdx. Don't store
 ;  data in these registers you need to rely on later.
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
