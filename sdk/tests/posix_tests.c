@@ -1,3 +1,4 @@
+#include "posix_arpa_inet_tests.h"
 #include "posix_ctype_tests.h"
 #include "posix_errno_tests.h"
 #include "posix_math_tests.h"
@@ -8,6 +9,9 @@
 
 void run_posix_tests()
 {
+    // Check all functions of ctype.h
+    run_posix_arpa_inet_tests();
+
     // Check all functions of ctype.h
     run_posix_ctype_tests();
 

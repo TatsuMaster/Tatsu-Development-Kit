@@ -5,9 +5,18 @@
 #include "../../ttf/ttf.h"
 
 
+static void test_acos()
+{
+
+}
+
+
 void run_math_lib_tests()
 {
-    double x = -1.0;
+    TEST_CASE("Test POSIX math.h functions");
+
+    test_acos();
+    /*double x = -1.0;
     float  y = -1.0;
     long double z = -1.0;
 
@@ -35,5 +44,5 @@ void run_math_lib_tests()
         z += 0.1;
     }
 
-    printf("\n\nlong double: %ld", sizeof(long double));
+    printf("\n\nlong double: %ld", sizeof(long double));*/
 }

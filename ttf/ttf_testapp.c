@@ -30,6 +30,9 @@ int main(int argc, char* argv[])
     ASSERT_GREATER_EQUAL("ASSERT_GREATER_EQUAL Self Test (II)", 32768, 32768);
     ASSERT_LESS_EQUAL("ASSERT_LESS_EQUAL Self Test (I)", 1024, 32768);
     ASSERT_LESS_EQUAL("ASSERT_LESS_EQUAL Self Test (II)", 1024, 1024);
+    ASSERT_IN_RANGE("ASSERT_IN_RANGE Self TEST (I)", 1, 1, 3);
+    ASSERT_IN_RANGE("ASSERT_IN_RANGE Self TEST (II)", 2, 1, 3);
+    ASSERT_IN_RANGE("ASSERT_IN_RANGE Self TEST (III)", 3, 1, 3);
 
     //
     // Fail test

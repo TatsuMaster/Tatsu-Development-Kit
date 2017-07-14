@@ -72,6 +72,8 @@ static clock_t end;
 #define ASSERT_GREATER_EQUAL(ts_name, value, other) _display_ts_name(ts_name); step_increment(); _eval_condition(value >= other)
 #define ASSERT_LESS_EQUAL(ts_name, value, other) _display_ts_name(ts_name); step_increment(); _eval_condition(value <= other)
 
+#define ASSERT_IN_RANGE(ts_name, value, lower_limit, upper_limit) _display_ts_name(ts_name); step_increment(); _eval_condition(value >= lower_limit && value <= upper_limit)
+
 #define ASSERT_TYPE_SIZE(ts_name, type, size) ASSERT_EQUALS(ts_name, sizeof(type), size)
 
 #define SKIP_TEST(ts_name) _display_ts_name(ts_name); skip_increment(); _skip();
