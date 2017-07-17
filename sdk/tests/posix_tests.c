@@ -1,6 +1,7 @@
 #include "posix_arpa_inet_tests.h"
 #include "posix_ctype_tests.h"
 #include "posix_errno_tests.h"
+#include "posix_fenv_tests.h"
 #include "posix_math_tests.h"
 #include "posix_signal_tests.h"
 #include "posix_stdlib_tests.h"
@@ -17,6 +18,9 @@ void run_posix_tests()
 
     // Check errno definitions
     run_posix_errno_tests();
+
+    // Check fenv functions
+    run_fenv_tests();
 
     // Check signal definitions
     run_posix_signal_tests();

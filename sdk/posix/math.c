@@ -73,7 +73,6 @@ static inline long double acosl_generic(long double x)
 /*
 * TODO: - Range check
 * TODO: - Exception setzen, Error values etc.
-* TODO: - TTF erweitern
 */
 double acos(double x)
 {

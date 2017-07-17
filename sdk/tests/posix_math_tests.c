@@ -15,6 +15,8 @@ void run_math_lib_tests()
 {
     TEST_CASE("Test POSIX math.h functions");
 
+    // Check definitions!
+
     test_acos();
     /*double x = -1.0;
     float  y = -1.0;
