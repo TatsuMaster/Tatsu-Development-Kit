@@ -1,5 +1,8 @@
 #include "math.h"
 
+#include "errno.h"
+#include "fenv.h"
+
 
 /******************************************************************************
  *
@@ -21,7 +24,7 @@ const double acos_generic_d = 0.295624144969963174;
 
 
 
-//#ifndef __x86_64__
+#ifndef __x86_64__
 static inline double acos_generic(double x)
 {
     const double a = acos_generic_a;
@@ -32,10 +35,10 @@ static inline double acos_generic(double x)
     // acos(x) ~ PI/2 + (ax + bx^3) / (1 + cx^2 + dx^4)
     return M_PI_2 + ((a * x) + (b * (x * x * x))) / (1 + (c * (x * x)) + (d * (x * x * x * x)));
 }
-//#endif
+#endif
 
 
-//#ifndef __x86_64__
+#ifndef __x86_64__
 static inline float acosf_generic(float x)
 {
     const double a = acos_generic_a;
@@ -46,10 +49,10 @@ static inline float acosf_generic(float x)
     // acos(x) ~ PI/2 + (ax + bx^3) / (1 + cx^2 + dx^4)
     return M_PI_2 + ((a * x) + (b * (x * x * x))) / (1 + (c * (x * x)) + (d * (x * x * x * x)));
 }
-//#endif
+#endif
 
 
-//#ifndef __x86_64__
+#ifndef __x86_64__
 static inline long double acosl_generic(long double x)
 {
     const long double a = acos_generic_a;
@@ -60,7 +63,7 @@ static inline long double acosl_generic(long double x)
     // acos(x) ~ PI/2 + (ax + bx^3) / (1 + cx^2 + dx^4)
     return M_PI_2 + ((a * x) + (b * (x * x * x))) / (1 + (c * (x * x)) + (d * (x * x * x * x)));
 }
-//#endif
+#endif
 
 
 /******************************************************************************
@@ -70,48 +73,127 @@ static inline long double acosl_generic(long double x)
  *****************************************************************************/
 
 
-/*
-* TODO: - Range check
-* TODO: - Exception setzen, Error values etc.
-*/
+/******************************************************************************
+ *
+ * The functions computes the principal value of the arc cosine of its argument
+ * x. The value of x should be in the range [−1,1].
+ *
+ * An application wishing to check for error situations should set errno to zero
+ * and call feclearexcept(FE_ALL_EXCEPT) before calling this function. On
+ * return, if errno is non-zero or
+ * fetestexcept(FE_INVALID | FE_DIVBYZERO | FE_OVERFLOW | FE_UNDERFLOW) is
+ * nonzero, an error has occurred.
+ *
+ * Upon successful completion, this function returns the arc cosine of x, in
+ * the range [0,M_PI] radians.
+ *
+ *****************************************************************************/
 double acos(double x)
 {
-/*#ifdef __x86_64__
+    if (x < -1.0)
+    {
+        feraiseexcept(FE_INVALID | FE_UNDERFLOW);
+        errno = ERANGE;
+        return x;
+    }
+    else if (x > 1.0)
+    {
+        feraiseexcept(FE_INVALID | FE_OVERFLOW);
+        errno = ERANGE;
+        return x;
+    }
+
+#ifdef __x86_64__
     __asm__ __volatile__("\t movq %0, %%xmm0" : : "g" (x));
     acos_fpu_dp_entry();
     __asm__ __volatile__("\t movq %%xmm0, %0" : "=r"(x));
 
     return x;
-#else*/
+#else
     return acos_generic(x);
-//#endif
+#endif
 }
 
 
-/*
-*/
+/******************************************************************************
+ *
+ * The functions computes the principal value of the arc cosine of its argument
+ * x. The value of x should be in the range [−1,1].
+ *
+ * An application wishing to check for error situations should set errno to zero
+ * and call feclearexcept(FE_ALL_EXCEPT) before calling this function. On
+ * return, if errno is non-zero or
+ * fetestexcept(FE_INVALID | FE_DIVBYZERO | FE_OVERFLOW | FE_UNDERFLOW) is
+ * nonzero, an error has occurred.
+ *
+ * Upon successful completion, this function returns the arc cosine of x, in
+ * the range [0,M_PI] radians.
+ *
+ *****************************************************************************/
 float acosf(float x)
 {
-/*#ifdef __x86_64__
+    if (x < -1.0)
+    {
+        feraiseexcept(FE_INVALID | FE_UNDERFLOW);
+        errno = ERANGE;
+        return x;
+    }
+    else if (x > 1.0)
+    {
+        feraiseexcept(FE_INVALID | FE_OVERFLOW);
+        errno = ERANGE;
+        return x;
+    }
+
+#ifdef __x86_64__
     __asm__ __volatile__("\t mov %0, %%edx" : : "g" (x));
     acos_fpu_sp_entry();
     __asm__ __volatile__("\t mov %%edx, %0" : "=r"(x));
 
     return x;
-#else*/
+#else
     return acosf_generic(x);
-//#endif
+#endif
 }
 
 
-/*
-*/
+/******************************************************************************
+ *
+ * The functions computes the principal value of the arc cosine of its argument
+ * x. The value of x should be in the range [−1,1].
+ *
+ * An application wishing to check for error situations should set errno to zero
+ * and call feclearexcept(FE_ALL_EXCEPT) before calling this function. On
+ * return, if errno is non-zero or
+ * fetestexcept(FE_INVALID | FE_DIVBYZERO | FE_OVERFLOW | FE_UNDERFLOW) is
+ * nonzero, an error has occurred.
+ *
+ * Upon successful completion, this function returns the arc cosine of x, in
+ * the range [0,M_PI] radians.
+ *
+ *****************************************************************************/
 long double acosl(long double x)
 {
-/*#ifdef __x86_64__
+    if (x < -1.0)
+    {
+        feraiseexcept(FE_INVALID | FE_UNDERFLOW);
+        errno = ERANGE;
+        return x;
+    }
+    else if (x > 1.0)
+    {
+        feraiseexcept(FE_INVALID | FE_OVERFLOW);
+        errno = ERANGE;
+        return x;
+    }
+
+#ifdef __x86_64__
+    __asm__ __volatile__("\t movdqu %0, %%xmm0" : : "g" (x));
     acos_fpu_ep_entry();
+    __asm__ __volatile__("\t movdqu %%xmm0, %0" : "=m"(x));
+
     return x;
-#else*/
+#else
     return acosl_generic(x);
-//#endif
+#endif
 }

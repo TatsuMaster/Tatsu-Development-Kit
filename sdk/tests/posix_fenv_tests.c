@@ -23,6 +23,7 @@ static void test_definitions()
 static void test_feclearexcept()
 {
     const int pre_errno = errno;
+
     ASSERT_EQUALS("feclearexcept: Checking, if feclearexcept(FE_UNDERFLOW | FE_DIVBYZERO) returns 0, if no exceptions occurred", feclearexcept(FE_UNDERFLOW | FE_DIVBYZERO), 0);
     feraiseexcept(FE_UNDERFLOW | FE_DIVBYZERO);
     ASSERT_EQUALS("feclearexcept: Checking, if feclearexcept() removes all specified exceptions (I)", feclearexcept(FE_DIVBYZERO), 0);
@@ -35,6 +36,7 @@ static void test_feclearexcept()
 static void test_fetestexcept()
 {
     const int pre_errno = errno;
+
     ASSERT_EQUALS("fetestexcept: Checking, if fetestexcept(FE_UNDERFLOW | FE_DIVBYZERO) returns 0, if exceptions did not occur", fetestexcept(FE_UNDERFLOW | FE_DIVBYZERO), 0);
     feraiseexcept(FE_DIVBYZERO);
     ASSERT_EQUALS("fetestexcept: Checking, if fetestexcept(FE_UNDERFLOW | FE_DIVBYZERO) returns the values, if exceptions did occur (I)", fetestexcept(FE_UNDERFLOW | FE_DIVBYZERO), (FE_DIVBYZERO));
@@ -49,6 +51,7 @@ static void test_fetestexcept()
 static void test_feraiseexcept()
 {
     const int pre_errno = errno;
+    
     ASSERT_EQUALS("feraiseexcept: Checking, if feraiseexcept(FE_UNDERFLOW | FE_DIVBYZERO) returns 0", feraiseexcept(FE_UNDERFLOW | FE_DIVBYZERO), 0);
     ASSERT_EQUALS("feraiseexcept: Checking, if feraiseexcept(FE_UNDERFLOW | FE_DIVBYZERO) sets the exception values", fetestexcept(FE_UNDERFLOW | FE_DIVBYZERO), (FE_UNDERFLOW | FE_DIVBYZERO));
     ASSERT_EQUALS("feraiseexcept: Checking, if feraiseexcept(FE_UNDERFLOW | FE_DIVBYZERO) sets no other exception values", fetestexcept(FE_INEXACT | FE_INVALID | FE_OVERFLOW | FE_DOWNWARD | FE_TONEAREST | FE_TOWARDZERO | FE_UPWARD), 0);
