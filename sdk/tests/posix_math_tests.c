@@ -135,6 +135,172 @@ static void test_acosl()
 }
 
 
+static void test_ceil()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("ceil: Checking, if ceil(0.5) returns 1.0", ceil(0.5), 1.0);
+    ASSERT_EQUALS("ceil: Checking, if ceil(1.5) returns 2.0", ceil(1.5), 2.0);
+    ASSERT_EQUALS("ceil: Checking, if ceil(1.6) returns 2.0", ceil(1.6), 2.0);
+    ASSERT_EQUALS("ceil: Checking, if ceil(0.4) returns 1.0", ceil(0.4), 1.0);
+    ASSERT_EQUALS("ceil: Checking, if ceil(17.13339) returns 18.0", ceil(17.13339), 18.0);
+    ASSERT_EQUALS("ceil: Checking, if ceil(17.93339) returns 18.0", ceil(17.93339), 18.0);
+    ASSERT_EQUALS("ceil: Checking, if ceil(-0.5) returns -0.0", ceil(-0.5), -0.0);
+    ASSERT_EQUALS("ceil: Checking, if ceil(-1.5) returns -1.0", ceil(-1.5), -1.0);
+    ASSERT_EQUALS("ceil: Checking, if ceil(-1.6) returns -1.0", ceil(-1.6), -1.0);
+    ASSERT_EQUALS("ceil: Checking, if ceil(-0.4) returns -0.0", ceil(-0.4), -0.0);
+    ASSERT_EQUALS("ceil: Checking, if ceil(-17.13339) returns -17.0", ceil(-17.13339), -17.0);
+    ASSERT_EQUALS("ceil: Checking, if ceil(-17.93339) returns -17.0", ceil(-17.93339), -17.0);
+    ASSERT_EQUALS("ceil: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_ceilf()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("ceilf: Checking, if ceilf(0.5f) returns 1.0f", ceilf(0.5f), 1.0f);
+    ASSERT_EQUALS("ceilf: Checking, if ceilf(1.5f) returns 2.0f", ceilf(1.5f), 2.0f);
+    ASSERT_EQUALS("ceilf: Checking, if ceilf(1.6f) returns 2.0f", ceilf(1.6f), 2.0f);
+    ASSERT_EQUALS("ceilf: Checking, if ceilf(0.4f) returns 1.0f", ceilf(0.4f), 1.0f);
+    ASSERT_EQUALS("ceilf: Checking, if ceilf(17.13339f) returns 18.0f", ceilf(17.13339f), 18.0f);
+    ASSERT_EQUALS("ceilf: Checking, if ceilf(17.93339f) returns 18.0f", ceilf(17.93339f), 18.0f);
+    ASSERT_EQUALS("ceilf: Checking, if ceilf(-0.5f) returns -0.0f", ceilf(-0.5f), -0.0f);
+    ASSERT_EQUALS("ceilf: Checking, if ceilf(-1.5f) returns -1.0f", ceilf(-1.5f), -1.0f);
+    ASSERT_EQUALS("ceilf: Checking, if ceilf(-1.6f) returns -1.0f", ceilf(-1.6f), -1.0f);
+    ASSERT_EQUALS("ceilf: Checking, if ceilf(-0.4f) returns -0.0f", ceilf(-0.4f), -0.0f);
+    ASSERT_EQUALS("ceilf: Checking, if ceilf(-17.13339f) returns -17.0f", ceilf(-17.13339f), -17.0f);
+    ASSERT_EQUALS("ceilf: Checking, if ceilf(-17.93339f) returns -17.0f", ceilf(-17.93339f), -17.0f);
+    ASSERT_EQUALS("ceilf: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_ceill()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("ceill: Checking, if ceill(0.5) returns 1.0", ceill(0.5), 1.0);
+    ASSERT_EQUALS("ceill: Checking, if ceill(1.5) returns 2.0", ceill(1.5), 2.0);
+    ASSERT_EQUALS("ceill: Checking, if ceill(1.6) returns 2.0", ceill(1.6), 2.0);
+    ASSERT_EQUALS("ceill: Checking, if ceill(0.4) returns 1.0", ceill(0.4), 1.0);
+    ASSERT_EQUALS("ceill: Checking, if ceill(17.13339) returns 18.0", ceill(17.13339), 18.0);
+    ASSERT_EQUALS("ceill: Checking, if ceill(17.93339) returns 18.0", ceill(17.93339), 18.0);
+    ASSERT_EQUALS("ceill: Checking, if ceill(-0.5) returns -0.0", ceill(-0.5), -0.0);
+    ASSERT_EQUALS("ceill: Checking, if ceill(-1.5) returns -1.0", ceill(-1.5), -1.0);
+    ASSERT_EQUALS("ceill: Checking, if ceill(-1.6) returns -1.0", ceill(-1.6), -1.0);
+    ASSERT_EQUALS("ceill: Checking, if ceill(-0.4) returns -0.0", ceill(-0.4), -0.0);
+    ASSERT_EQUALS("ceill: Checking, if ceill(-17.13339) returns -17.0", ceill(-17.13339), -17.0);
+    ASSERT_EQUALS("ceill: Checking, if ceill(-17.93339) returns -17.0", ceill(-17.93339), -17.0);
+    ASSERT_EQUALS("ceill: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_fabs()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("fabs: Checking, if fabs(0.0) returns 0.0", fabs(0.0), 0.0);
+    ASSERT_EQUALS("fabs: Checking, if fabs(1.0) returns 1.0", fabs(1.0), 1.0);
+    ASSERT_EQUALS("fabs: Checking, if fabs(-1.0) returns 1.0", fabs(-1.0), 1.0);
+    ASSERT_EQUALS("fabs: Checking, if fabs(47.11) returns 47.11", fabs(47.11), 47.11);
+    ASSERT_EQUALS("fabs: Checking, if fabs(-47.11) returns 47.11", fabs(-47.11), 47.11);
+    ASSERT_EQUALS("fabs: Checking, if fabs(128.256) returns 128.256", fabs(128.256), 128.256);
+    ASSERT_EQUALS("fabs: Checking, if fabs(-128.256) returns 128.256", fabs(-128.256), 128.256);
+    ASSERT_EQUALS("fabs: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_fabsf()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("fabs: Checking, if fabsf(0.0f) returns 0.0f", fabsf(0.0f), 0.0f);
+    ASSERT_EQUALS("fabs: Checking, if fabsf(1.0f) returns 1.0f", fabsf(1.0f), 1.0f);
+    ASSERT_EQUALS("fabs: Checking, if fabsf(-1.0f) returns 1.0f", fabsf(-1.0f), 1.0f);
+    ASSERT_EQUALS("fabs: Checking, if fabsf(47.11f) returns 47.11f", fabsf(47.11f), 47.11f);
+    ASSERT_EQUALS("fabs: Checking, if fabsf(-47.11f) returns 47.11f", fabsf(-47.11f), 47.11f);
+    ASSERT_EQUALS("fabs: Checking, if fabsf(128.256f) returns 128.256f", fabsf(128.256f), 128.256f);
+    ASSERT_EQUALS("fabs: Checking, if fabsf(-128.256f) returns 128.256f", fabsf(-128.256f), 128.256f);
+    ASSERT_EQUALS("labs: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_fabsl()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("fabsl: Checking, if fabsl(0.0) returns 0.0", fabsl(0.0), 0.0);
+    ASSERT_EQUALS("fabsl: Checking, if fabsl(1.0) returns 1.0", fabsl(1.0), 1.0);
+    ASSERT_EQUALS("fabsl: Checking, if fabsl(-1.0) returns 1.0", fabsl(-1.0), 1.0);
+    ASSERT_EQUALS("fabsl: Checking, if fabsl(47.11) returns 47.11", fabsl(47.11), 47.11);
+    ASSERT_EQUALS("fabsl: Checking, if fabsl(-47.11) returns 47.11", fabsl(-47.11), 47.11);
+    ASSERT_EQUALS("fabsl: Checking, if fabsl(128.256) returns 128.256", fabsl(128.256), 128.256);
+    ASSERT_EQUALS("fabsl: Checking, if fabsl(-128.256) returns 128.256", fabsl(-128.256), 128.256);
+    ASSERT_EQUALS("fabsl: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_floor()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("floor: Checking, if floor(0.5) returns 0.0", floor(0.5), 0.0);
+    ASSERT_EQUALS("floor: Checking, if floor(1.5) returns 1.0", floor(1.5), 1.0);
+    ASSERT_EQUALS("floor: Checking, if floor(1.6) returns 1.0", floor(1.6), 1.0);
+    ASSERT_EQUALS("floor: Checking, if floor(0.4) returns 0.0", floor(0.4), 0.0);
+    ASSERT_EQUALS("floor: Checking, if floor(17.13339) returns 17.0", floor(17.13339), 17.0);
+    ASSERT_EQUALS("floor: Checking, if floor(17.93339) returns 17.0", floor(17.93339), 17.0);
+    ASSERT_EQUALS("floor: Checking, if floor(-0.5) returns -1.0", floor(-0.5), -1.0);
+    ASSERT_EQUALS("floor: Checking, if floor(-1.5) returns -2.0", floor(-1.5), -2.0);
+    ASSERT_EQUALS("floor: Checking, if floor(-1.6) returns -2.0", floor(-1.6), -2.0);
+    ASSERT_EQUALS("floor: Checking, if floor(-0.4) returns -1.0", floor(-0.4), -1.0);
+    ASSERT_EQUALS("floor: Checking, if floor(-17.13339) returns -18.0", floor(-17.13339), -18.0);
+    ASSERT_EQUALS("floor: Checking, if floor(-17.93339) returns -18.0", floor(-17.93339), -18.0);
+    ASSERT_EQUALS("floor: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_floorf()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("floorf: Checking, if floorf(0.5f) returns 0.0f", floorf(0.5f), 0.0f);
+    ASSERT_EQUALS("floorf: Checking, if floorf(1.5f) returns 1.0f", floorf(1.5f), 1.0f);
+    ASSERT_EQUALS("floorf: Checking, if floorf(1.6f) returns 1.0f", floorf(1.6f), 1.0f);
+    ASSERT_EQUALS("floorf: Checking, if floorf(0.4f) returns 0.0f", floorf(0.4f), 0.0f);
+    ASSERT_EQUALS("floorf: Checking, if floorf(17.13339f) returns 17.0f", floorf(17.13339f), 17.0f);
+    ASSERT_EQUALS("floorf: Checking, if floorf(17.93339f) returns 17.0f", floorf(17.93339f), 17.0f);
+    ASSERT_EQUALS("floorf: Checking, if floorf(-0.5f) returns -1.0f", floorf(-0.5f), -1.0f);
+    ASSERT_EQUALS("floorf: Checking, if floorf(-1.5f) returns -2.0f", floorf(-1.5f), -2.0f);
+    ASSERT_EQUALS("floorf: Checking, if floorf(-1.6f) returns -2.0f", floorf(-1.6f), -2.0f);
+    ASSERT_EQUALS("floorf: Checking, if floorf(-0.4f) returns -1.0f", floorf(-0.4f), -1.0f);
+    ASSERT_EQUALS("floorf: Checking, if floorf(-17.13339f) returns -18.0f", floorf(-17.13339f), -18.0f);
+    ASSERT_EQUALS("floorf: Checking, if floorf(-17.93339f) returns -18.0f", floorf(-17.93339f), -18.0f);
+    ASSERT_EQUALS("floorf: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_floorl()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("floorl: Checking, if floorl(0.5) returns 0.0", floorl(0.5), 0.0);
+    ASSERT_EQUALS("floorl: Checking, if floorl(1.5) returns 1.0", floorl(1.5), 1.0);
+    ASSERT_EQUALS("floorl: Checking, if floorl(1.6) returns 1.0", floorl(1.6), 1.0);
+    ASSERT_EQUALS("floorl: Checking, if floorl(0.4) returns 0.0", floorl(0.4), 0.0);
+    ASSERT_EQUALS("floorl: Checking, if floorl(17.13339) returns 17.0", floorl(17.13339), 17.0);
+    ASSERT_EQUALS("floorl: Checking, if floorl(17.93339) returns 17.0", floorl(17.93339), 17.0);
+    ASSERT_EQUALS("floorl: Checking, if floorl(-0.5) returns -1.0", floorl(-0.5), -1.0);
+    ASSERT_EQUALS("floorl: Checking, if floorl(-1.5) returns -2.0", floorl(-1.5), -2.0);
+    ASSERT_EQUALS("floorl: Checking, if floorl(-1.6) returns -2.0", floorl(-1.6), -2.0);
+    ASSERT_EQUALS("floorl: Checking, if floorl(-0.4) returns -1.0", floorl(-0.4), -1.0);
+    ASSERT_EQUALS("floorl: Checking, if floorl(-17.13339) returns -18.0", floorl(-17.13339), -18.0);
+    ASSERT_EQUALS("floorl: Checking, if floorl(-17.93339) returns -18.0", floorl(-17.93339), -18.0);
+    ASSERT_EQUALS("floorl: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+// Check all functions of math.h
 void run_math_lib_tests()
 {
     TEST_CASE("Test POSIX math.h functions");
@@ -143,4 +309,26 @@ void run_math_lib_tests()
     test_acos();
     test_acosf();
     test_acosl();
+
+    test_ceil();
+    test_ceilf();
+    test_ceill();
+
+    test_fabs();
+    test_fabsf();
+    test_fabsl();
+
+    test_floor();
+    test_floorf();
+    test_floorl();
+
+    printf("\n\n");
+    printf("sin(-(3 * M_PI_2)) = %f\n", sin(-(3 * M_PI_2)));
+    printf("sin(-M_PI) = %f\n", sin(-M_PI));
+    printf("sin(-M_PI_2) = %f\n", sin(-M_PI_2));
+    printf("sin(0) = %f\n", sin(0));
+    printf("sin(M_PI_2) = %f\n", sin(M_PI_2));
+    printf("sin(M_PI) = %f\n", sin(M_PI));
+    printf("sin(3 * M_PI_2) = %f\n", sin(3 * M_PI_2));
+    printf("\n\n");
 }

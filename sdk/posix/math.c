@@ -23,6 +23,11 @@ const double acos_generic_d = 0.295624144969963174;
 #endif
 
 
+static inline double sin_generic(double x);
+static inline float sinf_generic(float x);
+static inline long double sinl_generic(long double x);
+
+
 
 #ifndef __x86_64__
 static inline double acos_generic(double x)
@@ -64,6 +69,71 @@ static inline long double acosl_generic(long double x)
     return M_PI_2 + ((a * x) + (b * (x * x * x))) / (1 + (c * (x * x)) + (d * (x * x * x * x)));
 }
 #endif
+
+
+static inline double cos_generic(double x)
+{
+    return sin_generic(x + M_PI_2);
+}
+
+
+static inline float cosf_generic(float x)
+{
+    return sinf_generic(x + M_PI_2);
+}
+
+
+static inline long double cosl_generic(long double x)
+{
+    return sinl_generic(x + M_PI_2);
+}
+
+
+// Algorithm inspired by: http://forum.devmaster.net/t/fast-and-accurate-sine-cosine/9648
+static inline double sin_generic(double x)
+{
+    const double B = 4 / M_PI;
+    const double C = -4 / (M_PI * M_PI);
+    const double P = 0.225;
+    const double Q = 0.775;
+
+
+
+    double y = B * x + C * x * fabs(x);
+
+    return Q * y + P * y * fabs(y);
+    //return P * (y * fabs(y) - y) + y;
+}
+
+
+// Algorithm inspired by: http://forum.devmaster.net/t/fast-and-accurate-sine-cosine/9648
+static inline float sinf_generic(float x)
+{
+    const float B = 4 / M_PI;
+    const float C = -4 / (M_PI * M_PI);
+    const float P = 0.225f;
+
+    //x = -M_PI / 
+
+    float y = B * x + C * x * fabsf(x);
+
+    // P * y + P * y * abs(y)
+    return P * (y * fabsf(y) - y) + y;
+}
+
+
+// Algorithm inspired by: http://forum.devmaster.net/t/fast-and-accurate-sine-cosine/9648
+static inline long double sinl_generic(long double x)
+{
+    const long double B = 4 / M_PI;
+    const long double C = -4 / (M_PI * M_PI);
+    const long double P = 0.225;
+
+    long double y = B * x + C * x * fabsl(x);
+
+    // P * y + P * y * abs(y)
+    return P * (y * fabsl(y) - y) + y;
+}
 
 
 /******************************************************************************
@@ -196,4 +266,202 @@ long double acosl(long double x)
 #else
     return acosl_generic(x);
 #endif
+}
+
+
+/******************************************************************************
+ *
+ * The ceil() function computes the smallest integral value not less than x.
+ * Upon successful completion, this function returns the smallest integral
+ * value not less than x, expressed as a double as appropriate for the return
+ * type of the function.
+ *
+ ******************************************************************************/
+double ceil(double x)
+{
+    return -floor(-x);
+}
+
+
+/******************************************************************************
+ *
+ * The ceilf() function computes the smallest integral value not less than x.
+ * Upon successful completion, this function returns the smallest integral
+ * value not less than x, expressed as a float as appropriate for the return
+ * type of the function.
+ *
+ ******************************************************************************/
+float ceilf(float x)
+{
+    return -floorf(-x);
+}
+
+
+/******************************************************************************
+ *
+ * The ceill() function computes the smallest integral value not less than x.
+ * Upon successful completion, this function returns the smallest integral
+ * value not less than x, expressed as a long double as appropriate for the
+ * return type of the function.
+ *
+ ******************************************************************************/
+long double ceill(long double x)
+{
+    return -floorl(-x);
+}
+
+
+/*
+* TBD
+*/
+double cos(double x)
+{
+    return cos_generic(x);
+}
+
+
+/*
+* TBD
+*/
+float cosf(float x)
+{
+    return cosf_generic(x);
+}
+
+
+/*
+* TBD
+*/
+long double cosl(long double x)
+{
+    return cosl_generic(x);
+}
+
+
+/******************************************************************************
+ *
+ * The fabs() function computes the absolute value of their argument x, |x|.
+ * It returns the absolute value of its double operand.
+ *
+ ******************************************************************************/
+double fabs(double x)
+{
+#ifdef __x86_64__
+    __asm__ __volatile__("fldl %0;"
+                         "fabs;"
+                         "fstpl %0" : "+m"(x));
+    return x;
+#else
+    return (x >= 0) ? x : -x;
+#endif
+}
+
+
+/******************************************************************************
+ *
+ * The fabsf() function computes the absolute value of their argument x, |x|.
+ * It returns the absolute value of its double operand.
+ *
+ ******************************************************************************/
+float fabsf(float x)
+{
+#ifdef __x86_64__
+    __asm__ __volatile__("flds %0;"
+                         "fabs;"
+                         "fstps %0" : "+m"(x));
+    return x;
+#else
+    return (x >= 0) ? x : -x;
+#endif
+}
+
+
+/******************************************************************************
+ *
+ * The fabsl() function computes the absolute value of their argument x, |x|.
+ * It returns the absolute value of its double operand.
+ *
+ ******************************************************************************/
+long double fabsl(long double x)
+{
+#ifdef __x86_64__
+    __asm__ __volatile__("fldt %0;"
+                         "fabs;"
+                         "fstpt %0" : "+m"(x));
+    return x;
+#else
+    return (x >= 0) ? x : -x;
+#endif
+}
+
+
+/******************************************************************************
+ *
+ * The floor() function computes the largest integral value not greater than x.
+ * Upon successful completion, this function returns the largest integral value
+ * not greater than x, expressed as a double as appropriate for the return type
+ * of the function.
+ *
+ ******************************************************************************/
+double floor(double x)
+{
+    int xi = (int)x;
+    return x < xi ? xi - 1 : xi;
+}
+
+
+/******************************************************************************
+ *
+ * The floorf() function computes the largest integral value not greater than x.
+ * Upon successful completion, this function returns the largest integral value
+ * not greater than x, expressed as a float as appropriate for the return type
+ * of the function.
+ *
+ ******************************************************************************/
+float floorf(float x)
+{
+    int xi = (int)x;
+    return x < xi ? xi - 1 : xi;
+}
+
+
+/******************************************************************************
+ *
+ * The floorl() function computes the largest integral value not greater than x.
+ * Upon successful completion, this function returns the largest integral value
+ * not greater than x, expressed as a long double as appropriate for the return
+ * type of the function.
+ *
+ ******************************************************************************/
+long double floorl(long double x)
+{
+    int xi = (int)x;
+    return x < xi ? xi - 1 : xi;
+}
+
+
+/*
+* TBD
+*/
+double sin(double x)
+{
+    return sin_generic(x);
+}
+
+
+/*
+* TBD
+*/
+float sinf(float x)
+{
+    return sinf_generic(x);
+}
+
+
+/*
+* TBD
+*/
+long double sinl(long double x)
+{
+    return sinl_generic(x);
 }

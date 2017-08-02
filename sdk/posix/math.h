@@ -21,4 +21,24 @@ double acos(double x);
 float acosf(float x);
 long double acosl(long double x);
 
+double ceil(double x);
+float ceilf(float x);
+long double ceill(long double x);
+
+double cos(double x);
+float cosf(float x);
+long double cosl(long double x);
+
+double fabs(double x);
+float fabsf(float x);
+long double fabsl(long double x);
+
+double floor(double x);
+float floorf(float x);
+long double floorl(long double x);
+
+double sin(double x);
+float sinf(float x);
+long double sinl(long double x);
+
 #endif
