@@ -37,6 +37,10 @@ double floor(double x);
 float floorf(float x);
 long double floorl(long double x);
 
+double fmod(double x, double y);
+float fmodf(float x, float y);
+long double fmodl(long double x, long double y);
+
 double sin(double x);
 float sinf(float x);
 long double sinl(long double x);

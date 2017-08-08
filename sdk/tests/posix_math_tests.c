@@ -135,6 +135,57 @@ static void test_acosl()
 }
 
 
+static void test_cos()
+{
+    const int pre_errno = errno;
+
+    ASSERT_IN_RANGE("cos: Checking, if cos(-(2 * M_PI)) returns 1.0", cos(-(2 * M_PI)), 0.9, 1.1);
+    ASSERT_IN_RANGE("cos: Checking, if cos(-(3 * M_PI_2)) returns 0.0", cos(-(3 * M_PI_2)), -0.1, 0.1);
+    ASSERT_IN_RANGE("cos: Checking, if cos(-M_PI) returns -1.0", cos(-M_PI), -1.1, -0.9);
+    ASSERT_IN_RANGE("cos: Checking, if cos(-M_PI_2) returns 0.0", cos(-M_PI_2), -0.1, 0.1);
+    ASSERT_IN_RANGE("cos: Checking, if cos(0.0) returns 1.0", cos(0.0), 0.9, 1.1);
+    ASSERT_IN_RANGE("cos: Checking, if cos(M_PI_2) returns 0.0", cos(M_PI_2), -0.1, 0.1);
+    ASSERT_IN_RANGE("cos: Checking, if cos(M_PI) returns -1.0", cos(M_PI), -1.1, -0.9);
+    ASSERT_IN_RANGE("cos: Checking, if cos(3 * M_PI_2) returns 0.0", cos(3 * M_PI_2), -0.1, 0.1);
+    ASSERT_IN_RANGE("cos: Checking, if cos(2 * M_PI) returns 1.0", cos(2 * M_PI), 0.9, 1.1);
+    ASSERT_EQUALS("cos: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_cosf()
+{
+    const int pre_errno = errno;
+
+    ASSERT_IN_RANGE("cosf: Checking, if cosf(-(2 * M_PI)) returns 1.0f", cosf(-(2 * M_PI)), 0.9f, 1.1f);
+    ASSERT_IN_RANGE("cosf: Checking, if cosf(-(3 * M_PI_2)) returns 0.0f", cosf(-(3 * M_PI_2)), -0.1f, 0.1f);
+    ASSERT_IN_RANGE("cosf: Checking, if cosf(-M_PI) returns -1.0f", cosf(-M_PI), -1.1f, -0.9f);
+    ASSERT_IN_RANGE("cosf: Checking, if cosf(-M_PI_2) returns 0.0f", cosf(-M_PI_2), -0.1f, 0.1f);
+    ASSERT_IN_RANGE("cosf: Checking, if cosf(0.0f) returns 1.0f", cosf(0.0), 0.9f, 1.1f);
+    ASSERT_IN_RANGE("cosf: Checking, if cosf(M_PI_2) returns 0.0f", cosf(M_PI_2), -0.1f, 0.1f);
+    ASSERT_IN_RANGE("cosf: Checking, if cosf(M_PI) returns -1.0f", cosf(M_PI), -1.1f, -0.9f);
+    ASSERT_IN_RANGE("cosf: Checking, if cosf(3 * M_PI_2) returns 0.0f", cosf(3 * M_PI_2), -0.1f, 0.1f);
+    ASSERT_IN_RANGE("cosf: Checking, if cosf(2 * M_PI) returns 1.0f", cosf(2 * M_PI), 0.9f, 1.1f);
+    ASSERT_EQUALS("cosf: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_cosl()
+{
+    const int pre_errno = errno;
+
+    ASSERT_IN_RANGE("cosl: Checking, if cosl(-(2 * M_PI)) returns 1.0", cosl(-(2 * M_PI)), 0.9, 1.1);
+    ASSERT_IN_RANGE("cosl: Checking, if cosl(-(3 * M_PI_2)) returns 0.0", cosl(-(3 * M_PI_2)), -0.1, 0.1);
+    ASSERT_IN_RANGE("cosl: Checking, if cosl(-M_PI) returns -1.0", cosl(-M_PI), -1.1, -0.9);
+    ASSERT_IN_RANGE("cosl: Checking, if cosl(-M_PI_2) returns 0.0", cosl(-M_PI_2), -0.1, 0.1);
+    ASSERT_IN_RANGE("cosl: Checking, if cosl(0.0f) returns 1.0", cosl(0.0), 0.9, 1.1);
+    ASSERT_IN_RANGE("cosl: Checking, if cosl(M_PI_2) returns 0.0", cosl(M_PI_2), -0.1, 0.1);
+    ASSERT_IN_RANGE("cosl: Checking, if cosl(M_PI) returns -1.0", cosl(M_PI), -1.1, -0.9);
+    ASSERT_IN_RANGE("cosl: Checking, if cosl(3 * M_PI_2) returns 0.0", cosl(3 * M_PI_2), -0.1, 0.1);
+    ASSERT_IN_RANGE("cosl: Checking, if cosl(2 * M_PI) returns 1.0", cosl(2 * M_PI), 0.9, 1.1);
+    ASSERT_EQUALS("cosl: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
 static void test_ceil()
 {
     const int pre_errno = errno;
@@ -300,6 +351,117 @@ static void test_floorl()
 }
 
 
+static void test_fmod()
+{
+    const int pre_errno = errno;
+
+    ASSERT_IN_RANGE("fmod: Checking, if fmod(0.5, M_PI) returns 0.5", fmod(0.5, M_PI), 0.499, 0.501);
+    ASSERT_IN_RANGE("fmod: Checking, if fmod(1.5, M_PI) returns 1.5", fmod(1.5, M_PI), 1.499, 1.501);
+    ASSERT_IN_RANGE("fmod: Checking, if fmod(1.6, M_PI) returns 1.6", fmod(1.6, M_PI), 1.599, 1.601);
+    ASSERT_IN_RANGE("fmod: Checking, if fmod(0.4, M_PI) returns 0.1", fmod(0.4, M_PI), 0.399, 0.401);
+    ASSERT_IN_RANGE("fmod: Checking, if fmod(17.13339, M_PI) returns 1.425427", fmod(17.13339, M_PI), 1.424, 1.426);
+    ASSERT_IN_RANGE("fmod: Checking, if fmod(17.93339, M_PI) returns 2.225427", fmod(17.93339, M_PI), 2.224, 2.226);
+    ASSERT_IN_RANGE("fmod: Checking, if fmod(-0.5, M_PI) returns 2.641593", fmod(-0.5, M_PI), 2.640, 2.642);
+    ASSERT_IN_RANGE("fmod: Checking, if fmod(-1.5, M_PI) returns 1.641593", fmod(-1.5, M_PI), 1.640, 1.642);
+    ASSERT_IN_RANGE("fmod: Checking, if fmod(-1.6, M_PI) returns 1.541593", fmod(-1.6, M_PI), 1.540, 1.542);
+    ASSERT_IN_RANGE("fmod: Checking, if fmod(-0.4, M_PI) returns 2.741593", fmod(-0.4, M_PI), 2.740, 2.742);
+    ASSERT_IN_RANGE("fmod: Checking, if fmod(-17.13339, M_PI) returns 1.716166", fmod(-17.13339, M_PI), 1.715, 1.717);
+    ASSERT_IN_RANGE("fmod: Checking, if fmod(-17.93339, M_PI) returns 0.916166", fmod(-17.93339, M_PI), 0.915, 0.917);
+    ASSERT_EQUALS("fmod: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_fmodf()
+{
+    const int pre_errno = errno;
+
+    ASSERT_IN_RANGE("fmodf: Checking, if fmodf(0.5f, M_PI) returns 0.5f", fmodf(0.5f, M_PI), 0.499f, 0.501f);
+    ASSERT_IN_RANGE("fmodf: Checking, if fmodf(1.5f, M_PI) returns 1.5f", fmodf(1.5f, M_PI), 1.499f, 1.501f);
+    ASSERT_IN_RANGE("fmodf: Checking, if fmodf(1.6f, M_PI) returns 1.6f", fmodf(1.6f, M_PI), 1.599f, 1.601f);
+    ASSERT_IN_RANGE("fmodf: Checking, if fmodf(0.4f, M_PI) returns 0.1f", fmodf(0.4f, M_PI), 0.399f, 0.401f);
+    ASSERT_IN_RANGE("fmodf: Checking, if fmodf(17.13339f, M_PI) returns 1.425427f", fmodf(17.13339f, M_PI), 1.424f, 1.426f);
+    ASSERT_IN_RANGE("fmodf: Checking, if fmodf(17.93339f, M_PI) returns 2.225427f", fmodf(17.93339f, M_PI), 2.224f, 2.226f);
+    ASSERT_IN_RANGE("fmodf: Checking, if fmodf(-0.5f, M_PI) returns 2.641593f", fmodf(-0.5f, M_PI), 2.640f, 2.642f);
+    ASSERT_IN_RANGE("fmodf: Checking, if fmodf(-1.5f, M_PI) returns 1.641593f", fmodf(-1.5f, M_PI), 1.640f, 1.642f);
+    ASSERT_IN_RANGE("fmodf: Checking, if fmodf(-1.6f, M_PI) returns 1.541593f", fmodf(-1.6f, M_PI), 1.540f, 1.542f);
+    ASSERT_IN_RANGE("fmodf: Checking, if fmodf(-0.4f, M_PI) returns 2.741593f", fmodf(-0.4f, M_PI), 2.740f, 2.742f);
+    ASSERT_IN_RANGE("fmodf: Checking, if fmodf(-17.13339f, M_PI) returns 1.716166f", fmodf(-17.13339f, M_PI), 1.715f, 1.717f);
+    ASSERT_IN_RANGE("fmodf: Checking, if fmodf(-17.93339f, M_PI) returns 0.916166f", fmodf(-17.93339f, M_PI), 0.915f, 0.917f);
+    ASSERT_EQUALS("fmodf: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_fmodl()
+{
+    const int pre_errno = errno;
+
+    ASSERT_IN_RANGE("fmodl: Checking, if fmodl(0.5, M_PI) returns 0.5", fmodl(0.5, M_PI), 0.499, 0.501);
+    ASSERT_IN_RANGE("fmodl: Checking, if fmodl(1.5, M_PI) returns 1.5", fmodl(1.5, M_PI), 1.499, 1.501);
+    ASSERT_IN_RANGE("fmodl: Checking, if fmodl(1.6, M_PI) returns 1.6", fmodl(1.6, M_PI), 1.599, 1.601);
+    ASSERT_IN_RANGE("fmodl: Checking, if fmodl(0.4, M_PI) returns 0.1", fmodl(0.4, M_PI), 0.399, 0.401);
+    ASSERT_IN_RANGE("fmodl: Checking, if fmodl(17.13339, M_PI) returns 1.425427", fmodl(17.13339, M_PI), 1.424, 1.426);
+    ASSERT_IN_RANGE("fmodl: Checking, if fmodl(17.93339, M_PI) returns 2.225427", fmodl(17.93339, M_PI), 2.224, 2.226);
+    ASSERT_IN_RANGE("fmodl: Checking, if fmodl(-0.5, M_PI) returns 2.641593", fmodl(-0.5, M_PI), 2.640, 2.642);
+    ASSERT_IN_RANGE("fmodl: Checking, if fmodl(-1.5, M_PI) returns 1.641593", fmodl(-1.5, M_PI), 1.640, 1.642);
+    ASSERT_IN_RANGE("fmodl: Checking, if fmodl(-1.6, M_PI) returns 1.541593", fmodl(-1.6, M_PI), 1.540, 1.542);
+    ASSERT_IN_RANGE("fmodl: Checking, if fmodl(-0.4, M_PI) returns 2.741593", fmodl(-0.4, M_PI), 2.740, 2.742);
+    ASSERT_IN_RANGE("fmodl: Checking, if fmodl(-17.13339, M_PI) returns 1.716166", fmodl(-17.13339, M_PI), 1.715, 1.717);
+    ASSERT_IN_RANGE("fmodl: Checking, if fmodl(-17.93339, M_PI) returns 0.916166", fmodl(-17.93339, M_PI), 0.915, 0.917);
+    ASSERT_EQUALS("fmodl: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_sin()
+{
+    const int pre_errno = errno;
+
+    ASSERT_IN_RANGE("sin: Checking, if sin(-(2 * M_PI)) returns 0.0", sin(-(2 * M_PI)), -0.1, 0.1);
+    ASSERT_EQUALS("sin: Checking, if sin(-(3 * M_PI_2)) returns 1.0", sin(-(3 * M_PI_2)), 1.0);
+    ASSERT_IN_RANGE("sin: Checking, if sin(-M_PI) returns 0.0", sin(-M_PI), -0.1, 0.1);
+    ASSERT_EQUALS("sin: Checking, if sin(-M_PI_2) returns -1.0", sin(-M_PI_2), -1.0);
+    ASSERT_IN_RANGE("sin: Checking, if sin(0.0) returns 0.0", sin(0.0), -0.1, 0.1);
+    ASSERT_EQUALS("sin: Checking, if sin(M_PI_2) returns 1.0", sin(M_PI_2), 1.0);
+    ASSERT_IN_RANGE("sin: Checking, if sin(M_PI) returns 0.0", sin(M_PI), -0.1, 0.1);
+    ASSERT_EQUALS("sin: Checking, if sin(3 * M_PI_2) returns -1.0", sin(3 * M_PI_2), -1.0);
+    ASSERT_IN_RANGE("sin: Checking, if sin(2 * M_PI) returns 0.0", sin(2 * M_PI), -0.1, 0.1);
+    ASSERT_EQUALS("sin: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_sinf()
+{
+    const int pre_errno = errno;
+
+    ASSERT_IN_RANGE("sinf: Checking, if sinf(-(2 * M_PI)) returns 0.0f", sinf(-(2 * M_PI)), -0.1f, 0.1f);
+    ASSERT_IN_RANGE("sinf: Checking, if sinf(-(3 * M_PI_2)) returns 1.0f", sinf(-(3 * M_PI_2)), 0.9f, 1.1f);
+    ASSERT_IN_RANGE("sinf: Checking, if sinf(-M_PI) returns 0.0f", sinf(-M_PI), -0.1f, 0.1f);
+    ASSERT_IN_RANGE("sinf: Checking, if sinf(-M_PI_2) returns -1.0f", sinf(-M_PI_2), -1.1f, -0.9f);
+    ASSERT_IN_RANGE("sinf: Checking, if sinf(0.0f) returns 0.0f", sinf(0.0), -0.1f, 0.1f);
+    ASSERT_IN_RANGE("sinf: Checking, if sinf(M_PI_2) returns 1.0f", sinf(M_PI_2), 0.9f, 1.1f);
+    ASSERT_IN_RANGE("sinf: Checking, if sinf(M_PI) returns 0.0f", sinf(M_PI), -0.1f, 0.1f);
+    ASSERT_IN_RANGE("sinf: Checking, if sinf(3 * M_PI_2) returns -1.0f", sinf(3 * M_PI_2), -1.1f, -0.9f);
+    ASSERT_IN_RANGE("sinf: Checking, if sinf(2 * M_PI) returns 0.0f", sinf(2 * M_PI), -0.1f, 0.1f);
+    ASSERT_EQUALS("sinf: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_sinl()
+{
+    const int pre_errno = errno;
+
+    ASSERT_IN_RANGE("sinl: Checking, if sinl(-(2 * M_PI)) returns 0.0", sinl(-(2 * M_PI)), 0.0, 0.0001);
+    ASSERT_IN_RANGE("sinl: Checking, if sinl(-(3 * M_PI_2)) returns 1.0", sinl(-(3 * M_PI_2)), 1.0, 1.0001);
+    ASSERT_IN_RANGE("sinl: Checking, if sinl(-M_PI) returns 0.0", sinl(-M_PI), -0.0001, 0.0001);
+    ASSERT_IN_RANGE("sinl: Checking, if sinl(-M_PI_2) returns -1.0", sinl(-M_PI_2), -1.1, -0.9);
+    ASSERT_IN_RANGE("sinl: Checking, if sinl(0.0) returns 0.0", sinl(0.0), -0.0001, 0.0001);
+    ASSERT_IN_RANGE("sinl: Checking, if sinl(M_PI_2) returns 1.0", sinl(M_PI_2), 1.0, 1.0001);
+    ASSERT_IN_RANGE("sinl: Checking, if sinl(M_PI) returns 0.0", sinl(M_PI), -0.0001, 0.0001);
+    ASSERT_IN_RANGE("sinl: Checking, if sinl(3 * M_PI_2) returns -1.0", sinl(3 * M_PI_2), -1.1, -0.9);
+    ASSERT_IN_RANGE("sinl: Checking, if sinl(2 * M_PI) returns 0.0", sinl(2 * M_PI), -0.0001, 0.0001);
+    ASSERT_EQUALS("sinl: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
 // Check all functions of math.h
 void run_math_lib_tests()
 {
@@ -309,6 +471,10 @@ void run_math_lib_tests()
     test_acos();
     test_acosf();
     test_acosl();
+
+    test_cos();
+    test_cosf();
+    test_cosl();
 
     test_ceil();
     test_ceilf();
@@ -322,13 +488,11 @@ void run_math_lib_tests()
     test_floorf();
     test_floorl();
 
-    printf("\n\n");
-    printf("sin(-(3 * M_PI_2)) = %f\n", sin(-(3 * M_PI_2)));
-    printf("sin(-M_PI) = %f\n", sin(-M_PI));
-    printf("sin(-M_PI_2) = %f\n", sin(-M_PI_2));
-    printf("sin(0) = %f\n", sin(0));
-    printf("sin(M_PI_2) = %f\n", sin(M_PI_2));
-    printf("sin(M_PI) = %f\n", sin(M_PI));
-    printf("sin(3 * M_PI_2) = %f\n", sin(3 * M_PI_2));
-    printf("\n\n");
+    test_fmod();
+    test_fmodf();
+    test_fmodl();
+
+    test_sin();
+    test_sinf();
+    test_sinl();
 }

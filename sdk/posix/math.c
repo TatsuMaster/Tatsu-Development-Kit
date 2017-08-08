@@ -15,7 +15,7 @@
 extern void acos_fpu_sp_entry();
 extern void acos_fpu_dp_entry();
 extern void acos_fpu_ep_entry();
-//#else
+#else
 const double acos_generic_a = -0.939115566365855;
 const double acos_generic_b = 0.9217841528914573;
 const double acos_generic_c = -1.2845906244690837;
@@ -23,9 +23,11 @@ const double acos_generic_d = 0.295624144969963174;
 #endif
 
 
+#ifndef __x86_64__
 static inline double sin_generic(double x);
 static inline float sinf_generic(float x);
 static inline long double sinl_generic(long double x);
+#endif
 
 
 
@@ -71,41 +73,49 @@ static inline long double acosl_generic(long double x)
 #endif
 
 
+#ifndef __x86_64__
 static inline double cos_generic(double x)
 {
     return sin_generic(x + M_PI_2);
 }
+#endif
 
 
+#ifndef __x86_64__
 static inline float cosf_generic(float x)
 {
     return sinf_generic(x + M_PI_2);
 }
+#endif
 
 
+#ifndef __x86_64__
 static inline long double cosl_generic(long double x)
 {
     return sinl_generic(x + M_PI_2);
 }
+#endif
 
 
+#ifndef __x86_64__
 // Algorithm inspired by: http://forum.devmaster.net/t/fast-and-accurate-sine-cosine/9648
 static inline double sin_generic(double x)
 {
     const double B = 4 / M_PI;
     const double C = -4 / (M_PI * M_PI);
     const double P = 0.225;
-    const double Q = 0.775;
 
-
+    // Normalize range to [-PI...PI]
+    x = fmod(x + M_PI, 2 * M_PI) - M_PI;
 
     double y = B * x + C * x * fabs(x);
 
-    return Q * y + P * y * fabs(y);
-    //return P * (y * fabs(y) - y) + y;
+    return P * (y * fabs(y) - y) + y;
 }
+#endif
 
 
+#ifndef __x86_64__
 // Algorithm inspired by: http://forum.devmaster.net/t/fast-and-accurate-sine-cosine/9648
 static inline float sinf_generic(float x)
 {
@@ -113,15 +123,17 @@ static inline float sinf_generic(float x)
     const float C = -4 / (M_PI * M_PI);
     const float P = 0.225f;
 
-    //x = -M_PI / 
+    // Normalize range to [-PI...PI]
+    x = fmodf(x + M_PI, 2 * M_PI) - M_PI;
 
     float y = B * x + C * x * fabsf(x);
 
-    // P * y + P * y * abs(y)
     return P * (y * fabsf(y) - y) + y;
 }
+#endif
 
 
+#ifndef __x86_64__
 // Algorithm inspired by: http://forum.devmaster.net/t/fast-and-accurate-sine-cosine/9648
 static inline long double sinl_generic(long double x)
 {
@@ -129,11 +141,17 @@ static inline long double sinl_generic(long double x)
     const long double C = -4 / (M_PI * M_PI);
     const long double P = 0.225;
 
+    const long double EP_PI = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348;
+    const long double EP_PI_TWO = 6.2831853071795864769252867665590057683943387987502116419498891846156328125724179972560696;
+
+    // Normalize range to [-PI...PI]
+    x = fmodl(x + EP_PI, EP_PI_TWO) - EP_PI;
+
     long double y = B * x + C * x * fabsl(x);
 
-    // P * y + P * y * abs(y)
     return P * (y * fabsl(y) - y) + y;
 }
+#endif
 
 
 /******************************************************************************
@@ -311,30 +329,72 @@ long double ceill(long double x)
 }
 
 
-/*
-* TBD
-*/
+/******************************************************************************
+ *
+ * The cos() function computes the cosine of its argument x, measured in
+ * radians.
+ *
+ * Upon successful completion, this function shall return the cosine of x.
+ *
+ ******************************************************************************/
 double cos(double x)
 {
+#ifdef __x86_64__
+    double sin;
+    __asm__ __volatile__("fldl %2;"
+                         "fsincos;"
+                         "fstpl %1;"
+                         "fstpl %0" : "=m"(sin), "=m"(x) : "m"(x));
+    return x;
+#else
     return cos_generic(x);
+#endif
 }
 
 
-/*
-* TBD
-*/
+/******************************************************************************
+ *
+ * The cosf() function computes the cosine of its argument x, measured in
+ * radians.
+ *
+ * Upon successful completion, this function shall return the cosine of x.
+ *
+ ******************************************************************************/
 float cosf(float x)
 {
+#ifdef __x86_64__
+    float sin;
+    __asm__ __volatile__("flds %2;"
+                         "fsincos;"
+                         "fstps %1;"
+                         "fstps %0" : "=m"(sin), "=m"(x) : "m"(x));
+    return x;
+#else
     return cosf_generic(x);
+#endif
 }
 
 
-/*
-* TBD
-*/
+/******************************************************************************
+ *
+ * The cosl() function computes the cosine of its argument x, measured in
+ * radians.
+ *
+ * Upon successful completion, this function shall return the cosine of x.
+ *
+ ******************************************************************************/
 long double cosl(long double x)
 {
+#ifdef __x86_64__
+    long double sin;
+    __asm__ __volatile__("fldt %2;"
+                         "fsincos;"
+                         "fstpt %1;"
+                         "fstpt %0" : "=m"(sin), "=m"(x) : "m"(x));
+    return x;
+#else
     return cosl_generic(x);
+#endif
 }
 
 
@@ -440,28 +500,208 @@ long double floorl(long double x)
 }
 
 
-/*
-* TBD
-*/
+/******************************************************************************
+ *
+ * The fmod() function returns the floating-point remainder of the division
+ * of x by y.
+ *
+ * Upon successful completion, this functions returns the value x−i*y, for
+ * some value i such that, if y is non-zero, the result has the same sign as
+ * x and magnitude less than the magnitude of y.
+ *
+ ******************************************************************************/
+double fmod(double x, double y)
+{
+    if (y == 0.0)
+        return x;
+
+    double m = x - y * floor(x/y);
+
+    if (y > 0.0)
+    {
+        if (m >= y)
+            return 0.0;
+
+        if (m < 0.0)
+        {
+            if ((y + m) == y)
+                return 0.0;
+            else
+                return y + m;
+        }
+    }
+    else
+    {
+        if (m <= y)
+            return 0.0;
+
+        if (m > 0.0)
+        {
+            if ((y + m) == y)
+                return 0.0;
+            else
+                return y + m;
+        }
+    }
+
+    return m;
+}
+
+
+/******************************************************************************
+ *
+ * The fmodf() function returns the floating-point remainder of the division
+ * of x by y.
+ *
+ * Upon successful completion, this functions returns the value x−i*y, for
+ * some value i such that, if y is non-zero, the result has the same sign as
+ * x and magnitude less than the magnitude of y.
+ *
+ ******************************************************************************/
+float fmodf(float x, float y)
+{
+    if (y == 0.0f)
+        return x;
+
+    double m = x - y * floor(x/y);
+
+    if (y > 0.0f)
+    {
+        if (m >= y)
+            return 0.0f;
+
+        if (m < 0.0f)
+        {
+            if ((y + m) == y)
+                return 0.0f;
+            else
+                return y + m;
+        }
+    }
+    else
+    {
+        if (m <= y)
+            return 0.0f;
+
+        if (m > 0.0f)
+        {
+            if ((y + m) == y)
+                return 0.0f;
+            else
+                return y + m;
+        }
+    }
+
+    return m;
+}
+
+
+/******************************************************************************
+ *
+ * The fmodl() function returns the floating-point remainder of the division
+ * of x by y.
+ *
+ * Upon successful completion, this functions returns the value x−i*y, for
+ * some value i such that, if y is non-zero, the result has the same sign as
+ * x and magnitude less than the magnitude of y.
+ *
+ ******************************************************************************/
+long double fmodl(long double x, long double y)
+{
+    if (y == 0.0)
+        return x;
+
+    double m = x - y * floor(x/y);
+
+    if (y > 0.0)
+    {
+        if (m >= y)
+            return 0.0;
+
+        if (m < 0.0)
+        {
+            if ((y + m) == y)
+                return 0.0;
+            else
+                return y + m;
+        }
+    }
+    else
+    {
+        if (m <= y)
+            return 0.0;
+
+        if (m > 0.0)
+        {
+            if ((y + m) == y)
+                return 0.0;
+            else
+                return y + m;
+        }
+    }
+
+    return m;
+}
+
+
+/******************************************************************************
+ *
+ * The sin() function computes the sine of its argument x, measured in
+ * radians.
+ *
+ * Upon successful completion, this function shall return the sine of x.
+ *
+ ******************************************************************************/
 double sin(double x)
 {
+#ifdef __x86_64__
+    __asm__ __volatile__("fldl %0;"
+                         "fsin;"
+                         "fstpl %0" : "+m"(x));
+    return x;
+#else
     return sin_generic(x);
+#endif
 }
 
 
-/*
-* TBD
-*/
+/******************************************************************************
+ *
+ * The sinf() function computes the sine of its argument x, measured in
+ * radians.
+ *
+ * Upon successful completion, this function shall return the sine of x.
+ *
+ ******************************************************************************/
 float sinf(float x)
 {
+#ifdef __x86_64__
+    __asm__ __volatile__("flds %0;"
+                         "fsin;"
+                         "fstps %0" : "+m"(x));
+    return x;
+#else
     return sinf_generic(x);
+#endif
 }
 
 
-/*
-* TBD
-*/
+/******************************************************************************
+ *
+ * The sinl() function computes the sine of its argument x, measured in
+ * radians.
+ *
+ * Upon successful completion, this function shall return the sine of x.
+ *
+ ******************************************************************************/
 long double sinl(long double x)
 {
+#ifdef __x86_64__
+    __asm__ __volatile__("fldt %0;"
+                         "fsin;"
+                         "fstpt %0" : "+m"(x));
+    return x;
+#else
     return sinl_generic(x);
+#endif
 }
