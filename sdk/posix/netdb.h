@@ -9,6 +9,10 @@
 #define EAI_NONAME   -2
 #define EAI_SERVICE  -8
 #define EAI_SOCKTYPE -7
+#define EAI_SYSTEM   -11
 #define EAI_OVERFLOW -12
+
+
+const char *gai_strerror(int ecode);
 
 #endif
