@@ -8,8 +8,8 @@ all: sdk_testapp
 clean:
 	rm -rf *.o sdk_testapp *~ *.exe
 
-sdk_testapp: sdk_testapp.o ttf.o posix_tests.o crt_tests.o crt_limits_tests.o posix_fenv_tests.o posix_errno_tests.o posix_arpa_inet_tests.o posix_signal_tests.o posix_ctype_tests.o ttf_unix.o stdlib.o stdlib_asm.o posix_stdlib_tests.o string.o posix_string_tests.o errno.o ctype.o string_asm.o fenv.o math.o math_asm.o posix_math_tests.o
-	@echo "  [LD ] Linking $@"; $(TDK_CC) sdk_testapp.o ttf.o posix_tests.o crt_tests.o crt_limits_tests.o posix_fenv_tests.o posix_errno_tests.o posix_arpa_inet_tests.o posix_signal_tests.o ttf_unix.o stdlib.o stdlib_asm.o posix_stdlib_tests.o string.o errno.o ctype.o posix_string_tests.o posix_ctype_tests.o string_asm.o math_asm.o fenv.o math.o posix_math_tests.o -o sdk_testapp
+sdk_testapp: sdk_testapp.o ttf.o posix_tests.o crt_tests.o crt_limits_tests.o posix_netdb_tests.o posix_fenv_tests.o posix_errno_tests.o posix_arpa_inet_tests.o posix_signal_tests.o posix_ctype_tests.o ttf_unix.o stdlib.o stdlib_asm.o posix_stdlib_tests.o string.o posix_string_tests.o errno.o ctype.o string_asm.o fenv.o math.o math_asm.o posix_math_tests.o
+	@echo "  [LD ] Linking $@"; $(TDK_CC) sdk_testapp.o ttf.o posix_tests.o crt_tests.o crt_limits_tests.o posix_netdb_tests.o posix_fenv_tests.o posix_errno_tests.o posix_arpa_inet_tests.o posix_signal_tests.o ttf_unix.o stdlib.o stdlib_asm.o posix_stdlib_tests.o string.o errno.o ctype.o posix_string_tests.o posix_ctype_tests.o string_asm.o math_asm.o fenv.o math.o posix_math_tests.o -o sdk_testapp
 
 crt_tests.o: crt_tests.c crt_tests.h
 	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
@@ -36,6 +36,9 @@ posix_fenv_tests.o: posix_fenv_tests.c posix_fenv_tests.h ../posix/fenv.h
 	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
 
 posix_math_tests.o: posix_math_tests.c posix_math_tests.h ../posix/math.h
+	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
+
+posix_netdb_tests.o: posix_netdb_tests.c posix_netdb_tests.h ../posix/netdb.h
 	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
 
 posix_signal_tests.o: posix_signal_tests.c posix_signal_tests.h ../posix/signal.h
