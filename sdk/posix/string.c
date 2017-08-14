@@ -146,6 +146,27 @@ static char* _errno_strings[] = {
 };
 
 
+static size_t _errno_string_sizes[] = {
+    0, 24, 26, 16, 24, 19, 26, 23,
+    18, 20, 19, 33, 23, 18, 12, 0,
+    24, 12, 26, 15, 16, 15, 17, 30,
+    20, 31, 15, 15, 24, 13, 22, 15,
+    12, 33, 30, 26, 19, 19, 25, 20,
+    34, 0, 27, 19, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 20, 18, 14, 25,
+    0, 0, 0, 22, 0, 0, 0, 15,
+    19, 0, 12, 38, 0, 0, 0, 0,
+    0, 0, 0, 0, 50, 0, 0, 0,
+    31, 29, 17, 31, 23, 23, 0, 24,
+    0, 41, 23, 32, 16, 23, 36, 33,
+    25, 26, 40, 36, 0, 0, 21, 19,
+    0, 17, 30, 26, 18, 0, 0, 0,
+    0, 0, 20, 0, 0, 19, 0, 0,
+    0, 0, 11, 22
+};
+
+
 static inline void* memccpy_generic(unsigned char *__restrict__ s1, const unsigned char *__restrict__ s2, unsigned char c, size_t n)
 {
     register unsigned char* end_address = s1 + n;
@@ -541,6 +562,43 @@ char *strerror(int errnum)
     }
 
     return _errno_strings[errnum];
+}
+
+
+/******************************************************************************
+ *
+ * The strerror_r() function maps the error number in errnum to a
+ * locale-dependent error message string and copies it to strerrbuf.
+ * Typically, the values for errnum come from errno, but strerror_r() maps any
+ * value of type int to a message.
+ *
+ * Upon successful completion, strerror_r() returns 0. Otherwise, -1 will be
+ * returned to indicate the error.
+ *
+ * If the value of errnum is a valid error number, strerrbuf indicates
+ * what error occurred. The errno variable can be checked for EINVAL, if errnum
+ * is unkown.
+ *
+ * The errno variable will be set to ERANGE, if buflen is too small to contain
+ * the generated message string.
+ *
+ *****************************************************************************/
+int strerror_r(int errnum, char *strerrbuf, size_t buflen)
+{
+    if (errnum < 0 || errnum > 131)
+    {
+        errno = EINVAL;
+        return -1;
+    }
+
+    if (_errno_string_sizes[errnum] > buflen)
+    {
+        errno = ERANGE;
+        return -1;
+    }
+
+    memcpy(strerrbuf, _errno_strings[errnum], _errno_string_sizes[errnum]);
+    return 0;
 }
 
 
