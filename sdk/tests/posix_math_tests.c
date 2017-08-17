@@ -358,7 +358,7 @@ static void test_fmod()
     ASSERT_IN_RANGE("fmod: Checking, if fmod(0.5, M_PI) returns 0.5", fmod(0.5, M_PI), 0.499, 0.501);
     ASSERT_IN_RANGE("fmod: Checking, if fmod(1.5, M_PI) returns 1.5", fmod(1.5, M_PI), 1.499, 1.501);
     ASSERT_IN_RANGE("fmod: Checking, if fmod(1.6, M_PI) returns 1.6", fmod(1.6, M_PI), 1.599, 1.601);
-    ASSERT_IN_RANGE("fmod: Checking, if fmod(0.4, M_PI) returns 0.1", fmod(0.4, M_PI), 0.399, 0.401);
+    ASSERT_IN_RANGE("fmod: Checking, if fmod(0.4, M_PI) returns 0.4", fmod(0.4, M_PI), 0.399, 0.401);
     ASSERT_IN_RANGE("fmod: Checking, if fmod(17.13339, M_PI) returns 1.425427", fmod(17.13339, M_PI), 1.424, 1.426);
     ASSERT_IN_RANGE("fmod: Checking, if fmod(17.93339, M_PI) returns 2.225427", fmod(17.93339, M_PI), 2.224, 2.226);
     ASSERT_IN_RANGE("fmod: Checking, if fmod(-0.5, M_PI) returns 2.641593", fmod(-0.5, M_PI), 2.640, 2.642);
@@ -378,7 +378,7 @@ static void test_fmodf()
     ASSERT_IN_RANGE("fmodf: Checking, if fmodf(0.5f, M_PI) returns 0.5f", fmodf(0.5f, M_PI), 0.499f, 0.501f);
     ASSERT_IN_RANGE("fmodf: Checking, if fmodf(1.5f, M_PI) returns 1.5f", fmodf(1.5f, M_PI), 1.499f, 1.501f);
     ASSERT_IN_RANGE("fmodf: Checking, if fmodf(1.6f, M_PI) returns 1.6f", fmodf(1.6f, M_PI), 1.599f, 1.601f);
-    ASSERT_IN_RANGE("fmodf: Checking, if fmodf(0.4f, M_PI) returns 0.1f", fmodf(0.4f, M_PI), 0.399f, 0.401f);
+    ASSERT_IN_RANGE("fmodf: Checking, if fmodf(0.4f, M_PI) returns 0.4f", fmodf(0.4f, M_PI), 0.399f, 0.401f);
     ASSERT_IN_RANGE("fmodf: Checking, if fmodf(17.13339f, M_PI) returns 1.425427f", fmodf(17.13339f, M_PI), 1.424f, 1.426f);
     ASSERT_IN_RANGE("fmodf: Checking, if fmodf(17.93339f, M_PI) returns 2.225427f", fmodf(17.93339f, M_PI), 2.224f, 2.226f);
     ASSERT_IN_RANGE("fmodf: Checking, if fmodf(-0.5f, M_PI) returns 2.641593f", fmodf(-0.5f, M_PI), 2.640f, 2.642f);
@@ -398,7 +398,7 @@ static void test_fmodl()
     ASSERT_IN_RANGE("fmodl: Checking, if fmodl(0.5, M_PI) returns 0.5", fmodl(0.5, M_PI), 0.499, 0.501);
     ASSERT_IN_RANGE("fmodl: Checking, if fmodl(1.5, M_PI) returns 1.5", fmodl(1.5, M_PI), 1.499, 1.501);
     ASSERT_IN_RANGE("fmodl: Checking, if fmodl(1.6, M_PI) returns 1.6", fmodl(1.6, M_PI), 1.599, 1.601);
-    ASSERT_IN_RANGE("fmodl: Checking, if fmodl(0.4, M_PI) returns 0.1", fmodl(0.4, M_PI), 0.399, 0.401);
+    ASSERT_IN_RANGE("fmodl: Checking, if fmodl(0.4, M_PI) returns 0.4", fmodl(0.4, M_PI), 0.399, 0.401);
     ASSERT_IN_RANGE("fmodl: Checking, if fmodl(17.13339, M_PI) returns 1.425427", fmodl(17.13339, M_PI), 1.424, 1.426);
     ASSERT_IN_RANGE("fmodl: Checking, if fmodl(17.93339, M_PI) returns 2.225427", fmodl(17.93339, M_PI), 2.224, 2.226);
     ASSERT_IN_RANGE("fmodl: Checking, if fmodl(-0.5, M_PI) returns 2.641593", fmodl(-0.5, M_PI), 2.640, 2.642);
