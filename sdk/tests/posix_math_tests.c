@@ -540,6 +540,57 @@ static void test_sinl()
 }
 
 
+static void test_tan()
+{
+    const int pre_errno = errno;
+    
+    ASSERT_IN_RANGE("tan: Checking, if tan(-(2 * M_PI)) returns 0.0", tan(-(2 * M_PI)), -0.0001, 0.0001);
+    ASSERT_IN_RANGE("tan: Checking, if tan(-(3 * M_PI_2)) returns a very low number", tan(-(3 * M_PI_2)), -6000000000000000.000000, -5000000000000000.000000);
+    ASSERT_IN_RANGE("tan: Checking, if tan(-M_PI) returns 0.0", tan(-M_PI), -0.0001, 0.0001);
+    ASSERT_IN_RANGE("tan: Checking, if tan(-M_PI_2) returns a very low number", tan(-M_PI_2), -17000000000000000.000000, -16000000000000000.000000);
+    ASSERT_IN_RANGE("tan: Checking, if tan(0.0) returns 0.0", tan(0.0), -0.0001, 0.0001);
+    ASSERT_IN_RANGE("tan: Checking, if tan(M_PI_2) returns a very high number", tan(M_PI_2), 16000000000000000.000000, 17000000000000000.000000);
+    ASSERT_IN_RANGE("tan: Checking, if tan(M_PI) returns 0.0", tan(M_PI), -0.0001, 0.0001);
+    ASSERT_IN_RANGE("tan: Checking, if tan(3 * M_PI_2) returns a very high number", tan(3 * M_PI_2), 5000000000000000.000000, 6000000000000000.000000);
+    ASSERT_IN_RANGE("tan: Checking, if tan(2 * M_PI) returns 0.0", tan(2 * M_PI), -0.0001, 0.0001);
+    ASSERT_EQUALS("tan: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_tanf()
+{
+    const int pre_errno = errno;
+    
+    ASSERT_IN_RANGE("tanf: Checking, if tanf(-(2 * M_PI)) returns 0.0f", tanf(-(2 * M_PI)), -0.0001, 0.0001);
+    ASSERT_IN_RANGE("tanf: Checking, if tanf(-(3 * M_PI_2)) returns a very high number", tanf(-(3 * M_PI_2)), 80000000.000000f, 90000000.000000f);
+    ASSERT_IN_RANGE("tanf: Checking, if tanf(-M_PI) returns 0.0f", tanf(-M_PI), -0.0001f, 0.0001f);
+    ASSERT_IN_RANGE("tanf: Checking, if tanf(-M_PI_2) returns a very high number", tanf(-M_PI_2), 20000000.000000f, 30000000.000000f);
+    ASSERT_IN_RANGE("tanf: Checking, if tanf(0.0) returns 0.0f", tanf(0.0), -0.0001f, 0.0001f);
+    ASSERT_IN_RANGE("tanf: Checking, if tanf(M_PI_2) returns a very low number", tanf(M_PI_2), -30000000.000000f, 20000000.000000f);
+    ASSERT_IN_RANGE("tanf: Checking, if tanf(M_PI) returns 0.0f", tanf(M_PI), -0.0001f, 0.0001f);
+    ASSERT_IN_RANGE("tanf: Checking, if tanf(3 * M_PI_2) returns a very low number", tanf(3 * M_PI_2), -90000000.000000f, -80000000.000000f);
+    ASSERT_IN_RANGE("tanf: Checking, if tanf(2 * M_PI) returns 0.0f", tanf(2 * M_PI), -0.0001f, 0.0001f);
+    ASSERT_EQUALS("tanf: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_tanl()
+{
+    const int pre_errno = errno;
+    
+    ASSERT_IN_RANGE("tanl: Checking, if tanl(-(2 * M_PI)) returns 0.0", tanl(-(2 * M_PI)), -0.0001, 0.0001);
+    ASSERT_IN_RANGE("tanl: Checking, if tanl(-(3 * M_PI_2)) returns a very low number", tanl(-(3 * M_PI_2)), -6000000000000000.000000, -5000000000000000.000000);
+    ASSERT_IN_RANGE("tanl: Checking, if tanl(-M_PI) returns 0.0", tanl(-M_PI), -0.0001, 0.0001);
+    ASSERT_IN_RANGE("tanl: Checking, if tanl(-M_PI_2) returns a very low number", tanl(-M_PI_2), -17000000000000000.000000, -16000000000000000.000000);
+    ASSERT_IN_RANGE("tanl: Checking, if tanl(0.0) returns 0.0", tanl(0.0), -0.0001, 0.0001);
+    ASSERT_IN_RANGE("tanl: Checking, if tanl(M_PI_2) returns a very high number", tanl(M_PI_2), 16000000000000000.000000, 17000000000000000.000000);
+    ASSERT_IN_RANGE("tanl: Checking, if tanl(M_PI) returns 0.0", tanl(M_PI), -0.0001, 0.0001);
+    ASSERT_IN_RANGE("tanl: Checking, if tanl(3 * M_PI_2) returns a very high number", tanl(3 * M_PI_2), 5000000000000000.000000, 6000000000000000.000000);
+    ASSERT_IN_RANGE("tanl: Checking, if tanl(2 * M_PI) returns 0.0", tanl(2 * M_PI), -0.0001, 0.0001);
+    ASSERT_EQUALS("tanl: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
 // Check all functions of math.h
 void run_math_lib_tests()
 {
@@ -581,4 +632,8 @@ void run_math_lib_tests()
     test_sin();
     test_sinf();
     test_sinl();
+
+    test_tan();
+    test_tanf();
+    test_tanl();
 }

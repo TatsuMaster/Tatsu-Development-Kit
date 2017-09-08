@@ -53,4 +53,8 @@ double sin(double x);
 float sinf(float x);
 long double sinl(long double x);
 
+double tan(double x);
+float tanf(float x);
+long double tanl(long double x);
+
 #endif

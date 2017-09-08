@@ -705,3 +705,75 @@ long double sinl(long double x)
     return sinl_generic(x);
 #endif
 }
+
+
+/******************************************************************************
+ *
+ * The tan() function computes the tangent of its argument x, measured in
+ * radians.
+ *
+ * Upon successful completion, this function shall return the tangent of x.
+ *
+ ******************************************************************************/
+double tan(double x)
+{
+#ifdef __x86_64__
+    double tmp;
+    __asm__ __volatile__("fldl %0;"
+                         "fptan;"
+                         "fdivrp;"
+                         "fstpl %0;"
+                         "fstpl %1" : "=m"(x), "=m"(tmp) : "m"(x));
+    return x;
+#else
+    return sin(x) / cos(x);
+#endif
+}
+
+
+/******************************************************************************
+ *
+ * The tanf() function computes the tangent of its argument x, measured in
+ * radians.
+ *
+ * Upon successful completion, this function shall return the tangent of x.
+ *
+ ******************************************************************************/
+float tanf(float x)
+{
+#ifdef __x86_64__
+    float tmp;
+    __asm__ __volatile__("flds %0;"
+                         "fptan;"
+                         "fdivrp;"
+                         "fstps %0;"
+                         "fstps %1" : "=m"(x), "=m"(tmp) : "m"(x));
+    return x;
+#else
+    return sinf(x) / cosf(x);
+#endif
+}
+
+
+/******************************************************************************
+ *
+ * The tanl() function computes the tangent of its argument x, measured in
+ * radians.
+ *
+ * Upon successful completion, this function shall return the tangent of x.
+ *
+ ******************************************************************************/
+long double tanl(long double x)
+{
+#ifdef __x86_64__
+    long double tmp;
+    __asm__ __volatile__("fldt %0;"
+                         "fptan;"
+                         "fdivrp;"
+                         "fstpt %0;"
+                         "fstpt %1" : "=m"(x), "=m"(tmp) : "m"(x));
+    return x;
+#else
+    return sinl(x) / cosl(x);
+#endif
+}
