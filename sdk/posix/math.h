@@ -16,6 +16,14 @@
 #define M_SQRT2    1.41421356237309504880   /*  sqrt(2)     */
 #define M_SQRT1_2  0.70710678118654752440   /*  1/sqrt(2)   */
 
+#define fmax(x, y) (x < y ? y : x)
+#define fmaxf(x, y) fmax(x, y)
+#define fmaxl(x, y) fmax(x, y)
+
+#define fmin(x, y) (x < y ? x : y)
+#define fminf(x, y) fmin(x, y)
+#define fminl(x, y) fmin(x, y)
+
 
 double acos(double x);
 float acosf(float x);

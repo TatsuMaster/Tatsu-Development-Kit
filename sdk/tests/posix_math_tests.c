@@ -351,6 +351,84 @@ static void test_floorl()
 }
 
 
+static void test_fmax()
+{
+    const int pre_errno = errno;
+    
+    ASSERT_EQUALS("fmax: Checking, if fmax(-1.0, 0.0) returns 0.0", fmax(-1.0, 0.0), 0.0);
+    ASSERT_EQUALS("fmax: Checking, if fmax(1.0, 0.0) returns 1.0", fmax(1.0, 0.0), 1.0);
+    ASSERT_EQUALS("fmax: Checking, if fmax(1.0, -1.0) returns 1.0", fmax(1.0, -1.0), 1.0);
+    ASSERT_EQUALS("fmax: Checking, if fmax(1.0, 21.0) returns 21.0", fmax(1.0, 21.0), 21.0);
+    ASSERT_EQUALS("fmax: Checking, if fmax(0.0, 0.0) returns 0.0", fmax(0.0, 0.0), 0.0);
+    ASSERT_EQUALS("fmax: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_fmaxf()
+{
+    const int pre_errno = errno;
+    
+    ASSERT_EQUALS("fmaxf: Checking, if fmaxf(-1.0, 0.0) returns 0.0", fmaxf(-1.0, 0.0), 0.0);
+    ASSERT_EQUALS("fmaxf: Checking, if fmaxf(1.0, 0.0) returns 1.0", fmaxf(1.0, 0.0), 1.0);
+    ASSERT_EQUALS("fmaxf: Checking, if fmaxf(1.0, -1.0) returns 1.0", fmaxf(1.0, -1.0), 1.0);
+    ASSERT_EQUALS("fmaxf: Checking, if fmaxf(1.0, 21.0) returns 21.0", fmaxf(1.0, 21.0), 21.0);
+    ASSERT_EQUALS("fmaxf: Checking, if fmaxf(0.0, 0.0) returns 0.0", fmaxf(0.0, 0.0), 0.0);
+    ASSERT_EQUALS("fmaxf: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_fmaxl()
+{
+    const int pre_errno = errno;
+    
+    ASSERT_EQUALS("fmaxl: Checking, if fmaxl(-1.0, 0.0) returns 0.0", fmaxl(-1.0, 0.0), 0.0);
+    ASSERT_EQUALS("fmaxl: Checking, if fmaxl(1.0, 0.0) returns 1.0", fmaxl(1.0, 0.0), 1.0);
+    ASSERT_EQUALS("fmaxl: Checking, if fmaxl(1.0, -1.0) returns 1.0", fmaxl(1.0, -1.0), 1.0);
+    ASSERT_EQUALS("fmaxl: Checking, if fmaxl(1.0, 21.0) returns 21.0", fmaxl(1.0, 21.0), 21.0);
+    ASSERT_EQUALS("fmaxl: Checking, if fmaxl(0.0, 0.0) returns 0.0", fmaxl(0.0, 0.0), 0.0);
+    ASSERT_EQUALS("fmaxl: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_fmin()
+{
+    const int pre_errno = errno;
+    
+    ASSERT_EQUALS("fmin: Checking, if fmin(-1.0, 0.0) returns 0.0", fmin(-1.0, 0.0), -1.0);
+    ASSERT_EQUALS("fmin: Checking, if fmin(1.0, 0.0) returns 1.0", fmin(1.0, 0.0), 0.0);
+    ASSERT_EQUALS("fmin: Checking, if fmin(1.0, -1.0) returns 1.0", fmin(1.0, -1.0), -1.0);
+    ASSERT_EQUALS("fmin: Checking, if fmin(1.0, 21.0) returns 21.0", fmin(1.0, 21.0), 1.0);
+    ASSERT_EQUALS("fmin: Checking, if fmin(0.0, 0.0) returns 0.0", fmin(0.0, 0.0), 0.0);
+    ASSERT_EQUALS("fmin: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_fminf()
+{
+    const int pre_errno = errno;
+    
+    ASSERT_EQUALS("fminf: Checking, if fminf(-1.0, 0.0) returns 0.0", fminf(-1.0, 0.0), -1.0);
+    ASSERT_EQUALS("fminf: Checking, if fminf(1.0, 0.0) returns 1.0", fminf(1.0, 0.0), 0.0);
+    ASSERT_EQUALS("fminf: Checking, if fminf(1.0, -1.0) returns 1.0", fminf(1.0, -1.0), -1.0);
+    ASSERT_EQUALS("fminf: Checking, if fminf(1.0, 21.0) returns 21.0", fminf(1.0, 21.0), 1.0);
+    ASSERT_EQUALS("fminf: Checking, if fminf(0.0, 0.0) returns 0.0", fminf(0.0, 0.0), 0.0);
+    ASSERT_EQUALS("fminf: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_fminl()
+{
+    const int pre_errno = errno;
+    
+    ASSERT_EQUALS("fminl: Checking, if fminl(-1.0, 0.0) returns 0.0", fminl(-1.0, 0.0), -1.0);
+    ASSERT_EQUALS("fminl: Checking, if fminl(1.0, 0.0) returns 1.0", fminl(1.0, 0.0), 0.0);
+    ASSERT_EQUALS("fminl: Checking, if fminl(1.0, -1.0) returns 1.0", fminl(1.0, -1.0), -1.0);
+    ASSERT_EQUALS("fminl: Checking, if fminl(1.0, 21.0) returns 21.0", fminl(1.0, 21.0), 1.0);
+    ASSERT_EQUALS("fminl: Checking, if fminl(0.0, 0.0) returns 0.0", fminl(0.0, 0.0), 0.0);
+    ASSERT_EQUALS("fminl: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
 static void test_fmod()
 {
     const int pre_errno = errno;
@@ -487,6 +565,14 @@ void run_math_lib_tests()
     test_floor();
     test_floorf();
     test_floorl();
+
+    test_fmax();
+    test_fmaxf();
+    test_fmaxl();
+
+    test_fmin();
+    test_fminf();
+    test_fminl();
 
     test_fmod();
     test_fmodf();
