@@ -489,6 +489,324 @@ static void test_fmodl()
 }
 
 
+static void test_rint()
+{
+    const int pre_errno = errno;
+
+    fesetround(FE_TONEAREST);
+    ASSERT_EQUALS("rint: Checking, if rint(-1.0) returns -1.0 for rounding mode FE_TONEAREST", rint(-1.0), -1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.9) returns -1.0 for rounding mode FE_TONEAREST", rint(-0.9), -1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.8) returns -1.0 for rounding mode FE_TONEAREST", rint(-0.8), -1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.7) returns -1.0 for rounding mode FE_TONEAREST", rint(-0.7), -1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.6) returns -1.0 for rounding mode FE_TONEAREST", rint(-0.6), -1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.5) returns -0.0 for rounding mode FE_TONEAREST", rint(-0.5), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.4) returns -0.0 for rounding mode FE_TONEAREST", rint(-0.4), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.3) returns -0.0 for rounding mode FE_TONEAREST", rint(-0.3), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.2) returns -0.0 for rounding mode FE_TONEAREST", rint(-0.2), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.1) returns -0.0 for rounding mode FE_TONEAREST", rint(-0.1), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.0) returns -0.0 for rounding mode FE_TONEAREST", rint(-0.0), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.0) returns 0.0 for rounding mode FE_TONEAREST", rint(0.0), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.1) returns 0.0 for rounding mode FE_TONEAREST", rint(0.1), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.2) returns 0.0 for rounding mode FE_TONEAREST", rint(0.2), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.3) returns 0.0 for rounding mode FE_TONEAREST", rint(0.3), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.4) returns 0.0 for rounding mode FE_TONEAREST", rint(0.4), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.5) returns 0.0 for rounding mode FE_TONEAREST", rint(0.5), 1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.6) returns 1.0 for rounding mode FE_TONEAREST", rint(0.6), 1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.7) returns 1.0 for rounding mode FE_TONEAREST", rint(0.7), 1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.8) returns 1.0 for rounding mode FE_TONEAREST", rint(0.8), 1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.9) returns 1.0 for rounding mode FE_TONEAREST", rint(0.9), 1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(1.0) returns 1.0 for rounding mode FE_TONEAREST", rint(1.0), 1.0);
+
+    fesetround(FE_DOWNWARD);
+    ASSERT_EQUALS("rint: Checking, if rint(-1.0) returns -1.0 for rounding mode FE_DOWNWARD", rint(-1.0), -1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.9) returns -1.0 for rounding mode FE_DOWNWARD", rint(-0.9), -1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.8) returns -1.0 for rounding mode FE_DOWNWARD", rint(-0.8), -1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.7) returns -1.0 for rounding mode FE_DOWNWARD", rint(-0.7), -1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.6) returns -1.0 for rounding mode FE_DOWNWARD", rint(-0.6), -1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.5) returns -1.0 for rounding mode FE_DOWNWARD", rint(-0.5), -1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.4) returns -1.0 for rounding mode FE_DOWNWARD", rint(-0.4), -1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.3) returns -1.0 for rounding mode FE_DOWNWARD", rint(-0.3), -1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.2) returns -1.0 for rounding mode FE_DOWNWARD", rint(-0.2), -1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.1) returns -1.0 for rounding mode FE_DOWNWARD", rint(-0.1), -1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.0) returns -0.0 for rounding mode FE_DOWNWARD", rint(-0.0), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.0) returns 0.0 for rounding mode FE_DOWNWARD", rint(0.0), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.1) returns 0.0 for rounding mode FE_DOWNWARD", rint(0.1), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.2) returns 0.0 for rounding mode FE_DOWNWARD", rint(0.2), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.3) returns 0.0 for rounding mode FE_DOWNWARD", rint(0.3), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.4) returns 0.0 for rounding mode FE_DOWNWARD", rint(0.4), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.5) returns 0.0 for rounding mode FE_DOWNWARD", rint(0.5), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.6) returns 0.0 for rounding mode FE_DOWNWARD", rint(0.6), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.7) returns 0.0 for rounding mode FE_DOWNWARD", rint(0.7), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.8) returns 0.0 for rounding mode FE_DOWNWARD", rint(0.8), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.9) returns 0.0 for rounding mode FE_DOWNWARD", rint(0.9), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(1.0) returns 1.0 for rounding mode FE_DOWNWARD", rint(1.0), 1.0);
+
+    fesetround(FE_UPWARD);
+    ASSERT_EQUALS("rint: Checking, if rint(-1.0) returns -1.0 for rounding mode FE_UPWARD", rint(-1.0), -1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.9) returns -0.0 for rounding mode FE_UPWARD", rint(-0.9), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.8) returns -0.0 for rounding mode FE_UPWARD", rint(-0.8), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.7) returns -0.0 for rounding mode FE_UPWARD", rint(-0.7), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.6) returns -0.0 for rounding mode FE_UPWARD", rint(-0.6), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.5) returns -0.0 for rounding mode FE_UPWARD", rint(-0.5), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.4) returns -0.0 for rounding mode FE_UPWARD", rint(-0.4), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.3) returns -0.0 for rounding mode FE_UPWARD", rint(-0.3), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.2) returns -0.0 for rounding mode FE_UPWARD", rint(-0.2), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.1) returns -0.0 for rounding mode FE_UPWARD", rint(-0.1), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.0) returns -0.0 for rounding mode FE_UPWARD", rint(-0.0), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.0) returns 0.0 for rounding mode FE_UPWARD", rint(0.0), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.1) returns 1.0 for rounding mode FE_UPWARD", rint(0.1), 1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.2) returns 1.0 for rounding mode FE_UPWARD", rint(0.2), 1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.3) returns 1.0 for rounding mode FE_UPWARD", rint(0.3), 1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.4) returns 1.0 for rounding mode FE_UPWARD", rint(0.4), 1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.5) returns 1.0 for rounding mode FE_UPWARD", rint(0.5), 1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.6) returns 1.0 for rounding mode FE_UPWARD", rint(0.6), 1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.7) returns 1.0 for rounding mode FE_UPWARD", rint(0.7), 1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.8) returns 1.0 for rounding mode FE_UPWARD", rint(0.8), 1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.9) returns 1.0 for rounding mode FE_UPWARD", rint(0.9), 1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(1.0) returns 1.0 for rounding mode FE_UPWARD", rint(1.0), 1.0);
+
+    fesetround(FE_TOWARDZERO);
+    ASSERT_EQUALS("rint: Checking, if rint(-1.0) returns -1.0 for rounding mode FE_TOWARDZERO", rint(-1.0), -1.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.9) returns -0.0 for rounding mode FE_TOWARDZERO", rint(-0.9), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.8) returns -0.0 for rounding mode FE_TOWARDZERO", rint(-0.8), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.7) returns -0.0 for rounding mode FE_TOWARDZERO", rint(-0.7), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.6) returns -0.0 for rounding mode FE_TOWARDZERO", rint(-0.6), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.5) returns -0.0 for rounding mode FE_TOWARDZERO", rint(-0.5), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.4) returns -0.0 for rounding mode FE_TOWARDZERO", rint(-0.4), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.3) returns -0.0 for rounding mode FE_TOWARDZERO", rint(-0.3), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.2) returns -0.0 for rounding mode FE_TOWARDZERO", rint(-0.2), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.1) returns -0.0 for rounding mode FE_TOWARDZERO", rint(-0.1), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(-0.0) returns -0.0 for rounding mode FE_TOWARDZERO", rint(-0.0), -0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.0) returns 0.0 for rounding mode FE_TOWARDZERO", rint(0.0), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.1) returns 0.0 for rounding mode FE_TOWARDZERO", rint(0.1), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.2) returns 0.0 for rounding mode FE_TOWARDZERO", rint(0.2), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.3) returns 0.0 for rounding mode FE_TOWARDZERO", rint(0.3), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.4) returns 0.0 for rounding mode FE_TOWARDZERO", rint(0.4), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.5) returns 0.0 for rounding mode FE_TOWARDZERO", rint(0.5), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.6) returns 0.0 for rounding mode FE_TOWARDZERO", rint(0.6), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.7) returns 0.0 for rounding mode FE_TOWARDZERO", rint(0.7), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.8) returns 0.0 for rounding mode FE_TOWARDZERO", rint(0.8), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(0.9) returns 0.0 for rounding mode FE_TOWARDZERO", rint(0.9), 0.0);
+    ASSERT_EQUALS("rint: Checking, if rint(1.0) returns 1.0 for rounding mode FE_TOWARDZERO", rint(1.0), 1.0);
+
+    ASSERT_EQUALS("rint: Checking, if errno is unmodified", pre_errno, errno);
+
+    fesetround(FE_TONEAREST);
+}
+
+
+static void test_rintf()
+{
+const int pre_errno = errno;
+
+    fesetround(FE_TONEAREST);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-1.0f) returns -1.0f for rounding mode FE_TONEAREST", rintf(-1.0f), -1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.9f) returns -1.0f for rounding mode FE_TONEAREST", rintf(-0.9f), -1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.8f) returns -1.0f for rounding mode FE_TONEAREST", rintf(-0.8f), -1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.7f) returns -1.0f for rounding mode FE_TONEAREST", rintf(-0.7f), -1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.6f) returns -1.0f for rounding mode FE_TONEAREST", rintf(-0.6f), -1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.5f) returns -0.0f for rounding mode FE_TONEAREST", rintf(-0.5f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.4f) returns -0.0f for rounding mode FE_TONEAREST", rintf(-0.4f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.3f) returns -0.0f for rounding mode FE_TONEAREST", rintf(-0.3f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.2f) returns -0.0f for rounding mode FE_TONEAREST", rintf(-0.2f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.1f) returns -0.0f for rounding mode FE_TONEAREST", rintf(-0.1f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.0f) returns -0.0f for rounding mode FE_TONEAREST", rintf(-0.0f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.0f) returns 0.0f for rounding mode FE_TONEAREST", rintf(0.0f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.1f) returns 0.0f for rounding mode FE_TONEAREST", rintf(0.1f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.2f) returns 0.0f for rounding mode FE_TONEAREST", rintf(0.2f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.3f) returns 0.0f for rounding mode FE_TONEAREST", rintf(0.3f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.4f) returns 0.0f for rounding mode FE_TONEAREST", rintf(0.4f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.5f) returns 0.0f for rounding mode FE_TONEAREST", rintf(0.5f), 1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.6f) returns 1.0f for rounding mode FE_TONEAREST", rintf(0.6f), 1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.7f) returns 1.0f for rounding mode FE_TONEAREST", rintf(0.7f), 1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.8f) returns 1.0f for rounding mode FE_TONEAREST", rintf(0.8f), 1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.9f) returns 1.0f for rounding mode FE_TONEAREST", rintf(0.9f), 1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(1.0f) returns 1.0f for rounding mode FE_TONEAREST", rintf(1.0f), 1.0f);
+
+    fesetround(FE_DOWNWARD);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-1.0f) returns -1.0f for rounding mode FE_DOWNWARD", rintf(-1.0f), -1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.9f) returns -1.0f for rounding mode FE_DOWNWARD", rintf(-0.9f), -1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.8f) returns -1.0f for rounding mode FE_DOWNWARD", rintf(-0.8f), -1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.7f) returns -1.0f for rounding mode FE_DOWNWARD", rintf(-0.7f), -1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.6f) returns -1.0f for rounding mode FE_DOWNWARD", rintf(-0.6f), -1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.5f) returns -1.0f for rounding mode FE_DOWNWARD", rintf(-0.5f), -1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.4f) returns -1.0f for rounding mode FE_DOWNWARD", rintf(-0.4f), -1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.3f) returns -1.0f for rounding mode FE_DOWNWARD", rintf(-0.3f), -1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.2f) returns -1.0f for rounding mode FE_DOWNWARD", rintf(-0.2f), -1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.1f) returns -1.0f for rounding mode FE_DOWNWARD", rintf(-0.1f), -1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.0f) returns -0.0f for rounding mode FE_DOWNWARD", rintf(-0.0f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.0f) returns 0.0f for rounding mode FE_DOWNWARD", rintf(0.0f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.1f) returns 0.0f for rounding mode FE_DOWNWARD", rintf(0.1f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.2f) returns 0.0f for rounding mode FE_DOWNWARD", rintf(0.2f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.3f) returns 0.0f for rounding mode FE_DOWNWARD", rintf(0.3f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.4f) returns 0.0f for rounding mode FE_DOWNWARD", rintf(0.4f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.5f) returns 0.0f for rounding mode FE_DOWNWARD", rintf(0.5f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.6f) returns 0.0f for rounding mode FE_DOWNWARD", rintf(0.6f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.7f) returns 0.0f for rounding mode FE_DOWNWARD", rintf(0.7f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.8f) returns 0.0f for rounding mode FE_DOWNWARD", rintf(0.8f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.9f) returns 0.0f for rounding mode FE_DOWNWARD", rintf(0.9f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(1.0f) returns 1.0f for rounding mode FE_DOWNWARD", rintf(1.0f), 1.0f);
+
+    fesetround(FE_UPWARD);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-1.0f) returns -1.0f for rounding mode FE_UPWARD", rintf(-1.0f), -1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.9f) returns -0.0f for rounding mode FE_UPWARD", rintf(-0.9f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.8f) returns -0.0f for rounding mode FE_UPWARD", rintf(-0.8f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.7f) returns -0.0f for rounding mode FE_UPWARD", rintf(-0.7f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.6f) returns -0.0f for rounding mode FE_UPWARD", rintf(-0.6f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.5f) returns -0.0f for rounding mode FE_UPWARD", rintf(-0.5f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.4f) returns -0.0f for rounding mode FE_UPWARD", rintf(-0.4f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.3f) returns -0.0f for rounding mode FE_UPWARD", rintf(-0.3f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.2f) returns -0.0f for rounding mode FE_UPWARD", rintf(-0.2f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.1f) returns -0.0f for rounding mode FE_UPWARD", rintf(-0.1f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.0f) returns -0.0f for rounding mode FE_UPWARD", rintf(-0.0f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.0f) returns 0.0f for rounding mode FE_UPWARD", rintf(0.0f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.1f) returns 1.0f for rounding mode FE_UPWARD", rintf(0.1f), 1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.2f) returns 1.0f for rounding mode FE_UPWARD", rintf(0.2f), 1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.3f) returns 1.0f for rounding mode FE_UPWARD", rintf(0.3f), 1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.4f) returns 1.0f for rounding mode FE_UPWARD", rintf(0.4f), 1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.5f) returns 1.0f for rounding mode FE_UPWARD", rintf(0.5f), 1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.6f) returns 1.0f for rounding mode FE_UPWARD", rintf(0.6f), 1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.7f) returns 1.0f for rounding mode FE_UPWARD", rintf(0.7f), 1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.8f) returns 1.0f for rounding mode FE_UPWARD", rintf(0.8f), 1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.9f) returns 1.0f for rounding mode FE_UPWARD", rintf(0.9f), 1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(1.0f) returns 1.0f for rounding mode FE_UPWARD", rintf(1.0f), 1.0f);
+
+    fesetround(FE_TOWARDZERO);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-1.0f) returns -1.0f for rounding mode FE_TOWARDZERO", rintf(-1.0f), -1.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.9f) returns -0.0f for rounding mode FE_TOWARDZERO", rintf(-0.9f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.8f) returns -0.0f for rounding mode FE_TOWARDZERO", rintf(-0.8f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.7f) returns -0.0f for rounding mode FE_TOWARDZERO", rintf(-0.7f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.6f) returns -0.0f for rounding mode FE_TOWARDZERO", rintf(-0.6f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.5f) returns -0.0f for rounding mode FE_TOWARDZERO", rintf(-0.5f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.4f) returns -0.0f for rounding mode FE_TOWARDZERO", rintf(-0.4f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.3f) returns -0.0f for rounding mode FE_TOWARDZERO", rintf(-0.3f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.2f) returns -0.0f for rounding mode FE_TOWARDZERO", rintf(-0.2f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.1f) returns -0.0f for rounding mode FE_TOWARDZERO", rintf(-0.1f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(-0.0f) returns -0.0f for rounding mode FE_TOWARDZERO", rintf(-0.0f), -0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.0f) returns 0.0f for rounding mode FE_TOWARDZERO", rintf(0.0f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.1f) returns 0.0f for rounding mode FE_TOWARDZERO", rintf(0.1f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.2f) returns 0.0f for rounding mode FE_TOWARDZERO", rintf(0.2f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.3f) returns 0.0f for rounding mode FE_TOWARDZERO", rintf(0.3f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.4f) returns 0.0f for rounding mode FE_TOWARDZERO", rintf(0.4f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.5f) returns 0.0f for rounding mode FE_TOWARDZERO", rintf(0.5f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.6f) returns 0.0f for rounding mode FE_TOWARDZERO", rintf(0.6f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.7f) returns 0.0f for rounding mode FE_TOWARDZERO", rintf(0.7f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.8f) returns 0.0f for rounding mode FE_TOWARDZERO", rintf(0.8f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(0.9f) returns 0.0f for rounding mode FE_TOWARDZERO", rintf(0.9f), 0.0f);
+    ASSERT_EQUALS("rintf: Checking, if rintf(1.0f) returns 1.0f for rounding mode FE_TOWARDZERO", rintf(1.0f), 1.0f);
+
+    ASSERT_EQUALS("rintf: Checking, if errno is unmodified", pre_errno, errno);
+
+    fesetround(FE_TONEAREST);
+}
+
+
+static void test_rintl()
+{
+    const int pre_errno = errno;
+
+    fesetround(FE_TONEAREST);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-1.0) returns -1.0 for rounding mode FE_TONEAREST", rintl(-1.0), -1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.9) returns -1.0 for rounding mode FE_TONEAREST", rintl(-0.9), -1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.8) returns -1.0 for rounding mode FE_TONEAREST", rintl(-0.8), -1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.7) returns -1.0 for rounding mode FE_TONEAREST", rintl(-0.7), -1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.6) returns -1.0 for rounding mode FE_TONEAREST", rintl(-0.6), -1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.5) returns -0.0 for rounding mode FE_TONEAREST", rintl(-0.5), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.4) returns -0.0 for rounding mode FE_TONEAREST", rintl(-0.4), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.3) returns -0.0 for rounding mode FE_TONEAREST", rintl(-0.3), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.2) returns -0.0 for rounding mode FE_TONEAREST", rintl(-0.2), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.1) returns -0.0 for rounding mode FE_TONEAREST", rintl(-0.1), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.0) returns -0.0 for rounding mode FE_TONEAREST", rintl(-0.0), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.0) returns 0.0 for rounding mode FE_TONEAREST", rintl(0.0), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.1) returns 0.0 for rounding mode FE_TONEAREST", rintl(0.1), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.2) returns 0.0 for rounding mode FE_TONEAREST", rintl(0.2), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.3) returns 0.0 for rounding mode FE_TONEAREST", rintl(0.3), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.4) returns 0.0 for rounding mode FE_TONEAREST", rintl(0.4), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.5) returns 0.0 for rounding mode FE_TONEAREST", rintl(0.5), 1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.6) returns 1.0 for rounding mode FE_TONEAREST", rintl(0.6), 1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.7) returns 1.0 for rounding mode FE_TONEAREST", rintl(0.7), 1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.8) returns 1.0 for rounding mode FE_TONEAREST", rintl(0.8), 1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.9) returns 1.0 for rounding mode FE_TONEAREST", rintl(0.9), 1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(1.0) returns 1.0 for rounding mode FE_TONEAREST", rintl(1.0), 1.0);
+
+    fesetround(FE_DOWNWARD);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-1.0) returns -1.0 for rounding mode FE_DOWNWARD", rintl(-1.0), -1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.9) returns -1.0 for rounding mode FE_DOWNWARD", rintl(-0.9), -1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.8) returns -1.0 for rounding mode FE_DOWNWARD", rintl(-0.8), -1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.7) returns -1.0 for rounding mode FE_DOWNWARD", rintl(-0.7), -1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.6) returns -1.0 for rounding mode FE_DOWNWARD", rintl(-0.6), -1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.5) returns -1.0 for rounding mode FE_DOWNWARD", rintl(-0.5), -1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.4) returns -1.0 for rounding mode FE_DOWNWARD", rintl(-0.4), -1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.3) returns -1.0 for rounding mode FE_DOWNWARD", rintl(-0.3), -1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.2) returns -1.0 for rounding mode FE_DOWNWARD", rintl(-0.2), -1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.1) returns -1.0 for rounding mode FE_DOWNWARD", rintl(-0.1), -1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.0) returns -0.0 for rounding mode FE_DOWNWARD", rintl(-0.0), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.0) returns 0.0 for rounding mode FE_DOWNWARD", rintl(0.0), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.1) returns 0.0 for rounding mode FE_DOWNWARD", rintl(0.1), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.2) returns 0.0 for rounding mode FE_DOWNWARD", rintl(0.2), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.3) returns 0.0 for rounding mode FE_DOWNWARD", rintl(0.3), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.4) returns 0.0 for rounding mode FE_DOWNWARD", rintl(0.4), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.5) returns 0.0 for rounding mode FE_DOWNWARD", rintl(0.5), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.6) returns 0.0 for rounding mode FE_DOWNWARD", rintl(0.6), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.7) returns 0.0 for rounding mode FE_DOWNWARD", rintl(0.7), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.8) returns 0.0 for rounding mode FE_DOWNWARD", rintl(0.8), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.9) returns 0.0 for rounding mode FE_DOWNWARD", rintl(0.9), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(1.0) returns 1.0 for rounding mode FE_DOWNWARD", rintl(1.0), 1.0);
+
+    fesetround(FE_UPWARD);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-1.0) returns -1.0 for rounding mode FE_UPWARD", rintl(-1.0), -1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.9) returns -0.0 for rounding mode FE_UPWARD", rintl(-0.9), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.8) returns -0.0 for rounding mode FE_UPWARD", rintl(-0.8), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.7) returns -0.0 for rounding mode FE_UPWARD", rintl(-0.7), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.6) returns -0.0 for rounding mode FE_UPWARD", rintl(-0.6), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.5) returns -0.0 for rounding mode FE_UPWARD", rintl(-0.5), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.4) returns -0.0 for rounding mode FE_UPWARD", rintl(-0.4), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.3) returns -0.0 for rounding mode FE_UPWARD", rintl(-0.3), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.2) returns -0.0 for rounding mode FE_UPWARD", rintl(-0.2), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.1) returns -0.0 for rounding mode FE_UPWARD", rintl(-0.1), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.0) returns -0.0 for rounding mode FE_UPWARD", rintl(-0.0), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.0) returns 0.0 for rounding mode FE_UPWARD", rintl(0.0), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.1) returns 1.0 for rounding mode FE_UPWARD", rintl(0.1), 1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.2) returns 1.0 for rounding mode FE_UPWARD", rintl(0.2), 1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.3) returns 1.0 for rounding mode FE_UPWARD", rintl(0.3), 1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.4) returns 1.0 for rounding mode FE_UPWARD", rintl(0.4), 1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.5) returns 1.0 for rounding mode FE_UPWARD", rintl(0.5), 1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.6) returns 1.0 for rounding mode FE_UPWARD", rintl(0.6), 1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.7) returns 1.0 for rounding mode FE_UPWARD", rintl(0.7), 1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.8) returns 1.0 for rounding mode FE_UPWARD", rintl(0.8), 1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.9) returns 1.0 for rounding mode FE_UPWARD", rintl(0.9), 1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(1.0) returns 1.0 for rounding mode FE_UPWARD", rintl(1.0), 1.0);
+
+    fesetround(FE_TOWARDZERO);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-1.0) returns -1.0 for rounding mode FE_TOWARDZERO", rintl(-1.0), -1.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.9) returns -0.0 for rounding mode FE_TOWARDZERO", rintl(-0.9), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.8) returns -0.0 for rounding mode FE_TOWARDZERO", rintl(-0.8), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.7) returns -0.0 for rounding mode FE_TOWARDZERO", rintl(-0.7), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.6) returns -0.0 for rounding mode FE_TOWARDZERO", rintl(-0.6), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.5) returns -0.0 for rounding mode FE_TOWARDZERO", rintl(-0.5), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.4) returns -0.0 for rounding mode FE_TOWARDZERO", rintl(-0.4), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.3) returns -0.0 for rounding mode FE_TOWARDZERO", rintl(-0.3), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.2) returns -0.0 for rounding mode FE_TOWARDZERO", rintl(-0.2), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.1) returns -0.0 for rounding mode FE_TOWARDZERO", rintl(-0.1), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(-0.0) returns -0.0 for rounding mode FE_TOWARDZERO", rintl(-0.0), -0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.0) returns 0.0 for rounding mode FE_TOWARDZERO", rintl(0.0), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.1) returns 0.0 for rounding mode FE_TOWARDZERO", rintl(0.1), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.2) returns 0.0 for rounding mode FE_TOWARDZERO", rintl(0.2), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.3) returns 0.0 for rounding mode FE_TOWARDZERO", rintl(0.3), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.4) returns 0.0 for rounding mode FE_TOWARDZERO", rintl(0.4), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.5) returns 0.0 for rounding mode FE_TOWARDZERO", rintl(0.5), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.6) returns 0.0 for rounding mode FE_TOWARDZERO", rintl(0.6), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.7) returns 0.0 for rounding mode FE_TOWARDZERO", rintl(0.7), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.8) returns 0.0 for rounding mode FE_TOWARDZERO", rintl(0.8), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(0.9) returns 0.0 for rounding mode FE_TOWARDZERO", rintl(0.9), 0.0);
+    ASSERT_EQUALS("rintl: Checking, if rintl(1.0) returns 1.0 for rounding mode FE_TOWARDZERO", rintl(1.0), 1.0);
+
+    ASSERT_EQUALS("rintl: Checking, if errno is unmodified", pre_errno, errno);
+
+    fesetround(FE_TONEAREST);
+}
+
+
 static void test_sin()
 {
     const int pre_errno = errno;
@@ -628,6 +946,10 @@ void run_math_lib_tests()
     test_fmod();
     test_fmodf();
     test_fmodl();
+
+    test_rint();
+    test_rintf();
+    test_rintl();
 
     test_sin();
     test_sinf();

@@ -646,6 +646,120 @@ long double fmodl(long double x, long double y)
 
 /******************************************************************************
  *
+ * this function returns the integral value (represented as a double) nearest
+ * x in the direction of the current rounding mode.
+ *
+ * If the current rounding mode rounds toward negative infinity, then rint()
+ * is equivalent to floor(). If the current rounding mode rounds toward positive
+ * infinity, then rint() is equivalent to ceil().
+ *
+ * Upon successful completion, this function returns the integer
+ * (represented as a double precision number) nearest x in the direction of
+ * the current rounding mode.
+ *
+ ******************************************************************************/
+double rint(double x)
+{
+    const int rounding = fegetround();
+
+    if(rounding == FE_TONEAREST)
+    {
+        return fmod(x, 1) < 0.5 ? floor(x) : ceil(x);
+    }
+
+    if(rounding == FE_DOWNWARD)
+    {
+        return floor(x);
+    }
+
+    if(rounding == FE_UPWARD)
+    {
+        return ceil(x);
+    }
+
+    // rounding == FE_TOWARDZERO
+    return fmod(x, 1) == 0.0 ? x : (x < 0.0 ? ceil(x) : floor(x));
+}
+
+
+/******************************************************************************
+ *
+ * This function returns the integral value (represented as a float) nearest
+ * x in the direction of the current rounding mode.
+ *
+ * If the current rounding mode rounds toward negative infinity, then rintf()
+ * is equivalent to floorf(). If the current rounding mode rounds toward positive
+ * infinity, then rintf() is equivalent to ceilf().
+ *
+ * Upon successful completion, this function returns the integer
+ * (represented as a single precision number) nearest x in the direction of
+ * the current rounding mode.
+ *
+ ******************************************************************************/
+float rintf(float x)
+{
+    const int rounding = fegetround();
+
+    if(rounding == FE_TONEAREST)
+    {
+        return fmodf(x, 1) < 0.5f ? floorf(x) : ceilf(x);
+    }
+
+    if(rounding == FE_DOWNWARD)
+    {
+        return floorf(x);
+    }
+
+    if(rounding == FE_UPWARD)
+    {
+        return ceilf(x);
+    }
+
+    // rounding == FE_TOWARDZERO
+    return fmodf(x, 1) == 0.0f ? x : (x < 0.0f ? ceilf(x) : floorf(x));
+}
+
+
+/******************************************************************************
+ *
+ * This function returns the integral value (represented as a long double)
+ * nearest x in the direction of the current rounding mode.
+ *
+ * If the current rounding mode rounds toward negative infinity, then rint()
+ * is equivalent to floor(). If the current rounding mode rounds toward positive
+ * infinity, then rint() is equivalent to ceil().
+ *
+ * Upon successful completion, this function returns the integer
+ * (represented as a extended precision number) nearest x in the direction of
+ * the current rounding mode.
+ *
+ ******************************************************************************/
+long double rintl(long double x)
+{
+    const int rounding = fegetround();
+
+    if(rounding == FE_TONEAREST)
+    {
+        return fmodl(x, 1) < 0.5 ? floorl(x) : ceill(x);
+    }
+
+    if(rounding == FE_DOWNWARD)
+    {
+        return floorl(x);
+    }
+
+    if(rounding == FE_UPWARD)
+    {
+        return ceill(x);
+    }
+
+    // rounding == FE_TOWARDZERO
+    return fmodl(x, 1) == 0.0 ? x : (x < 0.0 ? ceill(x) : floorl(x));
+}
+
+
+/******************************************************************************
+ *
  * The sin() function computes the sine of its argument x, measured in
  * radians.
  *

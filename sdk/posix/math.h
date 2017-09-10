@@ -49,6 +49,10 @@ double fmod(double x, double y);
 float fmodf(float x, float y);
 long double fmodl(long double x, long double y);
 
+double rint(double x);
+float rintf(float x);
+long double rintl(long double x);
+
 double sin(double x);
 float sinf(float x);
 long double sinl(long double x);
