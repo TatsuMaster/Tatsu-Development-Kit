@@ -646,7 +646,91 @@ long double fmodl(long double x, long double y)
 
 /******************************************************************************
  *
- * this function returns the integral value (represented as a double) nearest
+ * This function rounds their argument to the nearest integer value, rounding
+ * according to the current rounding direction.
+ *
+ * Upon successful completion, this function returns the rounded integer value.
+ *
+ ******************************************************************************/
+long lrint(double x)
+{
+    return (long)rint(x);
+}
+
+
+/******************************************************************************
+ *
+ * This function rounds their argument to the nearest integer value, rounding
+ * according to the current rounding direction.
+ *
+ * Upon successful completion, this function returns the rounded integer value.
+ *
+ ******************************************************************************/
+long lrintf(float x)
+{
+    return (long)rintf(x);
+}
+
+
+/******************************************************************************
+ *
+ * This function rounds their argument to the nearest integer value, rounding
+ * according to the current rounding direction.
+ *
+ * Upon successful completion, this function returns the rounded integer value.
+ *
+ ******************************************************************************/
+long lrintl(long double x)
+{
+    return (long)rintl(x);
+}
+
+
+/******************************************************************************
+ *
+ * This function rounds their argument to the nearest integer value, rounding
+ * according to the current rounding direction.
+ *
+ * Upon successful completion, this function returns the rounded integer value.
+ *
+ ******************************************************************************/
+long long llrint(double x)
+{
+    return (long long)rint(x);
+}
+
+
+/******************************************************************************
+ *
+ * This function rounds their argument to the nearest integer value, rounding
+ * according to the current rounding direction.
+ *
+ * Upon successful completion, this function returns the rounded integer value.
+ *
+ ******************************************************************************/
+long long llrintf(float x)
+{
+    return (long long)rintf(x);
+}
+
+
+/******************************************************************************
+ *
+ * This function rounds their argument to the nearest integer value, rounding
+ * according to the current rounding direction.
+ *
+ * Upon successful completion, this function returns the rounded integer value.
+ *
+ ******************************************************************************/
+long long llrintl(long double x)
+{
+    return (long long)rintl(x);
+}
+
+
+/******************************************************************************
+ *
+ * This function returns the integral value (represented as a double) nearest
  * x in the direction of the current rounding mode.
  *
  * If the current rounding mode rounds toward negative infinity, then rint()
