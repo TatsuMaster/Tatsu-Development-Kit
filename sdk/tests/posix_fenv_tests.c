@@ -60,6 +60,25 @@ static void test_feraiseexcept()
 }
 
 
+static void test_fegetround_fesetround()
+{
+    const int pre_errno = errno;
+    
+    ASSERT_EQUALS("fegetround/fesetround: Checking, if default rounding mode is set to FE_TONEAREST", fegetround(), FE_TONEAREST);
+    ASSERT_EQUALS("fegetround/fesetround: Changing rounding mode to FE_DOWNWARD", fesetround(FE_DOWNWARD), 0);
+    ASSERT_EQUALS("fegetround/fesetround: Checking, if rounding mode is set to FE_DOWNWARD", fegetround(), FE_DOWNWARD);
+    ASSERT_EQUALS("fegetround/fesetround: Changing rounding mode to FE_UPWARD", fesetround(FE_UPWARD), 0);
+    ASSERT_EQUALS("fegetround/fesetround: Checking, if rounding mode is set to FE_UPWARD", fegetround(), FE_UPWARD);
+    ASSERT_EQUALS("fegetround/fesetround: Changing rounding mode to FE_TOWARDZERO", fesetround(FE_TOWARDZERO), 0);
+    ASSERT_EQUALS("fegetround/fesetround: Checking, if rounding mode is set to FE_TOWARDZERO", fegetround(), FE_TOWARDZERO);
+    ASSERT_EQUALS("fegetround/fesetround: Changing rounding mode to FE_TONEAREST", fesetround(FE_TONEAREST), 0);
+    ASSERT_EQUALS("fegetround/fesetround: Checking, if rounding mode is set to FE_TONEAREST", fegetround(), FE_TONEAREST);
+    ASSERT_EQUALS("fegetround/fesetround: Changing rounding mode to some invalid value", fesetround(1337), -1);
+    ASSERT_EQUALS("fegetround/fesetround: Checking, if rounding mode remained to FE_TONEAREST", fegetround(), FE_TONEAREST);
+    ASSERT_EQUALS("fegetround/fesetround: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
 // Check fenv functions
 void run_fenv_tests()
 {
@@ -69,4 +88,5 @@ void run_fenv_tests()
     test_feclearexcept();
     test_fetestexcept();
     test_feraiseexcept();
+    test_fegetround_fesetround();
 }

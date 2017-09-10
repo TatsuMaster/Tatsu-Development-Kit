@@ -9,6 +9,7 @@
 
 
 static int _excepts;
+static int _rounding_mode = FE_TONEAREST;
 
 
 /******************************************************************************
@@ -90,4 +91,40 @@ int feraiseexcept(int excepts)
 #endif
 
     return 0;
+}
+
+
+/******************************************************************************
+ *
+ * The fegetround() function returns the value of the rounding direction macro
+ * representing the current rounding direction or a negative value if there is
+ * no such rounding direction macro or the current rounding direction is not
+ * determinable.
+ *
+ *****************************************************************************/
+int fegetround()
+{
+    return _rounding_mode;
+}
+
+
+/******************************************************************************
+ *
+ * The fesetround() function returns establish the rounding direction
+ * represented by its argument round. If the argument is not equal to the value
+ * of a rounding direction macro, the rounding direction is not changed.
+ *
+ * The fesetround() function returns a zero value if and only if the
+ * requested rounding direction was established.
+ *
+ *****************************************************************************/
+int fesetround(int round)
+{
+    if (round == FE_TONEAREST || round == FE_DOWNWARD || round == FE_UPWARD || round == FE_TOWARDZERO)
+    {
+        _rounding_mode = round;
+        return 0;
+    }
+
+    return -1;
 }

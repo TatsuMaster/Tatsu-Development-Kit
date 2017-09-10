@@ -19,4 +19,7 @@ int feclearexcept(int excepts);
 int fetestexcept(int excepts);
 int feraiseexcept(int excepts);
 
+int fegetround();
+int fesetround(int round);
+
 #endif
