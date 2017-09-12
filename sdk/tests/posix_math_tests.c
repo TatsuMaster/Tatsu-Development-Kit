@@ -246,6 +246,81 @@ static void test_ceill()
 }
 
 
+static void test_copysign()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("copysign: Checking, if copysign(1.0, -1.0) returns -1.0", copysign(1.0, -1.0), -1.0);
+    ASSERT_EQUALS("copysign: Checking, if copysign(42.0, -1.0) returns -42.0", copysign(42.0, -1.0), -42.0);
+    ASSERT_EQUALS("copysign: Checking, if copysign(1337.0, -0.0) returns -1337.0", copysign(1337.0, -0.0), -1337.0);
+    ASSERT_EQUALS("copysign: Checking, if copysign(1.0, 1.0) returns 1.0", copysign(1.0, 1.0), 1.0);
+    ASSERT_EQUALS("copysign: Checking, if copysign(42.0, 1.0) returns 42.0", copysign(42.0, 1.0), 42.0);
+    ASSERT_EQUALS("copysign: Checking, if copysign(1337.0, 0.0) returns 1337.0", copysign(1337.0, 0.0), 1337.0);
+    ASSERT_EQUALS("copysign: Checking, if copysign(0.0, 0.0) returns 0.0", copysign(0.0, 0.0), 0.0);
+    ASSERT_EQUALS("copysign: Checking, if copysign(0.0, -0.0) returns -0.0", copysign(0.0, -0.0), -0.0);
+    ASSERT_EQUALS("copysign: Checking, if copysign(-1.0, -1.0) returns -1.0", copysign(-1.0, -1.0), -1.0);
+    ASSERT_EQUALS("copysign: Checking, if copysign(-42.0, -1.0) returns -42.0", copysign(-42.0, -1.0), -42.0);
+    ASSERT_EQUALS("copysign: Checking, if copysign(-1337.0, -0.0) returns -1337.0", copysign(-1337.0, -0.0), -1337.0);
+    ASSERT_EQUALS("copysign: Checking, if copysign(-1.0, 1.0) returns 1.0", copysign(-1.0, 1.0), 1.0);
+    ASSERT_EQUALS("copysign: Checking, if copysign(-42.0, 1.0) returns 42.0", copysign(-42.0, 1.0), 42.0);
+    ASSERT_EQUALS("copysign: Checking, if copysign(-1337.0, 0.0) returns 1337.0", copysign(-1337.0, 0.0), 1337.0);
+    ASSERT_EQUALS("copysign: Checking, if copysign(-0.0, 0.0) returns 0.0", copysign(-0.0, 0.0), 0.0);
+    ASSERT_EQUALS("copysign: Checking, if copysign(-0.0, -0.0) returns -0.0", copysign(-0.0, -0.0), -0.0);
+
+    ASSERT_EQUALS("copysign: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_copysignf()
+{
+    const int pre_errno = errno;
+    
+    ASSERT_EQUALS("copysignf: Checking, if copysignf(1.0f, -1.0f) returns -1.0f", copysignf(1.0f, -1.0f), -1.0f);
+    ASSERT_EQUALS("copysignf: Checking, if copysignf(42.0f, -1.0f) returns -42.0f", copysignf(42.0f, -1.0f), -42.0f);
+    ASSERT_EQUALS("copysignf: Checking, if copysignf(1337.0f, -0.0f) returns -1337.0f", copysignf(1337.0f, -0.0f), -1337.0f);
+    ASSERT_EQUALS("copysignf: Checking, if copysignf(1.0f, 1.0f) returns 1.0f", copysignf(1.0f, 1.0f), 1.0f);
+    ASSERT_EQUALS("copysignf: Checking, if copysignf(42.0f, 1.0f) returns 42.0f", copysignf(42.0f, 1.0f), 42.0f);
+    ASSERT_EQUALS("copysignf: Checking, if copysignf(1337.0f, 0.0f) returns 1337.0f", copysignf(1337.0f, 0.0f), 1337.0f);
+    ASSERT_EQUALS("copysignf: Checking, if copysignf(0.0f, 0.0f) returns 0.0f", copysignf(0.0f, 0.0f), 0.0f);
+    ASSERT_EQUALS("copysignf: Checking, if copysignf(0.0f, -0.0f) returns -0.0f", copysignf(0.0f, -0.0f), -0.0f);
+    ASSERT_EQUALS("copysignf: Checking, if copysignf(-1.0f, -1.0f) returns -1.0f", copysignf(-1.0f, -1.0f), -1.0f);
+    ASSERT_EQUALS("copysignf: Checking, if copysignf(-42.0f, -1.0f) returns -42.0f", copysignf(-42.0f, -1.0f), -42.0f);
+    ASSERT_EQUALS("copysignf: Checking, if copysignf(-1337.0f, -0.0f) returns -1337.0f", copysignf(-1337.0f, -0.0f), -1337.0f);
+    ASSERT_EQUALS("copysignf: Checking, if copysignf(-1.0f, 1.0f) returns 1.0f", copysignf(-1.0f, 1.0f), 1.0f);
+    ASSERT_EQUALS("copysignf: Checking, if copysignf(-42.0f, 1.0f) returns 42.0f", copysignf(-42.0f, 1.0f), 42.0f);
+    ASSERT_EQUALS("copysignf: Checking, if copysignf(-1337.0f, 0.0f) returns 1337.0f", copysignf(-1337.0f, 0.0f), 1337.0f);
+    ASSERT_EQUALS("copysignf: Checking, if copysignf(-0.0f, 0.0f) returns 0.0f", copysignf(-0.0f, 0.0f), 0.0f);
+    ASSERT_EQUALS("copysignf: Checking, if copysignf(-0.0f, -0.0f) returns -0.0f", copysignf(-0.0f, -0.0f), -0.0f);
+
+    ASSERT_EQUALS("copysignf: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_copysignl()
+{
+    const int pre_errno = errno;
+    
+    ASSERT_EQUALS("copysignl: Checking, if copysignl(1.0, -1.0) returns -1.0", copysignl(1.0, -1.0), -1.0);
+    ASSERT_EQUALS("copysignl: Checking, if copysignl(42.0, -1.0) returns -42.0", copysignl(42.0, -1.0), -42.0);
+    ASSERT_EQUALS("copysignl: Checking, if copysignl(1337.0, -0.0) returns -1337.0", copysignl(1337.0, -0.0), -1337.0);
+    ASSERT_EQUALS("copysignl: Checking, if copysignl(1.0, 1.0) returns 1.0", copysignl(1.0, 1.0), 1.0);
+    ASSERT_EQUALS("copysignl: Checking, if copysignl(42.0, 1.0) returns 42.0", copysignl(42.0, 1.0), 42.0);
+    ASSERT_EQUALS("copysignl: Checking, if copysignl(1337.0, 0.0) returns 1337.0", copysignl(1337.0, 0.0), 1337.0);
+    ASSERT_EQUALS("copysignl: Checking, if copysignl(0.0, 0.0) returns 0.0", copysignl(0.0, 0.0), 0.0);
+    ASSERT_EQUALS("copysignl: Checking, if copysignl(0.0, -0.0) returns -0.0", copysignl(0.0, -0.0), -0.0);
+    ASSERT_EQUALS("copysignl: Checking, if copysignl(-1.0, -1.0) returns -1.0", copysignl(-1.0, -1.0), -1.0);
+    ASSERT_EQUALS("copysignl: Checking, if copysignl(-42.0, -1.0) returns -42.0", copysignl(-42.0, -1.0), -42.0);
+    ASSERT_EQUALS("copysignl: Checking, if copysignl(-1337.0, -0.0) returns -1337.0", copysignl(-1337.0, -0.0), -1337.0);
+    ASSERT_EQUALS("copysignl: Checking, if copysignl(-1.0, 1.0) returns 1.0", copysignl(-1.0, 1.0), 1.0);
+    ASSERT_EQUALS("copysignl: Checking, if copysignl(-42.0, 1.0) returns 42.0", copysignl(-42.0, 1.0), 42.0);
+    ASSERT_EQUALS("copysignl: Checking, if copysignl(-1337.0, 0.0) returns 1337.0", copysignl(-1337.0, 0.0), 1337.0);
+    ASSERT_EQUALS("copysignl: Checking, if copysignl(-0.0, 0.0) returns 0.0", copysignl(-0.0, 0.0), 0.0);
+    ASSERT_EQUALS("copysignl: Checking, if copysignl(-0.0, -0.0) returns -0.0", copysignl(-0.0, -0.0), -0.0);
+
+    ASSERT_EQUALS("copysignl: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
 static void test_fabs()
 {
     const int pre_errno = errno;
@@ -1562,6 +1637,10 @@ void run_math_lib_tests()
     test_ceil();
     test_ceilf();
     test_ceill();
+
+    test_copysign();
+    test_copysignf();
+    test_copysignl();
 
     test_fabs();
     test_fabsf();

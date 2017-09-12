@@ -33,6 +33,10 @@ double ceil(double x);
 float ceilf(float x);
 long double ceill(long double x);
 
+double copysign(double x, double y);
+float copysignf(float x, float y);
+long double copysignl(long double x, long double y);
+
 double cos(double x);
 float cosf(float x);
 long double cosl(long double x);

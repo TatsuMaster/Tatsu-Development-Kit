@@ -10,6 +10,19 @@
  *
  *****************************************************************************/
 
+typedef union
+{
+    float value;
+    unsigned short value_segments[2];
+} float_fracture;
+
+
+typedef union
+{
+    double value;
+    unsigned short value_segments[4];
+} double_fracture;
+
 
 #ifdef __x86_64__
 extern void acos_fpu_sp_entry();
@@ -326,6 +339,71 @@ float ceilf(float x)
 long double ceill(long double x)
 {
     return -floorl(-x);
+}
+
+
+/******************************************************************************
+ *
+ * The copysign function produces a value with the magnitude of x and the sign
+ * of y. On implementations that represent a signed zero but do not treat
+ * negative zero consistently in arithmetic operations, this function regard
+ * the sign of zero as positive.
+ *
+ * Upon successful completion, copysign returns a value with the magnitude of
+ * x and the sign of y.
+ *
+ ******************************************************************************/
+double copysign(double x, double y)
+{
+    double_fracture xt, yt;
+    xt.value = x;
+    yt.value = y;
+    xt.value_segments[3] = (
+        (yt.value_segments[3] & 0x8000) | (xt.value_segments[3] & 0x7fff)
+    );
+
+    return xt.value;
+}
+
+
+/******************************************************************************
+ *
+ * The copysignf function produces a value with the magnitude of x and the sign
+ * of y. On implementations that represent a signed zero but do not treat
+ * negative zero consistently in arithmetic operations, this function regard
+ * the sign of zero as positive.
+ *
+ * Upon successful completion, copysignf returns a value with the magnitude of
+ * x and the sign of y.
+ *
+ ******************************************************************************/
+float copysignf(float x, float y)
+{
+    float_fracture xt, yt;
+    xt.value = x;
+    yt.value = y;
+    xt.value_segments[1] = (
+        (yt.value_segments[1] & 0x8000) | (xt.value_segments[1] & 0x7fff)
+    );
+
+    return xt.value;
+}
+
+
+/******************************************************************************
+ *
+ * The copysignl function produces a value with the magnitude of x and the sign
+ * of y. On implementations that represent a signed zero but do not treat
+ * negative zero consistently in arithmetic operations, this function regard
+ * the sign of zero as positive.
+ *
+ * Upon successful completion, copysignl returns a value with the magnitude of
+ * x and the sign of y.
+ *
+ ******************************************************************************/
+long double copysignl(long double x, long double y)
+{
+    return copysign(x, y);
 }
 
 
