@@ -5,7 +5,7 @@
 #include "../posix/string.h"
 #include "../../ttf/ttf.h"
 
-#include <stdio.h>
+
 static void test_swab()
 {
     char src[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
@@ -40,7 +40,7 @@ static void test_swab()
 // Check all functions of unistd.h
 void run_unistd_tests()
 {
-    TEST_CASE("Test POSIX math.h functions");
+    TEST_CASE("Test POSIX unistd.h functions");
 
     test_swab();
 }
