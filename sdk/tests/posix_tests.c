@@ -7,6 +7,7 @@
 #include "posix_signal_tests.h"
 #include "posix_stdlib_tests.h"
 #include "posix_string_tests.h"
+#include "posix_unistd_tests.h"
 
 
 void run_posix_tests()
@@ -37,4 +38,7 @@ void run_posix_tests()
 
     // Check all functions of string.h
     run_string_lib_tests();
+
+    // Check all functions of unistd.h
+    run_unistd_tests();
 }
