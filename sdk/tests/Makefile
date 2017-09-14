@@ -8,8 +8,8 @@ all: sdk_testapp
 clean:
 	rm -rf *.o sdk_testapp *~ *.exe
 
-sdk_testapp: sdk_testapp.o ttf.o posix_tests.o crt_tests.o crt_limits_tests.o posix_netdb_tests.o posix_fenv_tests.o posix_errno_tests.o posix_arpa_inet_tests.o posix_signal_tests.o posix_ctype_tests.o ttf_unix.o stdlib.o stdlib_asm.o posix_stdlib_tests.o string.o posix_string_tests.o errno.o ctype.o string_asm.o fenv.o math.o math_asm.o netdb.o posix_math_tests.o unistd.o posix_unistd_tests.o strings.o posix_strings_tests.o
-	@echo "  [LD ] Linking $@"; $(TDK_CC) sdk_testapp.o ttf.o posix_tests.o crt_tests.o crt_limits_tests.o posix_netdb_tests.o posix_fenv_tests.o posix_errno_tests.o posix_arpa_inet_tests.o posix_signal_tests.o ttf_unix.o stdlib.o stdlib_asm.o posix_stdlib_tests.o string.o errno.o ctype.o posix_string_tests.o posix_ctype_tests.o string_asm.o math_asm.o fenv.o math.o netdb.o posix_math_tests.o unistd.o posix_unistd_tests.o strings.o posix_strings_tests.o -o sdk_testapp
+sdk_testapp: sdk_testapp.o ttf.o posix_tests.o crt_tests.o crt_limits_tests.o posix_netdb_tests.o posix_fenv_tests.o posix_errno_tests.o posix_arpa_inet_tests.o posix_signal_tests.o posix_ctype_tests.o ttf_unix.o stdlib.o stdlib_asm.o posix_stdlib_tests.o string.o posix_string_tests.o errno.o ctype.o string_asm.o fenv.o math.o math_asm.o netdb.o posix_math_tests.o unistd.o posix_unistd_tests.o strings.o posix_strings_tests.o libgen.o posix_libgen_tests.o
+	@echo "  [LD ] Linking $@"; $(TDK_CC) sdk_testapp.o ttf.o posix_tests.o crt_tests.o crt_limits_tests.o posix_netdb_tests.o posix_fenv_tests.o posix_errno_tests.o posix_arpa_inet_tests.o posix_signal_tests.o ttf_unix.o stdlib.o stdlib_asm.o posix_stdlib_tests.o string.o errno.o ctype.o posix_string_tests.o posix_ctype_tests.o string_asm.o math_asm.o fenv.o math.o netdb.o posix_math_tests.o unistd.o posix_unistd_tests.o strings.o posix_strings_tests.o libgen.o posix_libgen_tests.o -o sdk_testapp
 
 crt_tests.o: crt_tests.c crt_tests.h
 	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
@@ -56,6 +56,9 @@ posix_strings_tests.o: posix_strings_tests.c posix_strings_tests.h ../posix/stri
 posix_unistd_tests.o: posix_unistd_tests.c posix_unistd_tests.h ../posix/unistd.h
 	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
 
+posix_libgen_tests.o: posix_libgen_tests.c posix_libgen_tests.h ../posix/libgen.h
+	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
+
 errno.o: ../posix/errno.c ../posix/errno.h
 	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
 
@@ -90,6 +93,9 @@ fenv.o: ../posix/fenv.c ../posix/fenv.h
 	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -DFRAMEWORK_TEST -o $@ -c $<
 
 unistd.o: ../posix/unistd.c ../posix/unistd.h
+	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
+
+libgen.o: ../posix/libgen.c ../posix/libgen.h
 	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
 
 posix_tests.o: posix_tests.c $(wildcard posix_*.h) 
