@@ -21,11 +21,31 @@ static void test_basename()
 }
 
 
+static void test_dirname()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("dirname: Checking, if dirname(\"/storage/msd0\") returns \"/storage\"", strcmp(dirname("/storage/msd0"), "/storage"), 0);
+    ASSERT_EQUALS("dirname: Checking, if dirname(\"/storage/\") returns \"/\"", strcmp(dirname("/storage/"), "/"), 0);
+    ASSERT_EQUALS("dirname: Checking, if dirname(\"storage\") returns \".\"", strcmp(dirname("storage"), "."), 0);
+    ASSERT_EQUALS("dirname: Checking, if dirname(\"/\") returns \"/\"", strcmp(dirname("/"), "/"), 0);
+    ASSERT_EQUALS("dirname: Checking, if dirname(\".\") returns \".\"", strcmp(dirname("."), "."), 0);
+    ASSERT_EQUALS("dirname: Checking, if dirname(\"..\") returns \".\"", strcmp(dirname(".."), "."), 0);
+    ASSERT_EQUALS("dirname: Checking, if dirname(0) returns \".\"", strcmp(dirname(0), "."), 0);
+    ASSERT_EQUALS("dirname: Checking, if dirname(\"\") returns \".\"", strcmp(dirname(""), "."), 0);
+    ASSERT_EQUALS("dirname: Checking, if dirname(\"/storage/msd0/////\") returns \"/storage\"", strcmp(dirname("/storage/msd0/////"), "/storage"), 0);
+    ASSERT_EQUALS("dirname: Checking, if dirname(\"/storage/msd0/../\") returns \"/storage/msd0\"", strcmp(dirname("/storage/msd0/../"), "/storage/msd0"), 0);
+    ASSERT_EQUALS("dirname: Checking, if dirname(\"/storage/msd0/../..\") returns \"/storage/msd0/..\"", strcmp(dirname("/storage/msd0/../.."), "/storage/msd0/.."), 0);
+    ASSERT_EQUALS("dirname: Checking, if dirname(\"/storage/msd0/../..////\") returns \"/storage/msd0/..\"", strcmp(dirname("/storage/msd0/../..////"), "/storage/msd0/.."), 0);
+    ASSERT_EQUALS("dirname: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
 // Check all functions of libgen.h
-#include <stdio.h>
 void run_libgen_tests()
 {
     TEST_CASE("Test POSIX libgen.h functions");
 
     test_basename();
+    test_dirname();
 }
