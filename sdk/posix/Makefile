@@ -9,7 +9,7 @@ all: posix_sdk
 clean:
 	rm -rf *.o sdk_testapp *~ *.exe
 
-posix_sdk: ctype.o errno.o math.o math_asm.o netdb.o stdlib.o stdlib_asm.o string.o string_asm.o fenv.o unistd.o strings.o libgen.o
+posix_sdk: ctype.o errno.o math.o math_asm.o netdb.o stdlib.o stdlib_asm.o string.o string_asm.o fenv.o unistd.o strings.o libgen.o wchar.o
 
 ctype.o: ctype.c ctype.h
 	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
@@ -48,4 +48,7 @@ unistd.o: unistd.c unistd.h
 	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
 
 libgen.o: libgen.c libgen.h
+	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<
+
+wchar.o: wchar.c wchar.h
 	@echo "  [CC ] Compiling $@"; $(TDK_CC) $(TDK_CFLAGS) -o $@ -c $<

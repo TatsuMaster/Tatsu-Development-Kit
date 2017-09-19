@@ -10,6 +10,7 @@
 #include "posix_strings_tests.h"
 #include "posix_unistd_tests.h"
 #include "posix_libgen_tests.h"
+#include "posix_wchar_tests.h"
 
 
 void run_posix_tests()
@@ -49,4 +50,7 @@ void run_posix_tests()
 
     // Check all functions of libgen.h
     run_libgen_tests();
+
+    // Check all functions of wchar.h
+    run_wchar_lib_tests();
 }
