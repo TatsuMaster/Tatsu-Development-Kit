@@ -59,3 +59,59 @@ int wmemcmp(const wchar_t *ws1, const wchar_t *ws2, size_t n)
     while (ws1 != end_address && *ws1++ == *ws2++);
     return (--ws1 == end_address) ? 0 : *ws1 - *--ws2;
 }
+
+
+/******************************************************************************
+ *
+ * The wmemcpy() function copies n wide characters from the object pointed to
+ * by ws2 to the object pointed to by ws1. This function is not affected by
+ * locale and all wchar_t values are treated identically. The null wide
+ * character and wchar_t values not corresponding to valid characters are not
+ * treated specially.
+ *
+ * If n is zero, the function copies zero wide characters.
+ *
+ * The wmemcpy() function returns the value of ws1.
+ *
+ *****************************************************************************/
+wchar_t *wmemcpy(wchar_t *__restrict__ ws1, const wchar_t *__restrict__ ws2, size_t n)
+{
+    if (n == 0 || ws1 == ws2)
+        return ws1;
+
+    register wchar_t* start_address = ws1;
+    register wchar_t* end_address = &ws1[n];
+
+    while (ws1 != end_address)
+        *ws1++ = *ws2++;
+
+    return start_address;
+}
+
+
+/******************************************************************************
+ *
+ * The wmemset() function copyies the value of wc into each of the first n wide
+ * characters of the object pointed to by ws. This function is not affected by
+ * locale and all wchar_t values are treated identically. The null wide
+ * character and wchar_t values not corresponding to valid characters are not
+ * treated specially.
+ *
+ * If n is zero, the function copies zero wide characters.
+ *
+ * The wmemset() function returns the value of ws.
+ *
+ *****************************************************************************/
+wchar_t *wmemset(wchar_t *ws, wchar_t wc, size_t n)
+{
+    if (n == 0)
+        return ws;
+
+    register wchar_t* start_address = ws;
+    register wchar_t* end_address = &ws[n];
+
+    while (ws != end_address)
+        *ws++ = wc;
+
+    return start_address;
+}
