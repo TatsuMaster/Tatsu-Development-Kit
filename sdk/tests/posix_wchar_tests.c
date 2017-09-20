@@ -102,6 +102,64 @@ static void test_wmemcpy()
 }
 
 
+static void test_wmemmove()
+{
+    const int pre_errno = errno;
+    const wchar_t src_buffer_0[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    const wchar_t src_buffer_1[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    wchar_t dest_buffer_0[10] = { 0, 0, 0, 0, 0, 1, 1, 1, 1, 1 };
+    wchar_t dest_buffer_1[10] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+    wchar_t dest_buffer_2[10] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+    const wchar_t* result_0 = wmemmove(dest_buffer_0, src_buffer_0, 10);
+    const wchar_t* result_1 = wmemmove(dest_buffer_1, src_buffer_1, 5);
+    const wchar_t* result_2 = wmemmove(dest_buffer_2, src_buffer_0, 0);
+
+    const bool content_test_0 = (
+        dest_buffer_0[0] == src_buffer_0[0] &&
+        dest_buffer_0[1] == src_buffer_0[1] &&
+        dest_buffer_0[2] == src_buffer_0[2] &&
+        dest_buffer_0[3] == src_buffer_0[3] &&
+        dest_buffer_0[4] == src_buffer_0[4] &&
+        dest_buffer_0[5] == src_buffer_0[5] &&
+        dest_buffer_0[6] == src_buffer_0[6] &&
+        dest_buffer_0[7] == src_buffer_0[7] &&
+        dest_buffer_0[8] == src_buffer_0[8] &&
+        dest_buffer_0[9] == src_buffer_0[9]);
+
+    const bool content_test_1 = (
+        dest_buffer_1[0] == src_buffer_1[0] &&
+        dest_buffer_1[1] == src_buffer_1[1] &&
+        dest_buffer_1[2] == src_buffer_1[2] &&
+        dest_buffer_1[3] == src_buffer_1[3] &&
+        dest_buffer_1[4] == src_buffer_1[4] &&
+        dest_buffer_1[5] == 1 &&
+        dest_buffer_1[6] == 1 &&
+        dest_buffer_1[7] == 1 &&
+        dest_buffer_1[8] == 1 &&
+        dest_buffer_1[9] == 1);
+
+    const bool content_test_2 = (
+        dest_buffer_2[0] == 1 &&
+        dest_buffer_2[1] == 1 &&
+        dest_buffer_2[2] == 1 &&
+        dest_buffer_2[3] == 1 &&
+        dest_buffer_2[4] == 1 &&
+        dest_buffer_2[5] == 1 &&
+        dest_buffer_2[6] == 1 &&
+        dest_buffer_2[7] == 1 &&
+        dest_buffer_2[8] == 1 &&
+        dest_buffer_2[9] == 1);
+
+    ASSERT_TRUE("wmemmove: Checking, if full buffer copy works correctly", content_test_0);
+    ASSERT_EQUALS("wmemmove: Checking, if result pointer is set to s1 for full buffer copy", result_0, dest_buffer_0);
+    ASSERT_TRUE("wmemmove: Checking, if half buffer copy works correctly", content_test_1);
+    ASSERT_EQUALS("wmemmove: Checking, if result pointer is set to s1 for half buffer copy", result_1, dest_buffer_1);
+    ASSERT_TRUE("wmemmove: Checking, if zero copy works correctly", content_test_2);
+    ASSERT_EQUALS("wmemmove: Checking, if result pointer is set to s1 for zero copy", result_2, dest_buffer_2);
+    ASSERT_EQUALS("wmemmove: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
 static void test_wmemset()
 {
     const int pre_errno = errno;
@@ -137,5 +195,6 @@ void run_wchar_lib_tests()
     test_wmemchr();
     test_wmemcmp();
     test_wmemcpy();
+    test_wmemmove();
     test_wmemset();
 }

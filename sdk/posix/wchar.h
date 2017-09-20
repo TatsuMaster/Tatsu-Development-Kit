@@ -15,6 +15,7 @@ wchar_t *wmemchr(const wchar_t *ws, wchar_t wc, size_t n);
 int wmemcmp(const wchar_t *ws1, const wchar_t *ws2, size_t n);
 
 wchar_t *wmemcpy(wchar_t *__restrict__ ws1, const wchar_t *__restrict__ ws2, size_t n);
+wchar_t *wmemmove(wchar_t *ws1, const wchar_t *ws2, size_t n);
 wchar_t *wmemset(wchar_t *ws, wchar_t wc, size_t n);
 
 #endif

@@ -91,6 +91,43 @@ wchar_t *wmemcpy(wchar_t *__restrict__ ws1, const wchar_t *__restrict__ ws2, siz
 
 /******************************************************************************
  *
+ * The wmemmove() function copies n wide characters from the object pointed to
+ * by ws2 to the object pointed to by ws1. Copying takes place as if the n
+ * wide characters from the object pointed to by ws2 are first copied into a
+ * temporary array of n wide characters that does not overlap the objects
+ * pointed to by ws1 or ws2, and then the n wide characters from the temporary
+ * array are copied into the object pointed to by ws1.
+ *
+ * This function is not affected by locale and all wchar_t values are treated
+ * identically. The null wide character and wchar_t values not corresponding
+ * to valid characters are not treated specially.
+ *
+ * If n is zero, the function copies zero wide characters.
+ *
+ * The wmemmove() function returns the value of ws1.
+ *
+ *****************************************************************************/
+ wchar_t *wmemmove(wchar_t *ws1, const wchar_t *ws2, size_t n)
+ {
+     if (n == 0 || ws1 == ws2)
+         return ws1;
+ 
+     register wchar_t* start_address = ws1;
+     register wchar_t* end_address = &ws1[n];
+     register wchar_t tmp;
+ 
+     while (ws1 != end_address)
+     {
+         tmp = *ws2++;
+         *ws1++ = tmp;
+     }
+ 
+     return start_address;
+ }
+
+
+/******************************************************************************
+ *
  * The wmemset() function copyies the value of wc into each of the first n wide
  * characters of the object pointed to by ws. This function is not affected by
  * locale and all wchar_t values are treated identically. The null wide
