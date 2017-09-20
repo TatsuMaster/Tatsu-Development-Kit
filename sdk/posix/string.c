@@ -474,6 +474,35 @@ void *memcpy(void *__restrict__ s1, const void *__restrict__ s2, size_t n)
 
 /******************************************************************************
  *
+ * The memmove() function copies n bytes from the object pointed to by s2 into
+ * the object pointed to by s1. Copying takes place as if the n bytes from the
+ * object pointed to by s2 are first copied into a temporary array of n bytes
+ * that does not overlap the objects pointed to by s1 and s2, and then the n
+ * bytes from the temporary array are copied into the object pointed to by s1.
+ *
+ * The memmove() function returns s1; no return value is reserved to indicate
+ * an error.
+ *
+ ******************************************************************************/
+void *memmove(void *s1, const void *s2, size_t n)
+{
+    register unsigned char* _s1 = (unsigned char*)s1;
+    register const unsigned char* _s2 = (const unsigned char*)s2;
+    register unsigned char* end_address = (void*)s1 + n;
+    register unsigned char tmp;
+
+    while (_s1 != end_address)
+    {
+        tmp = *_s2++;
+        *_s1++ = tmp;
+    }
+
+    return s1;
+}
+
+
+/******************************************************************************
+ *
  * The memset() function copies c (converted to an unsigned char) into each of
  * the first n bytes of the object pointed to by s.
  *
