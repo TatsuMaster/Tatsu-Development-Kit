@@ -149,9 +149,13 @@ static void test_memmove()
     char dest_buffer_0[10] = { 0, 0, 0, 0, 0, 1, 1, 1, 1, 1 };
     char dest_buffer_1[10] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
     char dest_buffer_2[10] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+    char dest_buffer_3[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    char dest_buffer_4[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
     const char* result_0 = memmove(dest_buffer_0, src_buffer_0, 10);
     const char* result_1 = memmove(dest_buffer_1, src_buffer_1, 5);
     const char* result_2 = memmove(dest_buffer_2, src_buffer_0, 0);
+    const char* result_3 = memmove(&dest_buffer_3[2], dest_buffer_3, 8);
+    const char* result_4 = memmove(dest_buffer_4, &dest_buffer_4[2], 8);
 
     const bool content_test_0 = (
         dest_buffer_0[0] == src_buffer_0[0] &&
@@ -189,12 +193,40 @@ static void test_memmove()
         dest_buffer_2[8] == 1 &&
         dest_buffer_2[9] == 1);
 
+    const bool content_test_3 = (
+        dest_buffer_3[0] == src_buffer_0[0] &&
+        dest_buffer_3[1] == src_buffer_0[1] &&
+        dest_buffer_3[2] == src_buffer_0[0] &&
+        dest_buffer_3[3] == src_buffer_0[1] &&
+        dest_buffer_3[4] == src_buffer_0[2] &&
+        dest_buffer_3[5] == src_buffer_0[3] &&
+        dest_buffer_3[6] == src_buffer_0[4] &&
+        dest_buffer_3[7] == src_buffer_0[5] &&
+        dest_buffer_3[8] == src_buffer_0[6] &&
+        dest_buffer_3[9] == src_buffer_0[7]);
+
+    const bool content_test_4 = (
+        dest_buffer_4[0] == src_buffer_0[2] &&
+        dest_buffer_4[1] == src_buffer_0[3] &&
+        dest_buffer_4[2] == src_buffer_0[4] &&
+        dest_buffer_4[3] == src_buffer_0[5] &&
+        dest_buffer_4[4] == src_buffer_0[6] &&
+        dest_buffer_4[5] == src_buffer_0[7] &&
+        dest_buffer_4[6] == src_buffer_0[8] &&
+        dest_buffer_4[7] == src_buffer_0[9] &&
+        dest_buffer_4[8] == src_buffer_0[8] &&
+        dest_buffer_4[9] == src_buffer_0[9]);
+
     ASSERT_TRUE("memmove: Checking, if full buffer copy works correctly", content_test_0);
     ASSERT_EQUALS("memmove: Checking, if result pointer is set to s1 for full buffer copy", result_0, dest_buffer_0);
     ASSERT_TRUE("memmove: Checking, if half buffer copy works correctly", content_test_1);
     ASSERT_EQUALS("memmove: Checking, if result pointer is set to s1 for half buffer copy", result_1, dest_buffer_1);
     ASSERT_TRUE("memmove: Checking, if zero copy works correctly", content_test_2);
     ASSERT_EQUALS("memmove: Checking, if result pointer is set to s1 for zero copy", result_2, dest_buffer_2);
+    ASSERT_TRUE("memmove: Checking, if overlapping copy (case 's2 < s1') works correctly", content_test_3);
+    ASSERT_EQUALS("memmove: Checking, if result pointer is set to s1 for overlapping copy (case 's2 < s1')", result_3, &dest_buffer_3[2]);
+    ASSERT_TRUE("memmove: Checking, if overlapping copy (case 's1 < s2') works correctly", content_test_4);
+    ASSERT_EQUALS("memmove: Checking, if result pointer is set to s1 for overlapping copy (case 's1 < s2')", result_4, dest_buffer_4);
     ASSERT_EQUALS("memmove: Checking, if errno is unmodified", pre_errno, errno);
 }
 
