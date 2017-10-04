@@ -486,15 +486,27 @@ void *memcpy(void *__restrict__ s1, const void *__restrict__ s2, size_t n)
  ******************************************************************************/
 void *memmove(void *s1, const void *s2, size_t n)
 {
-    register unsigned char* _s1 = (unsigned char*)s1;
-    register const unsigned char* _s2 = (const unsigned char*)s2;
-    register unsigned char* end_address = (void*)s1 + n;
-    register unsigned char tmp;
+    register unsigned char* _s1;
+    register const unsigned char* _s2;
+    register const unsigned char* end_address;
 
-    while (_s1 != end_address)
+    if (s2 < s1)
     {
-        tmp = *_s2++;
-        *_s1++ = tmp;
+        _s1 = (unsigned char*)s1 + (n - 1);
+        _s2 = (const unsigned char*)s2 + (n - 1);
+        end_address = (unsigned char*)s1;
+
+        while (_s1 >= end_address)
+            *_s1-- = *_s2--;
+    }
+    else
+    {
+        _s1 = s1;
+        _s2 = s2;
+        end_address = (unsigned char*)s1 + n;
+
+        while (_s1 < end_address)
+            *_s1++ = *_s2++;
     }
 
     return s1;
