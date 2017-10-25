@@ -274,7 +274,7 @@ static void test_copysign()
 static void test_copysignf()
 {
     const int pre_errno = errno;
-    
+
     ASSERT_EQUALS("copysignf: Checking, if copysignf(1.0f, -1.0f) returns -1.0f", copysignf(1.0f, -1.0f), -1.0f);
     ASSERT_EQUALS("copysignf: Checking, if copysignf(42.0f, -1.0f) returns -42.0f", copysignf(42.0f, -1.0f), -42.0f);
     ASSERT_EQUALS("copysignf: Checking, if copysignf(1337.0f, -0.0f) returns -1337.0f", copysignf(1337.0f, -0.0f), -1337.0f);
@@ -299,7 +299,7 @@ static void test_copysignf()
 static void test_copysignl()
 {
     const int pre_errno = errno;
-    
+
     ASSERT_EQUALS("copysignl: Checking, if copysignl(1.0, -1.0) returns -1.0", copysignl(1.0, -1.0), -1.0);
     ASSERT_EQUALS("copysignl: Checking, if copysignl(42.0, -1.0) returns -42.0", copysignl(42.0, -1.0), -42.0);
     ASSERT_EQUALS("copysignl: Checking, if copysignl(1337.0, -0.0) returns -1337.0", copysignl(1337.0, -0.0), -1337.0);
@@ -429,7 +429,7 @@ static void test_floorl()
 static void test_fmax()
 {
     const int pre_errno = errno;
-    
+
     ASSERT_EQUALS("fmax: Checking, if fmax(-1.0, 0.0) returns 0.0", fmax(-1.0, 0.0), 0.0);
     ASSERT_EQUALS("fmax: Checking, if fmax(1.0, 0.0) returns 1.0", fmax(1.0, 0.0), 1.0);
     ASSERT_EQUALS("fmax: Checking, if fmax(1.0, -1.0) returns 1.0", fmax(1.0, -1.0), 1.0);
@@ -442,7 +442,7 @@ static void test_fmax()
 static void test_fmaxf()
 {
     const int pre_errno = errno;
-    
+
     ASSERT_EQUALS("fmaxf: Checking, if fmaxf(-1.0, 0.0) returns 0.0", fmaxf(-1.0, 0.0), 0.0);
     ASSERT_EQUALS("fmaxf: Checking, if fmaxf(1.0, 0.0) returns 1.0", fmaxf(1.0, 0.0), 1.0);
     ASSERT_EQUALS("fmaxf: Checking, if fmaxf(1.0, -1.0) returns 1.0", fmaxf(1.0, -1.0), 1.0);
@@ -455,7 +455,7 @@ static void test_fmaxf()
 static void test_fmaxl()
 {
     const int pre_errno = errno;
-    
+
     ASSERT_EQUALS("fmaxl: Checking, if fmaxl(-1.0, 0.0) returns 0.0", fmaxl(-1.0, 0.0), 0.0);
     ASSERT_EQUALS("fmaxl: Checking, if fmaxl(1.0, 0.0) returns 1.0", fmaxl(1.0, 0.0), 1.0);
     ASSERT_EQUALS("fmaxl: Checking, if fmaxl(1.0, -1.0) returns 1.0", fmaxl(1.0, -1.0), 1.0);
@@ -468,7 +468,7 @@ static void test_fmaxl()
 static void test_fmin()
 {
     const int pre_errno = errno;
-    
+
     ASSERT_EQUALS("fmin: Checking, if fmin(-1.0, 0.0) returns 0.0", fmin(-1.0, 0.0), -1.0);
     ASSERT_EQUALS("fmin: Checking, if fmin(1.0, 0.0) returns 1.0", fmin(1.0, 0.0), 0.0);
     ASSERT_EQUALS("fmin: Checking, if fmin(1.0, -1.0) returns 1.0", fmin(1.0, -1.0), -1.0);
@@ -481,7 +481,7 @@ static void test_fmin()
 static void test_fminf()
 {
     const int pre_errno = errno;
-    
+
     ASSERT_EQUALS("fminf: Checking, if fminf(-1.0, 0.0) returns 0.0", fminf(-1.0, 0.0), -1.0);
     ASSERT_EQUALS("fminf: Checking, if fminf(1.0, 0.0) returns 1.0", fminf(1.0, 0.0), 0.0);
     ASSERT_EQUALS("fminf: Checking, if fminf(1.0, -1.0) returns 1.0", fminf(1.0, -1.0), -1.0);
@@ -494,7 +494,7 @@ static void test_fminf()
 static void test_fminl()
 {
     const int pre_errno = errno;
-    
+
     ASSERT_EQUALS("fminl: Checking, if fminl(-1.0, 0.0) returns 0.0", fminl(-1.0, 0.0), -1.0);
     ASSERT_EQUALS("fminl: Checking, if fminl(1.0, 0.0) returns 1.0", fminl(1.0, 0.0), 0.0);
     ASSERT_EQUALS("fminl: Checking, if fminl(1.0, -1.0) returns 1.0", fminl(1.0, -1.0), -1.0);
@@ -1572,7 +1572,7 @@ static void test_sinl()
 static void test_tan()
 {
     const int pre_errno = errno;
-    
+
     ASSERT_IN_RANGE("tan: Checking, if tan(-(2 * M_PI)) returns 0.0", tan(-(2 * M_PI)), -0.0001, 0.0001);
     ASSERT_IN_RANGE("tan: Checking, if tan(-(3 * M_PI_2)) returns a very low number", tan(-(3 * M_PI_2)), -6000000000000000.000000, -5000000000000000.000000);
     ASSERT_IN_RANGE("tan: Checking, if tan(-M_PI) returns 0.0", tan(-M_PI), -0.0001, 0.0001);
@@ -1589,7 +1589,7 @@ static void test_tan()
 static void test_tanf()
 {
     const int pre_errno = errno;
-    
+
     ASSERT_IN_RANGE("tanf: Checking, if tanf(-(2 * M_PI)) returns 0.0f", tanf(-(2 * M_PI)), -0.0001, 0.0001);
     ASSERT_IN_RANGE("tanf: Checking, if tanf(-(3 * M_PI_2)) returns a very high number", tanf(-(3 * M_PI_2)), 80000000.000000f, 90000000.000000f);
     ASSERT_IN_RANGE("tanf: Checking, if tanf(-M_PI) returns 0.0f", tanf(-M_PI), -0.0001f, 0.0001f);
@@ -1606,7 +1606,7 @@ static void test_tanf()
 static void test_tanl()
 {
     const int pre_errno = errno;
-    
+
     ASSERT_IN_RANGE("tanl: Checking, if tanl(-(2 * M_PI)) returns 0.0", tanl(-(2 * M_PI)), -0.0001, 0.0001);
     ASSERT_IN_RANGE("tanl: Checking, if tanl(-(3 * M_PI_2)) returns a very low number", tanl(-(3 * M_PI_2)), -6000000000000000.000000, -5000000000000000.000000);
     ASSERT_IN_RANGE("tanl: Checking, if tanl(-M_PI) returns 0.0", tanl(-M_PI), -0.0001, 0.0001);
@@ -1617,6 +1617,108 @@ static void test_tanl()
     ASSERT_IN_RANGE("tanl: Checking, if tanl(3 * M_PI_2) returns a very high number", tanl(3 * M_PI_2), 5000000000000000.000000, 6000000000000000.000000);
     ASSERT_IN_RANGE("tanl: Checking, if tanl(2 * M_PI) returns 0.0", tanl(2 * M_PI), -0.0001, 0.0001);
     ASSERT_EQUALS("tanl: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static float generate_nan()
+{
+    /*
+     * A compiler independent way to generate a NaN value.
+     * We need to perform a little hack here, because modern compilers
+     * would optimize "regular" calculated NaN values.
+     * This should work on any processor which uses the IEEE 754 floating point format.
+     *
+     * nan_raw = 0x7FBFFFFF (sign bit 0, a = 0, rest of bits 1)
+     */
+    static int nan_raw = 0x7FBFFFFF;
+    return *(float*)&nan_raw;
+}
+
+
+static void test_isnan()
+{
+    const int pre_errno = errno;
+
+    ASSERT_FALSE("isnan: Checking, if isnan(42.0) returns 0", isnan(42.0));
+    ASSERT_FALSE("isnan: Checking, if isnan(-42.0) returns 0", isnan(-42.0));
+    ASSERT_FALSE("isnan: Checking, if isnan(0.0) returns 0", isnan(0.0));
+    ASSERT_TRUE("isnan: Checking, if isnan(0x7FBFFFFF) returns 1", isnan(generate_nan()));
+    ASSERT_EQUALS("isnan: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_isless()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("isless: Checking, if isless(42.0, 43.0) returns 1", isless(42.0, 43.0), 1);
+    ASSERT_EQUALS("isless: Checking, if isless(-42.0, 42.0) returns 1", isless(-42.0, 42.0), 1);
+    ASSERT_EQUALS("isless: Checking, if isless(42.0, 41.0) returns 0", isless(42.0, 41.0), 0);
+    ASSERT_EQUALS("isless: Checking, if isless(-42.0, -43.0) returns 0", isless(-42.0, -43.0), 0);
+    ASSERT_EQUALS("isless: Checking, if isless(0.0, 0.0) returns 0", isless(0.0, 0.0), 0);
+    ASSERT_EQUALS("isless: Checking, if isless returns 0, if x is NaN", isless(generate_nan(), -1.0f), 0);
+    ASSERT_EQUALS("isless: Checking, if isless returns 0, if y is NaN", isless( -1.0f, generate_nan()), 0);
+    ASSERT_EQUALS("isless: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_islessequal()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("islessequal: Checking, if islessequal(42.0, 43.0) returns 1", islessequal(42.0, 43.0), 1);
+    ASSERT_EQUALS("islessequal: Checking, if islessequal(-42.0, 42.0) returns 1", islessequal(-42.0, 42.0), 1);
+    ASSERT_EQUALS("islessequal: Checking, if islessequal(42.0, 41.0) returns 0", islessequal(42.0, 41.0), 0);
+    ASSERT_EQUALS("islessequal: Checking, if islessequal(-42.0, -43.0) returns 0", islessequal(-42.0, -43.0), 0);
+    ASSERT_EQUALS("islessequal: Checking, if islessequal(0.0, 0.0) returns 1", islessequal(0.0, 0.0), 1);
+    ASSERT_EQUALS("islessequal: Checking, if islessequal returns 0, if x is NaN", islessequal(generate_nan(), -1.0f), 0);
+    ASSERT_EQUALS("islessequal: Checking, if islessequal returns 0, if y is NaN", islessequal( -1.0f, generate_nan()), 0);
+    ASSERT_EQUALS("islessequal: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_islessgreater()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("islessgreater: Checking, if islessgreater(42.0, 43.0) returns 1", islessgreater(42.0, 43.0), 1);
+    ASSERT_EQUALS("islessgreater: Checking, if islessgreater(-42.0, 42.0) returns 1", islessgreater(-42.0, 42.0), 1);
+    ASSERT_EQUALS("islessgreater: Checking, if islessgreater(42.0, 41.0) returns 1", islessgreater(42.0, 41.0), 1);
+    ASSERT_EQUALS("islessgreater: Checking, if islessgreater(-42.0, -43.0) returns 1", islessgreater(-42.0, -43.0), 1);
+    ASSERT_EQUALS("islessgreater: Checking, if islessgreater(0.0, 0.0) returns 0", islessgreater(0.0, 0.0), 0);
+    ASSERT_EQUALS("islessgreater: Checking, if islessgreater returns 0, if x is NaN", islessgreater(generate_nan(), -1.0f), 0);
+    ASSERT_EQUALS("islessgreater: Checking, if islessgreater returns 0, if y is NaN", islessgreater( -1.0f, generate_nan()), 0);
+    ASSERT_EQUALS("islessgreater: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_isgreater()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("isgreater: Checking, if isgreater(42.0, 43.0) returns 0", isgreater(42.0, 43.0), 0);
+    ASSERT_EQUALS("isgreater: Checking, if isgreater(-42.0, 42.0) returns 0", isgreater(-42.0, 42.0), 0);
+    ASSERT_EQUALS("isgreater: Checking, if isgreater(42.0, 41.0) returns 1", isgreater(42.0, 41.0), 1);
+    ASSERT_EQUALS("isgreater: Checking, if isgreater(-42.0, -43.0) returns 1", isgreater(-42.0, -43.0), 1);
+    ASSERT_EQUALS("isgreater: Checking, if isgreater(0.0, 0.0) returns 0", isgreater(0.0, 0.0), 0);
+    ASSERT_EQUALS("isgreater: Checking, if isgreater returns 0, if x is NaN", isgreater(generate_nan(), -1.0f), 0);
+    ASSERT_EQUALS("isgreater: Checking, if isgreater returns 0, if y is NaN", isgreater( -1.0f, generate_nan()), 0);
+    ASSERT_EQUALS("isgreater: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_isgreaterequal()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("isgreaterequal: Checking, if isgreaterequal(42.0, 43.0) returns 0", isgreaterequal(42.0, 43.0), 0);
+    ASSERT_EQUALS("isgreaterequal: Checking, if isgreaterequal(-42.0, 42.0) returns 0", isgreaterequal(-42.0, 42.0), 0);
+    ASSERT_EQUALS("isgreaterequal: Checking, if isgreaterequal(42.0, 41.0) returns 1", isgreaterequal(42.0, 41.0), 1);
+    ASSERT_EQUALS("isgreaterequal: Checking, if isgreaterequal(-42.0, -43.0) returns 1", isgreaterequal(-42.0, -43.0), 1);
+    ASSERT_EQUALS("isgreaterequal: Checking, if isgreaterequal(0.0, 0.0) returns 1", isgreaterequal(0.0, 0.0), 1);
+    ASSERT_EQUALS("isgreaterequal: Checking, if isgreaterequal returns 0, if x is NaN", isgreaterequal(generate_nan(), -1.0f), 0);
+    ASSERT_EQUALS("isgreaterequal: Checking, if isgreaterequal returns 0, if y is NaN", isgreaterequal( -1.0f, generate_nan()), 0);
+    ASSERT_EQUALS("isgreaterequal: Checking, if errno is unmodified", pre_errno, errno);
 }
 
 
@@ -1681,4 +1783,11 @@ void run_math_lib_tests()
     test_tan();
     test_tanf();
     test_tanl();
+
+    test_isnan();
+    test_isless();
+    test_islessequal();
+    test_islessgreater();
+    test_isgreater();
+    test_isgreaterequal();
 }

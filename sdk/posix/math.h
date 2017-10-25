@@ -25,6 +25,98 @@
 #define fminl(x, y) fmin(x, y)
 
 
+/******************************************************************************
+ *
+ * The isnan() macro determines whether its argument value is a NaN. First, an
+ * argument represented in a format wider than its semantic type is converted
+ * to its semantic type. Then determination is based on the type of the
+ * argument.
+ *
+ * The isnan() macro returns a non-zero value if and only if its argument has
+ * a NaN value.
+ *
+ * A bit-wise example of a IEEE floating-point standard single precision
+ * (32-bit) NaN: s111 1111 1axx xxxx xxxx xxxx xxxx xxxx where s is the sign,
+ * x is the payload, and a determines the type of NaN. If a = 1, it is a quiet
+ * NaN; if a is zero and the payload is nonzero, then it is a signaling NaN
+ *
+ * x = 0x7FBFFFFF (sign bit 0, a = 0, rest of bits 1)
+ *
+ *****************************************************************************/
+#define isnan(x) (x != x)
+
+
+/******************************************************************************
+ *
+ * The isless() macro determines whether its first argument is less than its
+ * second argument. The value of isless(x, y) is equal to (x) < (y); however,
+ * unlike (x) < (y), isless(x, y) will not raise the invalid floating-point
+ * exception when x and y are unordered.
+ *
+ * Upon successful completion, the isless() macro returns the value of
+ * (x) < (y). If x or y is NaN, 0 will be returned.
+ *
+ *****************************************************************************/
+#define isless(x ,y) (isnan(x) ? 0 : isnan(y) ? 0 : x < y)
+
+
+/******************************************************************************
+ *
+ * The islessequal() macro determines whether its first argument is less than
+ * or equal to its second argument. The value of islessequal(x, y) is equal to
+ * (x) <= (y); however, unlike (x) <= (y), islessequal(x, y) will not raise the
+ * invalid floating-point exception when x and y are unordered.
+ *
+ * Upon successful completion, the islessequal() macro returns the value of
+ * (x) <= (y). If x or y is NaN, 0 will be returned.
+ *
+ *****************************************************************************/
+#define islessequal(x, y) (isnan(x) ? 0 : isnan(y) ? 0 : x <= y)
+
+
+/******************************************************************************
+ *
+ * The islessgreater() macro determines whether its first argument is less than
+ * or greater than its second argument. The islessgreater(x, y) macro is
+ * similar to (x) < (y) || (x) > (y); however, islessgreater(x, y) will not
+ * raise the invalid floating-point exception when x and y are unordered
+ * (nor shall it evaluate x and y twice).
+ *
+ * Upon successful completion, the islessgreater() macro returns the value of
+ * (x) < (y) || (x) > (y). If x or y is NaN, 0 will be returned.
+ *
+ *****************************************************************************/
+#define islessgreater(x, y) (isnan(x) ? 0 : isnan(y) ? 0 : (x < y) || (x > y))
+
+
+/******************************************************************************
+ *
+ * The isgreater() macro determines whether its first argument is greater than
+ * its second argument. The value of isgreater(x, y) is equal to (x) > (y);
+ * however, unlike (x) > (y), isgreater(x, y) will not raise the invalid
+ * floating-point exception when x and y are unordered.
+ *
+ * Upon successful completion, the isgreater() macro returns the value of
+ * (x) > (y). If x or y is NaN, 0 will be returned.
+ *
+ *****************************************************************************/
+#define isgreater(x, y) (isnan(x) ? 0 : isnan(y) ? 0 : x > y)
+
+
+/******************************************************************************
+ *
+ * The isgreaterequal() macro determines whether its first argument is greater
+ * than or equal to its second argument. The value of isgreaterequal(x, y) is
+ * equal to (x) >= (y); however, unlike (x) >= (y), isgreaterequal(x, y) will
+ * not raise the invalid floating-point exception when x and y are unordered.
+ *
+ * Upon successful completion, the isgreaterequal() macro returns the value of
+ * (x) >= (y). If x or y is NaN, 0 will be returned.
+ *
+ *****************************************************************************/
+#define isgreaterequal(x, y) (isnan(x) ? 0 : isnan(y) ? 0 : x >= y)
+
+
 double acos(double x);
 float acosf(float x);
 long double acosl(long double x);
