@@ -157,6 +157,10 @@ double rint(double x);
 float rintf(float x);
 long double rintl(long double x);
 
+double round(double x);
+float roundf(float x);
+long double roundl(long double x);
+
 double sin(double x);
 float sinf(float x);
 long double sinl(long double x);

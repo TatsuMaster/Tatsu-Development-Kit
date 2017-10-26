@@ -922,6 +922,78 @@ long double rintl(long double x)
 
 /******************************************************************************
  *
+ * This function rounds their argument to the nearest integer value in
+ * floating-point format, rounding halfway cases away from zero, regardless of
+ * the current rounding direction.
+ *
+ * An application wishing to check for error situations should set errno to
+ * zero and call feclearexcept(FE_ALL_EXCEPT) before calling these functions.
+ * On return, if errno is non-zero or
+ * fetestexcept(FE_INVALID | FE_DIVBYZERO | FE_OVERFLOW | FE_UNDERFLOW) is
+ * nonzero, an error has occurred.
+ *
+ * Upon successful completion, this function returns the rounded integer value.
+ *
+ ******************************************************************************/
+double round(double x)
+{
+    if (x < 0.0)
+        return fmod(x, -1) <= -0.5 ? floor(x) : ceil(x);
+    else
+        return fmod(x, 1) < 0.5 ? floor(x) : ceil(x);
+}
+
+
+/******************************************************************************
+ *
+ * This function rounds their argument to the nearest integer value in
+ * floating-point format, rounding halfway cases away from zero, regardless of
+ * the current rounding direction.
+ *
+ * An application wishing to check for error situations should set errno to
+ * zero and call feclearexcept(FE_ALL_EXCEPT) before calling these functions.
+ * On return, if errno is non-zero or
+ * fetestexcept(FE_INVALID | FE_DIVBYZERO | FE_OVERFLOW | FE_UNDERFLOW) is
+ * nonzero, an error has occurred.
+ *
+ * Upon successful completion, this function returns the rounded integer value.
+ *
+ ******************************************************************************/
+float roundf(float x)
+{
+    if (x < 0.0f)
+        return fmodf(x, -1) <= -0.5 ? floorf(x) : ceilf(x);
+    else
+        return fmodf(x, 1) < 0.5 ? floorf(x) : ceilf(x);
+}
+
+
+/******************************************************************************
+ *
+ * This function rounds their argument to the nearest integer value in
+ * floating-point format, rounding halfway cases away from zero, regardless of
+ * the current rounding direction.
+ *
+ * An application wishing to check for error situations should set errno to
+ * zero and call feclearexcept(FE_ALL_EXCEPT) before calling these functions.
+ * On return, if errno is non-zero or
+ * fetestexcept(FE_INVALID | FE_DIVBYZERO | FE_OVERFLOW | FE_UNDERFLOW) is
+ * nonzero, an error has occurred.
+ *
+ * Upon successful completion, this function returns the rounded integer value.
+ *
+ ******************************************************************************/
+long double roundl(long double x)
+{
+    if (x < 0.0)
+        return fmodl(x, -1) <= -0.5 ? floorl(x) : ceill(x);
+    else
+        return fmodl(x, 1) < 0.5 ? floorl(x) : ceill(x);
+}
+
+
+/******************************************************************************
+ *
  * The sin() function computes the sine of its argument x, measured in
  * radians.
  *
