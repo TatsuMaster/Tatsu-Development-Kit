@@ -149,6 +149,10 @@ long lrint(double x);
 long lrintf(float x);
 long lrintl(long double x);
 
+long lround(double x);
+long lroundf(float x);
+long lroundl(long double x);
+
 long long llrint(double x);
 long long llrintf(float x);
 long long llrintl(long double x);
