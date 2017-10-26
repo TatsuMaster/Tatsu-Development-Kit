@@ -1290,6 +1290,96 @@ static void test_llrintl()
 }
 
 
+static void test_llround()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("llround: Checking, if llround(-1.0) returns -1", llround(-1.0), -1);
+    ASSERT_EQUALS("llround: Checking, if llround(-0.9) returns -1", llround(-0.9), -1);
+    ASSERT_EQUALS("llround: Checking, if llround(-0.8) returns -1", llround(-0.8), -1);
+    ASSERT_EQUALS("llround: Checking, if llround(-0.7) returns -1", llround(-0.7), -1);
+    ASSERT_EQUALS("llround: Checking, if llround(-0.6) returns -1", llround(-0.6), -1);
+    ASSERT_EQUALS("llround: Checking, if llround(-0.5) returns -1", llround(-0.5), -1);
+    ASSERT_EQUALS("llround: Checking, if llround(-0.4) returns 0", llround(-0.4), -0);
+    ASSERT_EQUALS("llround: Checking, if llround(-0.3) returns 0", llround(-0.3), -0);
+    ASSERT_EQUALS("llround: Checking, if llround(-0.2) returns 0", llround(-0.2), -0);
+    ASSERT_EQUALS("llround: Checking, if llround(-0.1) returns 0", llround(-0.1), -0);
+    ASSERT_EQUALS("llround: Checking, if llround(-0.0) returns 0", llround(-0.0), -0);
+    ASSERT_EQUALS("llround: Checking, if llround(0.0) returns 0", llround(0.0), 0);
+    ASSERT_EQUALS("llround: Checking, if llround(0.1) returns 0", llround(0.1), 0);
+    ASSERT_EQUALS("llround: Checking, if llround(0.2) returns 0", llround(0.2), 0);
+    ASSERT_EQUALS("llround: Checking, if llround(0.3) returns 0", llround(0.3), 0);
+    ASSERT_EQUALS("llround: Checking, if llround(0.4) returns 0", llround(0.4), 0);
+    ASSERT_EQUALS("llround: Checking, if llround(0.5) returns 1", llround(0.5), 1);
+    ASSERT_EQUALS("llround: Checking, if llround(0.6) returns 1", llround(0.6), 1);
+    ASSERT_EQUALS("llround: Checking, if llround(0.7) returns 1", llround(0.7), 1);
+    ASSERT_EQUALS("llround: Checking, if llround(0.8) returns 1", llround(0.8), 1);
+    ASSERT_EQUALS("llround: Checking, if llround(0.9) returns 1", llround(0.9), 1);
+    ASSERT_EQUALS("llround: Checking, if llround(1.0) returns 1", llround(1.0), 1);
+    ASSERT_EQUALS("llround: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_llroundf()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("llroundf: Checking, if llroundf(-1.0f) returns -1", llroundf(-1.0f), -1);
+    ASSERT_EQUALS("llroundf: Checking, if llroundf(-0.9f) returns -1", llroundf(-0.9f), -1);
+    ASSERT_EQUALS("llroundf: Checking, if llroundf(-0.8f) returns -1", llroundf(-0.8f), -1);
+    ASSERT_EQUALS("llroundf: Checking, if llroundf(-0.7f) returns -1", llroundf(-0.7f), -1);
+    ASSERT_EQUALS("llroundf: Checking, if llroundf(-0.6f) returns -1", llroundf(-0.6f), -1);
+    ASSERT_EQUALS("llroundf: Checking, if llroundf(-0.5f) returns -1", llroundf(-0.5f), -1);
+    ASSERT_EQUALS("llroundf: Checking, if llroundf(-0.4f) returns 0", llroundf(-0.4f), -0);
+    ASSERT_EQUALS("llroundf: Checking, if llroundf(-0.3f) returns 0", llroundf(-0.3f), -0);
+    ASSERT_EQUALS("llroundf: Checking, if llroundf(-0.2f) returns 0", llroundf(-0.2f), -0);
+    ASSERT_EQUALS("llroundf: Checking, if llroundf(-0.1f) returns 0", llroundf(-0.1f), -0);
+    ASSERT_EQUALS("llroundf: Checking, if llroundf(-0.0f) returns 0", llroundf(-0.0f), -0);
+    ASSERT_EQUALS("llroundf: Checking, if llroundf(0.0f) returns 0", llroundf(0.0f), 0);
+    ASSERT_EQUALS("llroundf: Checking, if llroundf(0.1f) returns 0", llroundf(0.1f), 0);
+    ASSERT_EQUALS("llroundf: Checking, if llroundf(0.2f) returns 0", llroundf(0.2f), 0);
+    ASSERT_EQUALS("llroundf: Checking, if llroundf(0.3f) returns 0", llroundf(0.3f), 0);
+    ASSERT_EQUALS("llroundf: Checking, if llroundf(0.4f) returns 0", llroundf(0.4f), 0);
+    ASSERT_EQUALS("llroundf: Checking, if llroundf(0.5f) returns 1", llroundf(0.5f), 1);
+    ASSERT_EQUALS("llroundf: Checking, if llroundf(0.6f) returns 1", llroundf(0.6f), 1);
+    ASSERT_EQUALS("llroundf: Checking, if llroundf(0.7f) returns 1", llroundf(0.7f), 1);
+    ASSERT_EQUALS("llroundf: Checking, if llroundf(0.8f) returns 1", llroundf(0.8f), 1);
+    ASSERT_EQUALS("llroundf: Checking, if llroundf(0.9f) returns 1", llroundf(0.9f), 1);
+    ASSERT_EQUALS("llroundf: Checking, if llroundf(1.0f) returns 1", llroundf(1.0f), 1);
+    ASSERT_EQUALS("llroundf: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_llroundl()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("llroundl: Checking, if llroundl(-1.0) returns -1", llroundl(-1.0), -1);
+    ASSERT_EQUALS("llroundl: Checking, if llroundl(-0.9) returns -1", llroundl(-0.9), -1);
+    ASSERT_EQUALS("llroundl: Checking, if llroundl(-0.8) returns -1", llroundl(-0.8), -1);
+    ASSERT_EQUALS("llroundl: Checking, if llroundl(-0.7) returns -1", llroundl(-0.7), -1);
+    ASSERT_EQUALS("llroundl: Checking, if llroundl(-0.6) returns -1", llroundl(-0.6), -1);
+    ASSERT_EQUALS("llroundl: Checking, if llroundl(-0.5) returns -1", llroundl(-0.5), -1);
+    ASSERT_EQUALS("llroundl: Checking, if llroundl(-0.4) returns 0", llroundl(-0.4), -0);
+    ASSERT_EQUALS("llroundl: Checking, if llroundl(-0.3) returns 0", llroundl(-0.3), -0);
+    ASSERT_EQUALS("llroundl: Checking, if llroundl(-0.2) returns 0", llroundl(-0.2), -0);
+    ASSERT_EQUALS("llroundl: Checking, if llroundl(-0.1) returns 0", llroundl(-0.1), -0);
+    ASSERT_EQUALS("llroundl: Checking, if llroundl(-0.0) returns 0", llroundl(-0.0), -0);
+    ASSERT_EQUALS("llroundl: Checking, if llroundl(0.0) returns 0", llroundl(0.0), 0);
+    ASSERT_EQUALS("llroundl: Checking, if llroundl(0.1) returns 0", llroundl(0.1), 0);
+    ASSERT_EQUALS("llroundl: Checking, if llroundl(0.2) returns 0", llroundl(0.2), 0);
+    ASSERT_EQUALS("llroundl: Checking, if llroundl(0.3) returns 0", llroundl(0.3), 0);
+    ASSERT_EQUALS("llroundl: Checking, if llroundl(0.4) returns 0", llroundl(0.4), 0);
+    ASSERT_EQUALS("llroundl: Checking, if llroundl(0.5) returns 1", llroundl(0.5), 1);
+    ASSERT_EQUALS("llroundl: Checking, if llroundl(0.6) returns 1", llroundl(0.6), 1);
+    ASSERT_EQUALS("llroundl: Checking, if llroundl(0.7) returns 1", llroundl(0.7), 1);
+    ASSERT_EQUALS("llroundl: Checking, if llroundl(0.8) returns 1", llroundl(0.8), 1);
+    ASSERT_EQUALS("llroundl: Checking, if llroundl(0.9) returns 1", llroundl(0.9), 1);
+    ASSERT_EQUALS("llroundl: Checking, if llroundl(1.0) returns 1", llroundl(1.0), 1);
+    ASSERT_EQUALS("llroundl: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
 static void test_rint()
 {
     const int pre_errno = errno;
@@ -1955,6 +2045,10 @@ void run_math_lib_tests()
     test_llrint();
     test_llrintf();
     test_llrintl();
+
+    test_llround();
+    test_llroundf();
+    test_llroundl();
 
     test_rint();
     test_rintf();

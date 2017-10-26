@@ -871,6 +871,69 @@ long long llrintl(long double x)
 
 /******************************************************************************
  *
+ * This function rounds their argument to the nearest integer value, rounding
+ * halfway cases away from zero, regardless of the current rounding direction.
+ *
+ * An application wishing to check for error situations should set errno to
+ * zero and call feclearexcept(FE_ALL_EXCEPT) before calling these functions.
+ * On return, if errno is non-zero or
+ * fetestexcept(FE_INVALID | FE_DIVBYZERO | FE_OVERFLOW | FE_UNDERFLOW) is
+ * nonzero, an error has occurred.
+ *
+ * Upon successful completion, these functions returns the rounded integer
+ * value.
+ *
+ ******************************************************************************/
+long long llround(double x)
+{
+    return (long long)round(x);
+}
+
+
+/******************************************************************************
+ *
+ * This function rounds their argument to the nearest integer value, rounding
+ * halfway cases away from zero, regardless of the current rounding direction.
+ *
+ * An application wishing to check for error situations should set errno to
+ * zero and call feclearexcept(FE_ALL_EXCEPT) before calling these functions.
+ * On return, if errno is non-zero or
+ * fetestexcept(FE_INVALID | FE_DIVBYZERO | FE_OVERFLOW | FE_UNDERFLOW) is
+ * nonzero, an error has occurred.
+ *
+ * Upon successful completion, these functions returns the rounded integer
+ * value.
+ *
+ ******************************************************************************/
+long long llroundf(float x)
+{
+    return (long long)roundf(x);
+}
+
+
+/******************************************************************************
+ *
+ * This function rounds their argument to the nearest integer value, rounding
+ * halfway cases away from zero, regardless of the current rounding direction.
+ *
+ * An application wishing to check for error situations should set errno to
+ * zero and call feclearexcept(FE_ALL_EXCEPT) before calling these functions.
+ * On return, if errno is non-zero or
+ * fetestexcept(FE_INVALID | FE_DIVBYZERO | FE_OVERFLOW | FE_UNDERFLOW) is
+ * nonzero, an error has occurred.
+ *
+ * Upon successful completion, these functions returns the rounded integer
+ * value.
+ *
+ ******************************************************************************/
+long long llroundl(long double x)
+{
+    return (long long)roundl(x);
+}
+
+
+/******************************************************************************
+ *
  * This function returns the integral value (represented as a double) nearest
  * x in the direction of the current rounding mode.
  *
