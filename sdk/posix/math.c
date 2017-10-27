@@ -1251,3 +1251,48 @@ long double tanl(long double x)
     return sinl(x) / cosl(x);
 #endif
 }
+
+
+/******************************************************************************
+ *
+ * This function rounds their argument to the integer value, in floating
+ * format, nearest to but no larger in magnitude than the argument.
+ *
+ * Upon successful completion, this function returns the truncated
+ * integer value.
+ *
+ ******************************************************************************/
+double trunc(double x)
+{
+    return fmod(x, 1) == 0.0 ? x : (x < 0.0 ? ceil(x) : floor(x));
+}
+
+
+/******************************************************************************
+ *
+ * This function rounds their argument to the integer value, in floating
+ * format, nearest to but no larger in magnitude than the argument.
+ *
+ * Upon successful completion, this function returns the truncated
+ * integer value.
+ *
+ ******************************************************************************/
+float truncf(float x)
+{
+    return fmodf(x, 1) == 0.0 ? x : (x < 0.0 ? ceilf(x) : floorf(x));
+}
+
+
+/******************************************************************************
+ *
+ * This function rounds their argument to the integer value, in floating
+ * format, nearest to but no larger in magnitude than the argument.
+ *
+ * Upon successful completion, this function returns the truncated
+ * integer value.
+ *
+ ******************************************************************************/
+long double truncl(long double x)
+{
+    return fmodl(x, 1) == 0.0 ? x : (x < 0.0 ? ceill(x) : floorl(x));
+}

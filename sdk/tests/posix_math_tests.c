@@ -1992,6 +1992,156 @@ static void test_isgreaterequal()
 }
 
 
+static void test_trunc()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("trunc: Checking, if trunc(-2.0) returns -2.0", trunc(-2.0), -2.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(-1.9) returns -1.9", trunc(-1.9), -1.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(-1.8) returns -1.8", trunc(-1.8), -1.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(-1.7) returns -1.7", trunc(-1.7), -1.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(-1.6) returns -1.6", trunc(-1.6), -1.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(-1.5) returns -1.5", trunc(-1.5), -1.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(-1.4) returns -1.4", trunc(-1.4), -1.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(-1.3) returns -1.3", trunc(-1.3), -1.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(-1.2) returns -1.2", trunc(-1.2), -1.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(-1.1) returns -1.1", trunc(-1.1), -1.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(-1.0) returns -1.0", trunc(-1.0), -1.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(-0.9) returns -0.9", trunc(-0.9), -0.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(-0.8) returns -0.8", trunc(-0.8), -0.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(-0.7) returns -0.7", trunc(-0.7), -0.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(-0.6) returns -0.6", trunc(-0.6), -0.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(-0.5) returns -0.5", trunc(-0.5), -0.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(-0.4) returns -0.4", trunc(-0.4), -0.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(-0.3) returns -0.3", trunc(-0.3), -0.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(-0.2) returns -0.2", trunc(-0.2), -0.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(-0.1) returns -0.1", trunc(-0.1), -0.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(-0.0) returns -0.0", trunc(-0.0), -0.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(0.0) returns 0.0", trunc(0.0), 0.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(0.1) returns 0.1", trunc(0.1), 0.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(0.2) returns 0.2", trunc(0.2), 0.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(0.3) returns 0.3", trunc(0.3), 0.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(0.4) returns 0.4", trunc(0.4), 0.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(0.5) returns 0.5", trunc(0.5), 0.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(0.6) returns 0.6", trunc(0.6), 0.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(0.7) returns 0.7", trunc(0.7), 0.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(0.8) returns 0.8", trunc(0.8), 0.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(0.9) returns 0.9", trunc(0.9), 0.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(1.0) returns 1.0", trunc(1.0), 1.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(1.1) returns 1.1", trunc(1.1), 1.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(1.2) returns 1.2", trunc(1.2), 1.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(1.3) returns 1.3", trunc(1.3), 1.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(1.4) returns 1.4", trunc(1.4), 1.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(1.5) returns 1.5", trunc(1.5), 1.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(1.6) returns 1.6", trunc(1.6), 1.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(1.7) returns 1.7", trunc(1.7), 1.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(1.8) returns 1.8", trunc(1.8), 1.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(1.9) returns 1.9", trunc(1.9), 1.0);
+    ASSERT_EQUALS("trunc: Checking, if trunc(2.0) returns 2.0", trunc(2.0), 2.0);
+    ASSERT_EQUALS("trunc: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_truncf()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("truncf: Checking, if truncf(-2.0f) returns -2.0", truncf(-2.0f), -2.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(-1.9f) returns -1.9", truncf(-1.9f), -1.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(-1.8f) returns -1.8", truncf(-1.8f), -1.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(-1.7f) returns -1.7", truncf(-1.7f), -1.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(-1.6f) returns -1.6", truncf(-1.6f), -1.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(-1.5f) returns -1.5", truncf(-1.5f), -1.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(-1.4f) returns -1.4", truncf(-1.4f), -1.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(-1.3f) returns -1.3", truncf(-1.3f), -1.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(-1.2f) returns -1.2", truncf(-1.2f), -1.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(-1.1f) returns -1.1", truncf(-1.1f), -1.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(-1.0f) returns -1.0", truncf(-1.0f), -1.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(-0.9f) returns -0.9", truncf(-0.9f), -0.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(-0.8f) returns -0.8", truncf(-0.8f), -0.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(-0.7f) returns -0.7", truncf(-0.7f), -0.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(-0.6f) returns -0.6", truncf(-0.6f), -0.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(-0.5f) returns -0.5", truncf(-0.5f), -0.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(-0.4f) returns -0.4", truncf(-0.4f), -0.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(-0.3f) returns -0.3", truncf(-0.3f), -0.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(-0.2f) returns -0.2", truncf(-0.2f), -0.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(-0.1f) returns -0.1", truncf(-0.1f), -0.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(-0.0f) returns -0.0", truncf(-0.0f), -0.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(0.0f) returns 0.0", truncf(0.0f), 0.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(0.1f) returns 0.1", truncf(0.1f), 0.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(0.2f) returns 0.2", truncf(0.2f), 0.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(0.3f) returns 0.3", truncf(0.3f), 0.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(0.4f) returns 0.4", truncf(0.4f), 0.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(0.5f) returns 0.5", truncf(0.5f), 0.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(0.6f) returns 0.6", truncf(0.6f), 0.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(0.7f) returns 0.7", truncf(0.7f), 0.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(0.8f) returns 0.8", truncf(0.8f), 0.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(0.9f) returns 0.9", truncf(0.9f), 0.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(1.0f) returns 1.0", truncf(1.0f), 1.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(1.1f) returns 1.1", truncf(1.1f), 1.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(1.2f) returns 1.2", truncf(1.2f), 1.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(1.3f) returns 1.3", truncf(1.3f), 1.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(1.4f) returns 1.4", truncf(1.4f), 1.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(1.5f) returns 1.5", truncf(1.5f), 1.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(1.6f) returns 1.6", truncf(1.6f), 1.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(1.7f) returns 1.7", truncf(1.7f), 1.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(1.8f) returns 1.8", truncf(1.8f), 1.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(1.9f) returns 1.9", truncf(1.9f), 1.0f);
+    ASSERT_EQUALS("truncf: Checking, if truncf(2.0f) returns 2.0", truncf(2.0f), 2.0f);
+    ASSERT_EQUALS("truncf: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_truncl()
+{
+    const int pre_errno = errno;
+
+    ASSERT_EQUALS("truncl: Checking, if truncl(-2.0) returns -2.0", truncl(-2.0), -2.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(-1.9) returns -1.9", truncl(-1.9), -1.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(-1.8) returns -1.8", truncl(-1.8), -1.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(-1.7) returns -1.7", truncl(-1.7), -1.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(-1.6) returns -1.6", truncl(-1.6), -1.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(-1.5) returns -1.5", truncl(-1.5), -1.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(-1.4) returns -1.4", truncl(-1.4), -1.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(-1.3) returns -1.3", truncl(-1.3), -1.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(-1.2) returns -1.2", truncl(-1.2), -1.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(-1.1) returns -1.1", truncl(-1.1), -1.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(-1.0) returns -1.0", truncl(-1.0), -1.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(-0.9) returns -0.9", truncl(-0.9), -0.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(-0.8) returns -0.8", truncl(-0.8), -0.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(-0.7) returns -0.7", truncl(-0.7), -0.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(-0.6) returns -0.6", truncl(-0.6), -0.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(-0.5) returns -0.5", truncl(-0.5), -0.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(-0.4) returns -0.4", truncl(-0.4), -0.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(-0.3) returns -0.3", truncl(-0.3), -0.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(-0.2) returns -0.2", truncl(-0.2), -0.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(-0.1) returns -0.1", truncl(-0.1), -0.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(-0.0) returns -0.0", truncl(-0.0), -0.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(0.0) returns 0.0", truncl(0.0), 0.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(0.1) returns 0.1", truncl(0.1), 0.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(0.2) returns 0.2", truncl(0.2), 0.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(0.3) returns 0.3", truncl(0.3), 0.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(0.4) returns 0.4", truncl(0.4), 0.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(0.5) returns 0.5", truncl(0.5), 0.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(0.6) returns 0.6", truncl(0.6), 0.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(0.7) returns 0.7", truncl(0.7), 0.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(0.8) returns 0.8", truncl(0.8), 0.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(0.9) returns 0.9", truncl(0.9), 0.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(1.0) returns 1.0", truncl(1.0), 1.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(1.1) returns 1.1", truncl(1.1), 1.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(1.2) returns 1.2", truncl(1.2), 1.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(1.3) returns 1.3", truncl(1.3), 1.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(1.4) returns 1.4", truncl(1.4), 1.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(1.5) returns 1.5", truncl(1.5), 1.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(1.6) returns 1.6", truncl(1.6), 1.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(1.7) returns 1.7", truncl(1.7), 1.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(1.8) returns 1.8", truncl(1.8), 1.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(1.9) returns 1.9", truncl(1.9), 1.0);
+    ASSERT_EQUALS("truncl: Checking, if truncl(2.0) returns 2.0", truncl(2.0), 2.0);
+    ASSERT_EQUALS("truncl: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
 // Check all functions of math.h
 void run_math_lib_tests()
 {
@@ -2072,4 +2222,8 @@ void run_math_lib_tests()
     test_islessgreater();
     test_isgreater();
     test_isgreaterequal();
+
+    test_trunc();
+    test_truncf();
+    test_truncl();
 }
