@@ -161,6 +161,10 @@ long long llround(double x);
 long long llroundf(float x);
 long long llroundl(long double x);
 
+double remainder(double x, double y);
+float remainderf(float x, float y);
+long double remainderl(long double x, long double y);
+
 double rint(double x);
 float rintf(float x);
 long double rintl(long double x);

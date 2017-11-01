@@ -2142,6 +2142,69 @@ static void test_truncl()
 }
 
 
+static void test_remainder()
+{
+    const int pre_errno = errno;
+
+    ASSERT_IN_RANGE("remainder: Checking, if remainder(+5.1, +3.0) returns -0.9", remainder(5.1, 3), -0.99, -0.79);
+    ASSERT_IN_RANGE("remainder: Checking, if remainder(-5.1, +3.0) returns 0.9", remainder(-5.1, 3), 0.79, 0.99);
+    ASSERT_IN_RANGE("remainder: Checking, if remainder(+5.1, -3.0) returns -0.9", remainder(5.1, -3), -0.99, -0.79);
+    ASSERT_IN_RANGE("remainder: Checking, if remainder(-5.1, -3.0) returns 0.9", remainder(-5.1, -3), 0.79, 0.99);
+    ASSERT_EQUALS("remainder: Checking, if remainder(0.0, +1.0) returns 0.0", remainder(0.0, 1.0), 0.0);
+    ASSERT_EQUALS("remainder: Checking, if remainder(-0.0, +1.0) returns -0.0", remainder(-0.0, 1.0), -0.0);
+    ASSERT_EQUALS("remainder: Checking, if errno is unmodified on valid input", pre_errno, errno);
+
+    feclearexcept(FE_ALL_EXCEPT);
+    ASSERT_EQUALS("remainder: Checking, if remainder(+5.1, 0.0) returns 0.0", remainder(5.1, 0.0), 0.0);
+    ASSERT_EQUALS("remainder: Checking, if errno is set to EDOM", errno, EDOM);
+    ASSERT_EQUALS("remainder: Checking, if FE_INVALID gets raised", fetestexcept(FE_INVALID), FE_INVALID);
+
+    feclearexcept(FE_ALL_EXCEPT);
+}
+
+
+static void test_remainderf()
+{
+    const int pre_errno = errno;
+    
+    ASSERT_IN_RANGE("remainderf: Checking, if remainderf(+5.1f, +3.0f) returns -0.9f", remainderf(5.1f, 3.0f), -0.99f, -0.79f);
+    ASSERT_IN_RANGE("remainderf: Checking, if remainderf(-5.1f, +3.0f) returns 0.9f", remainderf(-5.1f, 3.0f), 0.79f, 0.99f);
+    ASSERT_IN_RANGE("remainderf: Checking, if remainderf(+5.1f, -3.0f) returns -0.9f", remainderf(5.1f, -3.0f), -0.99f, -0.79f);
+    ASSERT_IN_RANGE("remainderf: Checking, if remainderf(-5.1f, -3.0f) returns 0.9f", remainderf(-5.1f, -3.0f), 0.79f, 0.99f);
+    ASSERT_EQUALS("remainderf: Checking, if remainderf(0.0f, +1.0f) returns 0.0f", remainderf(0.0f, 1.0f), 0.0f);
+    ASSERT_EQUALS("remainderf: Checking, if remainderf(-0.0f, +1.0f) returns -0.0f", remainderf(-0.0f, 1.0f), -0.0f);
+    ASSERT_EQUALS("remainderf: Checking, if errno is unmodified on valid input", pre_errno, errno);
+
+    feclearexcept(FE_ALL_EXCEPT);
+    ASSERT_EQUALS("remainderf: Checking, if remainderf(+5.1f, 0.0f) returns 0.0f", remainderf(5.1f, 0.0f), 0.0f);
+    ASSERT_EQUALS("remainderf: Checking, if errno is set to EDOM", errno, EDOM);
+    ASSERT_EQUALS("remainderf: Checking, if FE_INVALID gets raised", fetestexcept(FE_INVALID), FE_INVALID);
+
+    feclearexcept(FE_ALL_EXCEPT);
+}
+
+
+static void test_remainderl()
+{
+    const int pre_errno = errno;
+    
+    ASSERT_IN_RANGE("remainderl: Checking, if remainderl(+5.1, +3.0) returns -0.9", remainderl(5.1, 3), -0.99, -0.79);
+    ASSERT_IN_RANGE("remainderl: Checking, if remainderl(-5.1, +3.0) returns 0.9", remainderl(-5.1, 3), 0.79, 0.99);
+    ASSERT_IN_RANGE("remainderl: Checking, if remainderl(+5.1, -3.0) returns -0.9", remainderl(5.1, -3), -0.99, -0.79);
+    ASSERT_IN_RANGE("remainderl: Checking, if remainderl(-5.1, -3.0) returns 0.9", remainderl(-5.1, -3), 0.79, 0.99);
+    ASSERT_EQUALS("remainderl: Checking, if remainderl(0.0, +1.0) returns 0.0", remainderl(0.0, 1.0), 0.0);
+    ASSERT_EQUALS("remainderl: Checking, if remainderl(-0.0, +1.0) returns -0.0", remainderl(-0.0, 1.0), -0.0);
+    ASSERT_EQUALS("remainderl: Checking, if errno is unmodified on valid input", pre_errno, errno);
+
+    feclearexcept(FE_ALL_EXCEPT);
+    ASSERT_EQUALS("remainderl: Checking, if remainderl(+5.1, 0.0) returns 0.0", remainderl(5.1, 0.0), 0.0);
+    ASSERT_EQUALS("remainderl: Checking, if errno is set to EDOM", errno, EDOM);
+    ASSERT_EQUALS("remainderl: Checking, if FE_INVALID gets raised", fetestexcept(FE_INVALID), FE_INVALID);
+
+    feclearexcept(FE_ALL_EXCEPT);
+}
+
+
 // Check all functions of math.h
 void run_math_lib_tests()
 {
@@ -2226,4 +2289,8 @@ void run_math_lib_tests()
     test_trunc();
     test_truncf();
     test_truncl();
+
+    test_remainder();
+    test_remainderf();
+    test_remainderl();
 }

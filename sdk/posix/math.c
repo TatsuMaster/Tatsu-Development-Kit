@@ -934,6 +934,93 @@ long long llroundl(long double x)
 
 /******************************************************************************
  *
+ * This function returns the floating-point remainder r=x−ny when y is
+ * non-zero. The value n is the integral value nearest the exact value x/y.
+ *
+ * The behavior of remainder() is independent of the rounding mode.
+ *
+ * Upon successful completion, this function returns the floating-point
+ * remainder r=x−ny when y is non-zero or it returns 0 if y is 0 (error).
+ *
+ * If y is 0, errno gets set to EDOM and FE_INVALID will be raised.
+ *
+ ******************************************************************************/
+double remainder(double x, double y)
+{
+    if (y == 0.0)
+    {
+        feraiseexcept(FE_INVALID);
+        errno = EDOM;
+        return 0;
+    }
+
+    if ((x < 0 && y < 0) || (x > 0 && y > 0))
+        return fmod(x, y) - y;
+    
+    return fmod(x, y);
+}
+
+
+/******************************************************************************
+ *
+ * This function returns the floating-point remainder r=x−ny when y is
+ * non-zero. The value n is the integral value nearest the exact value x/y.
+ *
+ * The behavior of remainderf() is independent of the rounding mode.
+ *
+ * Upon successful completion, this function returns the floating-point
+ * remainder r=x−ny when y is non-zero or it returns 0 if y is 0 (error).
+ *
+ * If y is 0, errno gets set to EDOM and FE_INVALID will be raised.
+ *
+ ******************************************************************************/
+float remainderf(float x, float y)
+{
+    if (y == 0.0f)
+    {
+        feraiseexcept(FE_INVALID);
+        errno = EDOM;
+        return 0;
+    }
+
+    if ((x < 0 && y < 0) || (x > 0 && y > 0))
+        return fmodf(x, y) - y;
+    
+    return fmodf(x, y);
+}
+
+
+/******************************************************************************
+ *
+ * This function returns the floating-point remainder r=x−ny when y is
+ * non-zero. The value n is the integral value nearest the exact value x/y.
+ *
+ * The behavior of remainderl() is independent of the rounding mode.
+ *
+ * Upon successful completion, this function returns the floating-point
+ * remainder r=x−ny when y is non-zero or it returns 0 if y is 0 (error).
+ *
+ * If y is 0, errno gets set to EDOM and FE_INVALID will be raised.
+ *
+ ******************************************************************************/
+long double remainderl(long double x, long double y)
+{
+    if (y == 0.0)
+    {
+        feraiseexcept(FE_INVALID);
+        errno = EDOM;
+        return 0;
+    }
+
+    if ((x < 0 && y < 0) || (x > 0 && y > 0))
+        return fmodl(x, y) - y;
+    
+    return fmodl(x, y);
+}
+
+
+/******************************************************************************
+ *
  * This function returns the integral value (represented as a double) nearest
  * x in the direction of the current rounding mode.
  *
