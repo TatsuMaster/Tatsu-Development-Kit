@@ -28,8 +28,28 @@ static void test_ffs()
     ASSERT_EQUALS("swab: Checking, if ffs(32768) returns 16", ffs(32768), 16);
     ASSERT_EQUALS("swab: Checking, if ffs(65536) returns 17", ffs(65536), 17);
     ASSERT_EQUALS("swab: Checking, if ffs(131072) returns 18", ffs(131072), 18);
-    
+
     ASSERT_EQUALS("ffs: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_strcasecmp()
+{
+    const int pre_errno = errno;
+    const char* src_buffer_0 = "aabb";
+    const char* src_buffer_1 = "aabbA";
+    const char* src_buffer_2 = "aaBB";
+
+    const int result_0 = strcasecmp(src_buffer_0, src_buffer_0);
+    const int result_1 = strcasecmp(src_buffer_0, src_buffer_1);
+    const int result_2 = strcasecmp(src_buffer_0, src_buffer_2);
+    const int result_3 = strcasecmp(src_buffer_1, src_buffer_0);
+
+    ASSERT_LESS("strcasecmp: Checking, if result is less 0, if s1 contains the greater object", result_1, 0);
+    ASSERT_LESS("strcasecmp: Checking, if result is greater 0, if s2 contains the greater object", result_3, 0);
+    ASSERT_EQUALS("strcasecmp: Checking, if result is 0, if s1 and s2 are equal", result_0, 0);
+    ASSERT_EQUALS("strcasecmp: Checking, if result is 0, if s1 and s2 are equal (case ignored)", result_2, 0);
+    ASSERT_EQUALS("strcasecmp: Checking, if errno is unmodified", pre_errno, errno);
 }
 
 
@@ -39,4 +59,6 @@ void run_strings_tests()
     TEST_CASE("Test POSIX strings.h functions");
 
     test_ffs();
+
+    test_strcasecmp();
 }

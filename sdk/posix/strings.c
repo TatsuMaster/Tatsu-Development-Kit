@@ -1,4 +1,5 @@
 #include "strings.h"
+#include "ctype.h"
 
 
 /******************************************************************************
@@ -28,7 +29,7 @@
 int ffs(int i)
 {
     int ret = 0;
-    
+
     if (i == 0)
         return ret;
 
@@ -46,4 +47,43 @@ int ffs(int i)
 #endif
 
     return ret;
+}
+
+
+/******************************************************************************
+ *
+ * TBD
+ *
+ *****************************************************************************/
+int strcasecmp(const char *s1, const char *s2)
+{
+    int ret_val = 0;
+
+    if(s1 == s2)
+        return ret_val;
+
+    while(*s1 != 0)
+    {
+        ret_val = tolower(*s1++) - tolower(*s2++);
+
+        if(ret_val != 0)
+            break;
+    }
+
+    return (*s2 == 0) ? ret_val : -(int)*s2;
+}
+
+
+/******************************************************************************
+ *
+ * TBD
+ *
+ *****************************************************************************/
+int strncasecmp(const char *s1, const char *s2, size_t n)
+{
+    (void)s1;
+    (void)s2;
+    (void)n;
+
+    return n;
 }
