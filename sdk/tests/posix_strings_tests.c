@@ -46,10 +46,32 @@ static void test_strcasecmp()
     const int result_3 = strcasecmp(src_buffer_1, src_buffer_0);
 
     ASSERT_LESS("strcasecmp: Checking, if result is less 0, if s1 contains the greater object", result_1, 0);
-    ASSERT_LESS("strcasecmp: Checking, if result is greater 0, if s2 contains the greater object", result_3, 0);
+    ASSERT_LESS("strcasecmp: Checking, if result is greater 0, if s2 contains the greater object", 0, result_3);
     ASSERT_EQUALS("strcasecmp: Checking, if result is 0, if s1 and s2 are equal", result_0, 0);
     ASSERT_EQUALS("strcasecmp: Checking, if result is 0, if s1 and s2 are equal (case ignored)", result_2, 0);
     ASSERT_EQUALS("strcasecmp: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_strncasecmp()
+{
+    const int pre_errno = errno;
+    const char* src_buffer_0 = "aabb";
+    const char* src_buffer_1 = "aabbA";
+    const char* src_buffer_2 = "aaBB";
+
+    const int result_0 = strncasecmp(src_buffer_0, src_buffer_0, 5);
+    const int result_1 = strncasecmp(src_buffer_0, src_buffer_1, 5);
+    const int result_2 = strncasecmp(src_buffer_0, src_buffer_2, 5);
+    const int result_3 = strncasecmp(src_buffer_0, src_buffer_1, 4);
+    const int result_4 = strncasecmp(src_buffer_1, src_buffer_0, 5);
+
+    ASSERT_LESS("strncasecmp: Checking, if result is less 0, if s1 contains the greater object", result_1, 0);
+    ASSERT_EQUALS("strncasecmp: Checking, if result is 0, if s1 and s2 are equal", result_0, 0);
+    ASSERT_EQUALS("strncasecmp: Checking, if result is 0, if s1 and s2 are equal (case ignored)", result_2, 0);
+    ASSERT_LESS("strncasecmp: Checking, if result is greater 0, if s2 contains the greater object", 0, result_4);
+    ASSERT_EQUALS("strncasecmp: Checking, if maxlen was considered correctly", result_3, 0);
+    ASSERT_EQUALS("strncasecmp: Checking, if errno is unmodified", pre_errno, errno);
 }
 
 
@@ -61,4 +83,5 @@ void run_strings_tests()
     test_ffs();
 
     test_strcasecmp();
+    test_strncasecmp();
 }
