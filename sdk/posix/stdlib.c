@@ -92,3 +92,55 @@ unsigned long long llabs(long long i)
     return llabs_generic(i);
 #endif
 }
+
+
+/******************************************************************************
+ *
+ * The ldiv() function computes the quotient and remainder of the division of
+ * the numerator numer by the denominator denom. If the division is inexact,
+ * the resulting quotient is the long integer of lesser magnitude that is the
+ * nearest to the algebraic quotient. If the result cannot be represented, the
+ * behavior is undefined; otherwise, quot * denom + rem equals numer.
+ *
+ * The ldiv() function returns a structure of type ldiv_t, comprising both
+ * the quotient and the remainder. The structure includes the following members,
+ * in any order:
+ *
+ * long quot;  <== Quotient
+ * long rem;   <== Remainder
+ *
+ ******************************************************************************/
+ldiv_t ldiv(long numer, long denom)
+{
+    ldiv_t result;
+    result.quot = numer / denom;
+    result.rem = numer % denom;
+
+    return result;
+}
+
+
+/******************************************************************************
+ *
+ * The lldiv() function computes the quotient and remainder of the division of
+ * the numerator numer by the denominator denom. If the division is inexact,
+ * the resulting quotient is the long integer of lesser magnitude that is the
+ * nearest to the algebraic quotient. If the result cannot be represented, the
+ * behavior is undefined; otherwise, quot * denom + rem equals numer.
+ *
+ * The lldiv() function returns a structure of type lldiv_t, comprising both
+ * the quotient and the remainder. The structure includes the following members,
+ * in any order:
+ *
+ * long long quot;  <== Quotient
+ * long long rem;   <== Remainder
+ *
+ ******************************************************************************/
+lldiv_t lldiv(long long numer, long long denom)
+{
+    lldiv_t result;
+    result.quot = numer / denom;
+    result.rem = numer % denom;
+
+    return result;
+}

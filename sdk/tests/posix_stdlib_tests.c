@@ -59,6 +59,158 @@ static void test_llabs()
 }
 
 
+static void test_ldiv()
+{
+    const int pre_errno = errno;
+    ldiv_t result = ldiv(17, 1);
+
+    ASSERT_EQUALS("ldiv: Checking, quotient result of ldiv(17, 1)", result.quot, 17);
+    ASSERT_EQUALS("ldiv: Checking, remainder result of ldiv(17, 1)", result.rem, 0);
+
+    result = ldiv(17, 2);
+    ASSERT_EQUALS("ldiv: Checking, quotient result of ldiv(17, 2)", result.quot, 8);
+    ASSERT_EQUALS("ldiv: Checking, remainder result of ldiv(17, 2)", result.rem, 1);
+
+    result = ldiv(17, 3);
+    ASSERT_EQUALS("ldiv: Checking, quotient result of ldiv(17, 3)", result.quot, 5);
+    ASSERT_EQUALS("ldiv: Checking, remainder result of ldiv(17, 3)", result.rem, 2);
+
+    result = ldiv(17, 4);
+    ASSERT_EQUALS("ldiv: Checking, quotient result of ldiv(17, 4)", result.quot, 4);
+    ASSERT_EQUALS("ldiv: Checking, remainder result of ldiv(17, 4)", result.rem, 1);
+
+    result = ldiv(17, 5);
+    ASSERT_EQUALS("ldiv: Checking, quotient result of ldiv(17, 5)", result.quot, 3);
+    ASSERT_EQUALS("ldiv: Checking, remainder result of ldiv(17, 5)", result.rem, 2);
+
+    result = ldiv(17, 6);
+    ASSERT_EQUALS("ldiv: Checking, quotient result of ldiv(17, 6)", result.quot, 2);
+    ASSERT_EQUALS("ldiv: Checking, remainder result of ldiv(17, 6)", result.rem, 5);
+
+    result = ldiv(17, 7);
+    ASSERT_EQUALS("ldiv: Checking, quotient result of ldiv(17, 7)", result.quot, 2);
+    ASSERT_EQUALS("ldiv: Checking, remainder result of ldiv(17, 7)", result.rem, 3);
+
+    result = ldiv(17, 8);
+    ASSERT_EQUALS("ldiv: Checking, quotient result of ldiv(17, 8)", result.quot, 2);
+    ASSERT_EQUALS("ldiv: Checking, remainder result of ldiv(17, 8)", result.rem, 1);
+
+    result = ldiv(17, 9);
+    ASSERT_EQUALS("ldiv: Checking, quotient result of ldiv(17, 9)", result.quot, 1);
+    ASSERT_EQUALS("ldiv: Checking, remainder result of ldiv(17, 9)", result.rem, 8);
+
+    result = ldiv(17, 10);
+    ASSERT_EQUALS("ldiv: Checking, quotient result of ldiv(17, 10)", result.quot, 1);
+    ASSERT_EQUALS("ldiv: Checking, remainder result of ldiv(17, 10)", result.rem, 7);
+
+    result = ldiv(17, 11);
+    ASSERT_EQUALS("ldiv: Checking, quotient result of ldiv(17, 11)", result.quot, 1);
+    ASSERT_EQUALS("ldiv: Checking, remainder result of ldiv(17, 11)", result.rem, 6);
+
+    result = ldiv(17, 12);
+    ASSERT_EQUALS("ldiv: Checking, quotient result of ldiv(17, 12)", result.quot, 1);
+    ASSERT_EQUALS("ldiv: Checking, remainder result of ldiv(17, 12)", result.rem, 5);
+
+    result = ldiv(17, 13);
+    ASSERT_EQUALS("ldiv: Checking, quotient result of ldiv(17, 13)", result.quot, 1);
+    ASSERT_EQUALS("ldiv: Checking, remainder result of ldiv(17, 13)", result.rem, 4);
+
+    result = ldiv(17, 14);
+    ASSERT_EQUALS("ldiv: Checking, quotient result of ldiv(17, 14)", result.quot, 1);
+    ASSERT_EQUALS("ldiv: Checking, remainder result of ldiv(17, 14)", result.rem, 3);
+
+    result = ldiv(17, 15);
+    ASSERT_EQUALS("ldiv: Checking, quotient result of ldiv(17, 15)", result.quot, 1);
+    ASSERT_EQUALS("ldiv: Checking, remainder result of ldiv(17, 15)", result.rem, 2);
+
+    result = ldiv(17, 16);
+    ASSERT_EQUALS("ldiv: Checking, quotient result of ldiv(17, 16)", result.quot, 1);
+    ASSERT_EQUALS("ldiv: Checking, remainder result of ldiv(17, 16)", result.rem, 1);
+
+    result = ldiv(17, 17);
+    ASSERT_EQUALS("ldiv: Checking, quotient result of ldiv(17, 17)", result.quot, 1);
+    ASSERT_EQUALS("ldiv: Checking, remainder result of ldiv(17, 17)", result.rem, 0);
+
+    ASSERT_EQUALS("ldiv: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
+static void test_lldiv()
+{
+    const int pre_errno = errno;
+    lldiv_t result = lldiv(17, 1);
+
+    ASSERT_EQUALS("lldiv: Checking, quotient result of lldiv(17, 1)", result.quot, 17);
+    ASSERT_EQUALS("lldiv: Checking, remainder result of lldiv(17, 1)", result.rem, 0);
+
+    result = lldiv(17, 2);
+    ASSERT_EQUALS("lldiv: Checking, quotient result of lldiv(17, 2)", result.quot, 8);
+    ASSERT_EQUALS("lldiv: Checking, remainder result of lldiv(17, 2)", result.rem, 1);
+
+    result = lldiv(17, 3);
+    ASSERT_EQUALS("lldiv: Checking, quotient result of lldiv(17, 3)", result.quot, 5);
+    ASSERT_EQUALS("lldiv: Checking, remainder result of lldiv(17, 3)", result.rem, 2);
+
+    result = lldiv(17, 4);
+    ASSERT_EQUALS("lldiv: Checking, quotient result of lldiv(17, 4)", result.quot, 4);
+    ASSERT_EQUALS("lldiv: Checking, remainder result of lldiv(17, 4)", result.rem, 1);
+
+    result = lldiv(17, 5);
+    ASSERT_EQUALS("lldiv: Checking, quotient result of lldiv(17, 5)", result.quot, 3);
+    ASSERT_EQUALS("lldiv: Checking, remainder result of lldiv(17, 5)", result.rem, 2);
+
+    result = lldiv(17, 6);
+    ASSERT_EQUALS("lldiv: Checking, quotient result of lldiv(17, 6)", result.quot, 2);
+    ASSERT_EQUALS("lldiv: Checking, remainder result of lldiv(17, 6)", result.rem, 5);
+
+    result = lldiv(17, 7);
+    ASSERT_EQUALS("lldiv: Checking, quotient result of lldiv(17, 7)", result.quot, 2);
+    ASSERT_EQUALS("lldiv: Checking, remainder result of lldiv(17, 7)", result.rem, 3);
+
+    result = lldiv(17, 8);
+    ASSERT_EQUALS("lldiv: Checking, quotient result of lldiv(17, 8)", result.quot, 2);
+    ASSERT_EQUALS("lldiv: Checking, remainder result of lldiv(17, 8)", result.rem, 1);
+
+    result = lldiv(17, 9);
+    ASSERT_EQUALS("lldiv: Checking, quotient result of lldiv(17, 9)", result.quot, 1);
+    ASSERT_EQUALS("lldiv: Checking, remainder result of lldiv(17, 9)", result.rem, 8);
+
+    result = lldiv(17, 10);
+    ASSERT_EQUALS("lldiv: Checking, quotient result of lldiv(17, 10)", result.quot, 1);
+    ASSERT_EQUALS("lldiv: Checking, remainder result of lldiv(17, 10)", result.rem, 7);
+
+    result = lldiv(17, 11);
+    ASSERT_EQUALS("lldiv: Checking, quotient result of lldiv(17, 11)", result.quot, 1);
+    ASSERT_EQUALS("lldiv: Checking, remainder result of lldiv(17, 11)", result.rem, 6);
+
+    result = lldiv(17, 12);
+    ASSERT_EQUALS("lldiv: Checking, quotient result of lldiv(17, 12)", result.quot, 1);
+    ASSERT_EQUALS("lldiv: Checking, remainder result of lldiv(17, 12)", result.rem, 5);
+
+    result = lldiv(17, 13);
+    ASSERT_EQUALS("lldiv: Checking, quotient result of lldiv(17, 13)", result.quot, 1);
+    ASSERT_EQUALS("lldiv: Checking, remainder result of lldiv(17, 13)", result.rem, 4);
+
+    result = lldiv(17, 14);
+    ASSERT_EQUALS("lldiv: Checking, quotient result of lldiv(17, 14)", result.quot, 1);
+    ASSERT_EQUALS("lldiv: Checking, remainder result of lldiv(17, 14)", result.rem, 3);
+
+    result = lldiv(17, 15);
+    ASSERT_EQUALS("lldiv: Checking, quotient result of lldiv(17, 15)", result.quot, 1);
+    ASSERT_EQUALS("lldiv: Checking, remainder result of lldiv(17, 15)", result.rem, 2);
+
+    result = lldiv(17, 16);
+    ASSERT_EQUALS("lldiv: Checking, quotient result of lldiv(17, 16)", result.quot, 1);
+    ASSERT_EQUALS("lldiv: Checking, remainder result of lldiv(17, 16)", result.rem, 1);
+
+    result = lldiv(17, 17);
+    ASSERT_EQUALS("lldiv: Checking, quotient result of lldiv(17, 17)", result.quot, 1);
+    ASSERT_EQUALS("lldiv: Checking, remainder result of lldiv(17, 17)", result.rem, 0);
+
+    ASSERT_EQUALS("lldiv: Checking, if errno is unmodified", pre_errno, errno);
+}
+
+
 // Check all functions of stdlib.h
 void run_stdlib_tests()
 {
@@ -67,4 +219,7 @@ void run_stdlib_tests()
     test_abs();
     test_labs();
     test_llabs();
+
+    test_ldiv();
+    test_lldiv();
 }
